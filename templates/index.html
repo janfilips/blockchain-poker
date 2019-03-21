@@ -1,2 +1,201 @@
-hello world
-{{player_session_key}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>poker game</title>
+<script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+<script type="text/javascript" src="js/function.js"></script>
+<link rel="stylesheet" href="css/main.css" type="text/css" />
+</head>
+
+<body>
+
+  <div class="site-wrap">
+
+    <header class="main-head"><!-- main had -->
+      <div class="mega">
+        <span>mega</span>
+        <span>11,813,037.50</span>
+      </div>
+      <div class="major">
+        <span>major</span>
+        <span>11,813.50</span>
+      </div>
+      <div class="minor">
+        <span>minor</span>
+        <span>11.50</span>
+      </div>
+      <div class="mini">
+        <span>mini</span>
+        <span>7.6</span>
+      </div>
+    </header><!-- main had END-->
+
+    <section class="type-list"><!-- type list -->
+      <div class="combination"><!-- combinations -->
+        <span>Royal Flush</span>
+        <span>Straight Flush</span>
+        <span>4 of a Kind</span>
+        <span>Full house</span>
+        <span>Flush</span>
+        <span>Straight</span>
+        <span>3 of a kind</span>
+        <span>Two pair</span>
+        <span>Jack or better</span>
+      </div><!-- combinations END -->
+      <div class="points point-1 active"><!-- points -->
+        <span>250</span>
+        <span>50</span>
+        <span>25</span>
+        <span>9</span>
+        <span>6</span>
+        <span>4</span>
+        <span>3</span>
+        <span>2</span>
+        <span>1</span>
+      </div><!-- points END -->
+      <div class="points point-2"><!-- points -->
+        <span>500</span>
+        <span>100</span>
+        <span>50</span>
+        <span>18</span>
+        <span>12</span>
+        <span>8</span>
+        <span>6</span>
+        <span>4</span>
+        <span>2</span>
+      </div><!-- points END -->
+      <div class="points point-3"><!-- points -->
+        <span>750</span>
+        <span>150</span>
+        <span>75</span>
+        <span>27</span>
+        <span>18</span>
+        <span>12</span>
+        <span>9</span>
+        <span>6</span>
+        <span>3</span>
+      </div><!-- points END -->
+      <div class="points point-4"><!-- points -->
+        <span>1000</span>
+        <span>200</span>
+        <span>100</span>
+        <span>36</span>
+        <span>24</span>
+        <span>16</span>
+        <span>12</span>
+        <span>8</span>
+        <span>4</span>
+      </div><!-- points END -->
+      <div class="points point-5"><!-- points -->
+        <span>4000</span>
+        <span>250</span>
+        <span>125</span>
+        <span>45</span>
+        <span>30</span>
+        <span>20</span>
+        <span>15</span>
+        <span>10</span>
+        <span>5</span>
+      </div><!-- points END -->
+    </section><!-- type list END -->
+
+    <h2 class="curent-combination">3 of a Kind</h2>
+
+    <div class="deal-cards">
+      <section class="cards"><!-- cards -->
+        <div class="card-wrap">
+          <div class="indicator">Held</div>
+          <img src="cards/clubs-13.png" />
+        </div>
+        <div class="card-wrap">
+          <div class="indicator">Held</div>
+          <img src="cards/clubs-11.png" />
+        </div>
+        <div class="card-wrap">
+          <div class="indicator">Held</div>
+          <img src="cards/clubs-12.png" />
+        </div>
+        <div class="card-wrap">
+          <div class="indicator">Held</div>
+          <img src="cards/clubs-3.png" />
+        </div>
+        <div class="card-wrap">
+          <div class="indicator">Held</div>
+          <img src="cards/clubs-9.png" />
+        </div>
+      </section><!-- cards END -->
+      <div class="text-over">YOU WIN $5!!!</div>
+      <div class="win-extras">
+        <img class="left" src="images/win-graphics-1.png" />
+        <img class="right" src="images/win-graphics-2.png" />
+      </div>
+    </div>
+
+    <div class="stats-line"><!-- stats -->
+      <span class="win style-font">BET $5</span>
+      <div class="bet-amaunt">bet 1</div>
+      <span class="credit style-font">Credit $255</span>
+    </div><!-- stats END -->
+
+    <div class="actions"><!-- actions -->
+      <div class="perspective-in">
+        <a class="btn-action" href="#">cashout</a>
+        <a class="btn-action active" href="#">sound</a>
+        <a class="btn-action" href="#">about</a>
+        <a class="coin btn-action" href="#"><span>$1</span></a>
+        <a class="btn-action" href="#">Bet one</a>
+        <a class="btn-action" href="#">Bet max</a>
+        <a class="btn-action deal-action" href="#">Deal</a>
+      </div>
+    </div><!-- actions END -->
+
+    <div class="clear"></div>
+
+    <footer class="footer"><!-- footer -->
+      <div class="combo-needed">jacks or better</div>
+      <a class="btn-action" href="#">Deal</a>
+      <div class="min-bonus">MINI BONUS 0.002</div>
+    </footer><!-- footer END -->
+
+  </div>
+
+  <section class="lists">
+    <div class="tablewrap"><!-- table beets -->
+      <table class="table-beets">
+        <tr>
+          <th>Address</th>
+          <th>Bid</th>
+          <th>Total bids (eth)</th>
+          <th>Refunds (eth)</th>
+          <th>Wins (eth)</th>
+        </tr>
+        <tr>
+          <td><a href="#">0x336f45b56ce1a20d0b5ebe7a5ac107da260364e0</a></td>
+          <td class="card-list"><img src="cards/clubs-2.png"><img src="cards/clubs-13.png"><img src="cards/clubs-10.png"></td>
+          <td class="bidon">2.45-eth</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><a href="#">0x336f45b56ce1a20d0b5ebe7a5ac107da260364e0</a></td>
+          <td class="card-list"><img src="cards/clubs-6.png"></td>
+          <td class="bidon">2.45-eth</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><a href="#">0x336f45b56ce1a20d0b5ebe7a5ac107da260364e0</a></td>
+          <td class="card-list"><img src="cards/clubs-9.png"></td>
+          <td class="bidon">2.45-eth</td>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
+    </div><!-- table beets END -->
+  </section>
+</body>
+</html>
