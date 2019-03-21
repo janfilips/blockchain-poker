@@ -14,6 +14,12 @@ django.setup()
 import logging
 logger = logging.getLogger(__name__)
 
+
+CARDS = [
+    '',
+    '',
+]
+
 def home(request):
 
     try:
