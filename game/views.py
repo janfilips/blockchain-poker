@@ -32,3 +32,22 @@ def home(request):
     response.set_cookie(key="player_session_key",value=player_session_key)
 
     return response
+
+def about(request):
+
+    try:
+        player_session_key = request.COOKIES["player_session_key"]
+    except:
+        player_session_key = uuid.uuid4()
+
+
+    response = render(
+        request=request,
+        template_name='about.html',
+        context={
+            'player_session_key': player_session_key,
+            },
+    )
+    response.set_cookie(key="player_session_key",value=player_session_key)
+
+    return response
