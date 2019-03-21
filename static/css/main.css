@@ -267,7 +267,7 @@ body {
   display: block;
   animation: blink-animation 1s steps(5, start) infinite;
   -webkit-animation: blink-animation 1s steps(5, start) infinite;
-  animation-iteration-count: 10;
+  animation-iteration-count: 3;
 }
 .win-extras .left {
   position: absolute;

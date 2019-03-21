@@ -14,11 +14,7 @@ django.setup()
 import logging
 logger = logging.getLogger(__name__)
 
-
-CARDS = [
-    '',
-    '',
-]
+from utils.evalcards import deck
 
 def home(request):
 
@@ -28,16 +24,20 @@ def home(request):
         player_session_key = uuid.uuid4()
 
 
+    hand = deck().get_hand()
+
     response = render(
         request=request,
         template_name='index.html',
         context={
             'player_session_key': player_session_key,
+            'hand': hand,
             },
     )
     response.set_cookie(key="player_session_key",value=player_session_key)
 
     return response
+
 
 def about(request):
 
