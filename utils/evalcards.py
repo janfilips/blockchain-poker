@@ -38,8 +38,7 @@ class deck(set):
             suit_dict[my_card.suit] += 1
         # Pair
         if len(numeral_dict) == 4:
-            if('J' in numeral_dict.keys() or 'Q' in numeral_dict.keys() or 'K' in numeral_dict.keys() or 'A' in numeral_dict.keys()):
-                short_desc = "One-pair."
+            short_desc = "One-pair."
 
         # Jacks or Better
         # XXX TODO

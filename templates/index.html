@@ -215,7 +215,41 @@
 
     <div class="stats-line"><!-- stats -->
       <span class="win style-font">BET $5</span>
-      <div class="bet-amaunt">bet 1</div>
+
+      {% if evaluated_hand != "Nothing." %}
+
+          {% if evaluated_hand == "One-pair." %}
+            <div class="bet-amaunt">One pair</div>
+          {% endif %}
+          {% if evaluated_hand == "Jacks-or-better." %}
+            <div class="bet-amaunt">Jacks or better</div>
+          {% endif %}
+          {% if evaluated_hand == "Three-of-a-kind." %}
+            <div class="bet-amaunt">Three of a kind</div>
+          {% endif %}
+          {% if evaluated_hand == "Two-pair." %}
+            <div class="bet-amaunt">Two pairs</div>
+          {% endif %}
+          {% if evaluated_hand == "Full-house." %}
+            <div class="bet-amaunt">Full house/div>
+          {% endif %}
+          {% if evaluated_hand == "Four-of-a-kind." %}
+            <div class="bet-amaunt">Four of a kind</div>
+          {% endif %}
+          {% if evaluated_hand == "Straight." %}
+            <div class="bet-amaunt">Straight</div>
+          {% endif %}
+          {% if evaluated_hand == "Flush." %}
+            <div class="bet-amaunt">Flush</div>
+          {% endif %}
+          {% if evaluated_hand == "Royal-flush." %}
+            <div class="bet-amaunt">Royal flush</div>
+          {% endif %}
+
+        {% else %}
+        <div class="bet-amaunt">bet 1</div>
+      {% endif %}
+
       <span class="credit style-font">Credit $0</span>
     </div><!-- stats END -->
 
