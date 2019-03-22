@@ -16,6 +16,14 @@ logger = logging.getLogger(__name__)
 
 from utils.evalcards import deck
 
+
+CARD_SUITS = {
+    "C": "Clubs",
+    "D": "Diamonds",
+    "H": "Hearts",
+    "S": "Spades",
+}
+
 def home(request):
 
     try:
@@ -24,14 +32,18 @@ def home(request):
         player_session_key = uuid.uuid4()
 
 
+    cards_deck = deck()
     hand = deck().get_hand()
+    evaluated_hand = deck().evaluate_hand(hand)
 
     response = render(
         request=request,
         template_name='index.html',
         context={
             'player_session_key': player_session_key,
+            'deck': cards_deck,
             'hand': hand,
+            'evaluated_hand': evaluated_hand,
             },
     )
     response.set_cookie(key="player_session_key",value=player_session_key)
