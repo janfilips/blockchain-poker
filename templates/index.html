@@ -151,35 +151,33 @@
       </div><!-- points END -->
     </section><!-- type list END -->
 
-
-    {% if evaluated_hand == "One-pair." %}
-      <h2 class="curent-combination">One pair</h2>
-    {% endif %}
-    {% if evaluated_hand == "Jacks-or-better." %}
-      <h2 class="curent-combination">Jacks or better</h2>
-    {% endif %}
-    {% if evaluated_hand == "Three-of-a-kind." %}
-      <h2 class="curent-combination">Three of a kind</h2>
-    {% endif %}
-    {% if evaluated_hand == "Two-pair." %}
-      <h2 class="curent-combination">Two pair</h2>
-    {% endif %}
-    {% if evaluated_hand == "Full-house." %}
-      <h2 class="curent-combination">Full house</h2>
-    {% endif %}
-    {% if evaluated_hand == "Four-of-a-kind." %}
-      <h2 class="curent-combination">Four of a kind</h2>
-    {% endif %}
-    {% if evaluated_hand == "Straight." %}
-      <h2 class="curent-combination">Straight</h2>
-    {% endif %}
-    {% if evaluated_hand == "Flush." %}
-      <h2 class="curent-combination">Flush</h2>
-    {% endif %}
-    {% if evaluated_hand == "Royal-flush." %}
-      <h2 class="curent-combination">Royal flush</h2>
-    {% endif %}
-
+      {% if evaluated_hand == "One-pair." %}
+        <h2 class="curent-combination">One pair</h2>
+      {% endif %}
+      {% if evaluated_hand == "Jacks-or-better." %}
+        <h2 class="curent-combination">Jacks or better</h2>
+      {% endif %}
+      {% if evaluated_hand == "Three-of-a-kind." %}
+        <h2 class="curent-combination">Three of a kind</h2>
+      {% endif %}
+      {% if evaluated_hand == "Two-pair." %}
+        <h2 class="curent-combination">Two pair</h2>
+      {% endif %}
+      {% if evaluated_hand == "Full-house." %}
+        <h2 class="curent-combination">Full house</h2>
+      {% endif %}
+      {% if evaluated_hand == "Four-of-a-kind." %}
+        <h2 class="curent-combination">Four of a kind</h2>
+      {% endif %}
+      {% if evaluated_hand == "Straight." %}
+        <h2 class="curent-combination">Straight</h2>
+      {% endif %}
+      {% if evaluated_hand == "Flush." %}
+        <h2 class="curent-combination">Flush</h2>
+      {% endif %}
+      {% if evaluated_hand == "Royal-flush." %}
+        <h2 class="curent-combination">Royal flush</h2>
+      {% endif %}
 
     <div class="deal-cards">
 
@@ -190,9 +188,8 @@
         {% comment %}
         XXX TODO jacks or better nevies rozpoznat<br/>
         XXX TODO suggest witch cards to hold (narocny ukol)<br/>
-        XXX TODO igor move the cards little bit up<br/>
-        XXX TODO fixed height so that the cards won't jump when there is no winning hand text
-        XXX TODO igor left to write cards animation with the back of the card
+        XXX IGOR TODO do pice s winning hand description pod tabulkou
+        XXX IGOR TODO animovat left to right unover cards
         {% endcomment %}
 
       <section class="cards"><!-- cards -->
