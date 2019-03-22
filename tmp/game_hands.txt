@@ -1,0 +1,10 @@
+One-pair.
+Jacks-or-better.
+Three-of-a-kind.
+Two-pair.
+Full-house.
+Four-of-a-kind.
+Straight.
+Flush.
+Straight-flush.
+Royal-flush.

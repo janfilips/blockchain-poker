@@ -38,7 +38,13 @@ class deck(set):
             suit_dict[my_card.suit] += 1
         # Pair
         if len(numeral_dict) == 4:
-            short_desc = "One pair."
+            if('J' in numeral_dict.keys() or 'Q' in numeral_dict.keys() or 'K' in numeral_dict.keys() or 'A' in numeral_dict.keys()):
+                short_desc = "One-pair."
+
+        # Jacks or Better
+        # XXX TODO
+        # short_desc = "Jacks-or-better."
+
         # Two pair or 3-of-a-kind
         elif len(numeral_dict) == 3:
             if 3 in numeral_dict.values():
@@ -48,7 +54,7 @@ class deck(set):
         # Full house or 4-of-a-kind
         elif len(numeral_dict) == 2:
             if 2 in numeral_dict.values():
-                short_desc ="Full house."
+                short_desc ="Full-house."
             else:
                 short_desc ="Four-of-a-kind."
         else:
@@ -65,13 +71,22 @@ class deck(set):
             if not set(numeral_dict.keys()).difference(low_straight):
                 straight = True
             if straight and not flush:
-                short_desc ="Straight."
+                short_desc = "Straight."
+                print('pica here', numeral_dict.keys())
+                if('A' in numeral_dict.keys()):
+                    print('mrdka!!!!')
             elif flush and not straight:
-                short_desc ="Flush."
-            elif flush and  straight:
-                short_desc ="Straight flush."
+                short_desc = "Flush."
+            elif flush and straight:
+                short_desc = "Straight-flush."
+                if('A' in numeral_dict.keys() and 'K' in numeral_dict.keys()):
+                    short_desc = "Royal-flush."
 
         return short_desc
+
+    def hold_suggest(self):
+        # XXX TODO
+        return ['xxx','wroking on this currently']
 
     def get_hand(self, number_of_cards=5):
 

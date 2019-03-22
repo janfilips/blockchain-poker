@@ -8,6 +8,27 @@
   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
   crossorigin="anonymous"></script>
 <script type="text/javascript" src="static/js/function.js"></script>
+
+<script type="text/javascript">
+  $( document ).ready(function() {
+
+  $('.card-wrap').click(function() {
+    $(this).toggleClass('held');
+  });
+
+  $('.type-list .points').click(function() {
+    $('.type-list .points').removeClass('active');
+    $(this).toggleClass('active');
+  });
+
+  var rowselector = 2;
+  $('.type-list .points span:nth-child(' + rowselector + ')').addClass( "activeLine" );
+  $('.type-list .combination span:nth-child(' + rowselector + ')').addClass( "activeLine" );
+
+  });
+</script>
+
+
 <link rel="stylesheet" href="static/css/main.css" type="text/css" />
 </head>
 
@@ -108,7 +129,6 @@
     <div class="deal-cards">
 
         {{evaluated_hand}}<br/>
-        {{hand}}<br/>
         {{deck}}
 
       <section class="cards"><!-- cards -->
@@ -151,7 +171,7 @@
 
     <footer class="footer"><!-- footer -->
       <div class="combo-needed">jacks or better</div>
-      <a class="btn-action" href="#">AUTOPLAY</a>
+      <a class="btn-action autoplay" href="#">AUTOPLAY</a>
       <div class="min-bonus">MINI BONUS 0.002</div>
     </footer><!-- footer END -->
 

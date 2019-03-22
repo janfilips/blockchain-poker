@@ -26,13 +26,12 @@ def home(request):
 
 
     cards_deck = deck()
-    #hand = deck().get_hand()
 
-    card1 = card('A','H')
-    card2 = card('A','S')
-    card3 = card('A','D')
-    card4 = card('A','C')
-    card5 = card('2','C')
+    card1 = card('3','H')
+    card2 = card('4','D')
+    card3 = card('2','H')
+    card4 = card('3','D')
+    card5 = card('4','H')
     hand = []
     hand.insert(0, card1)
     hand.insert(0, card2)
@@ -40,6 +39,7 @@ def home(request):
     hand.insert(0, card4)
     hand.insert(0, card5)
 
+    #hand = deck().get_hand()
 
     evaluated_hand = deck().evaluate_hand(hand)
 
