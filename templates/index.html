@@ -151,12 +151,41 @@
       </div><!-- points END -->
     </section><!-- type list END -->
 
-    <h2 class="curent-combination">3 of a Kind</h2>
+
+    {% if evaluated_hand == "One-pair." %}
+      <h2 class="curent-combination">One pair</h2>
+    {% endif %}
+    {% if evaluated_hand == "Jacks-or-better." %}
+      <h2 class="curent-combination">Jacks or better</h2>
+    {% endif %}
+    {% if evaluated_hand == "Three-of-a-kind." %}
+      <h2 class="curent-combination">Three of a kind</h2>
+    {% endif %}
+    {% if evaluated_hand == "Two-pair." %}
+      <h2 class="curent-combination">Two pair</h2>
+    {% endif %}
+    {% if evaluated_hand == "Full-house." %}
+      <h2 class="curent-combination">Full house</h2>
+    {% endif %}
+    {% if evaluated_hand == "Four-of-a-kind." %}
+      <h2 class="curent-combination">Four of a kind</h2>
+    {% endif %}
+    {% if evaluated_hand == "Straight." %}
+      <h2 class="curent-combination">Straight</h2>
+    {% endif %}
+    {% if evaluated_hand == "Flush." %}
+      <h2 class="curent-combination">Flush</h2>
+    {% endif %}
+    {% if evaluated_hand == "Royal-flush." %}
+      <h2 class="curent-combination">Royal flush</h2>
+    {% endif %}
+
 
     <div class="deal-cards">
 
-        {{evaluated_hand}}<br/>
-        {{deck}}
+        {% comment %}
+          {{deck}}
+        {% endcomment %}
 
       <section class="cards"><!-- cards -->
 
