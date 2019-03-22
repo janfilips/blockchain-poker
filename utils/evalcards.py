@@ -39,10 +39,8 @@ class deck(set):
         # Pair
         if len(numeral_dict) == 4:
             short_desc = "One-pair."
-
-        # Jacks or Better
-        # XXX TODO
-        # short_desc = "Jacks-or-better."
+            if(numeral_dict['J']==2 or numeral_dict['Q']==2 or numeral_dict['K']==2 or numeral_dict['A']==2):
+                short_desc = "Jacks-or-better."
 
         # Two pair or 3-of-a-kind
         elif len(numeral_dict) == 3:
