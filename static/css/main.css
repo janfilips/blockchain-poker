@@ -111,7 +111,7 @@ body {
   font-size: 1.9rem;
 }
 .site-wrap {
-  max-width: 96rem;
+  max-width: 960px;
   margin: 0 auto;
   padding-top: 1.5rem;
 }
@@ -267,7 +267,7 @@ body {
   display: block;
   animation: blink-animation 1s steps(5, start) infinite;
   -webkit-animation: blink-animation 1s steps(5, start) infinite;
-  animation-iteration-count: 3;
+  animation-iteration-count: 10;
 }
 .win-extras .left {
   position: absolute;
@@ -347,6 +347,9 @@ body {
   display: inline-block;
   flex-grow: 1;
   margin: 0 1rem;
+}
+.btn-action.autoplay {
+  width: 13.8rem;
 }
 .btn-action:hover {
   box-shadow: none;
