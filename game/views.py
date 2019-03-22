@@ -28,7 +28,7 @@ def home(request):
     cards_deck = deck()
 
     hand = []
-    card1 = card('3','D')
+    card1 = card('J','D')
     card2 = card('3','H')
     card3 = card('3','S')
     card4 = card('J','S')
