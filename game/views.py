@@ -27,21 +27,22 @@ def home(request):
 
     cards_deck = deck()
 
-    card1 = card('A','H')
-    card2 = card('Q','H')
-    card3 = card('K','H')
-    card4 = card('J','H')
-    card5 = card('10','H')
-    hand = []
-    hand.insert(0, card1)
-    hand.insert(0, card2)
-    hand.insert(0, card3)
-    hand.insert(0, card4)
-    hand.insert(0, card5)
+    #hand = []
+    #card1 = card('A','H')
+    #card2 = card('Q','H')
+    #card3 = card('K','H')
+    #card4 = card('J','H')
+    #card5 = card('10','H')
+    #hand.insert(0, card1)
+    #hand.insert(0, card2)
+    #hand.insert(0, card3)
+    #hand.insert(0, card4)
+    #hand.insert(0, card5)
 
     hand = deck().get_hand()
-
     evaluated_hand = deck().evaluate_hand(hand)
+
+    credit = 0
 
     response = render(
         request=request,
@@ -51,6 +52,7 @@ def home(request):
             'deck': cards_deck,
             'hand': hand,
             'evaluated_hand': evaluated_hand,
+            'credit': credit,
             },
     )
     response.set_cookie(key="player_session_key",value=player_session_key)
