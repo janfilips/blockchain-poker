@@ -14,7 +14,6 @@ class card:
         self.card = self.numeral, self.suit
 
     def __repr__(self):
-        #return self.numeral + "-" + self.suit
         return self.numeral + self.suit
 
 class deck(set):

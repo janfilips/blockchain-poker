@@ -14,15 +14,8 @@ django.setup()
 import logging
 logger = logging.getLogger(__name__)
 
-from utils.evalcards import deck
+from utils.evalcards import deck, card
 
-
-CARD_SUITS = {
-    "C": "Clubs",
-    "D": "Diamonds",
-    "H": "Hearts",
-    "S": "Spades",
-}
 
 def home(request):
 
@@ -33,7 +26,21 @@ def home(request):
 
 
     cards_deck = deck()
-    hand = deck().get_hand()
+    #hand = deck().get_hand()
+
+    card1 = card('A','H')
+    card2 = card('A','S')
+    card3 = card('A','D')
+    card4 = card('A','C')
+    card5 = card('2','C')
+    hand = []
+    hand.insert(0, card1)
+    hand.insert(0, card2)
+    hand.insert(0, card3)
+    hand.insert(0, card4)
+    hand.insert(0, card5)
+
+
     evaluated_hand = deck().evaluate_hand(hand)
 
     response = render(
