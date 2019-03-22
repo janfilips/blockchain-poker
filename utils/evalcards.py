@@ -7,21 +7,34 @@ SUIT_LIST = ("H", "S", "D", "C")
 NUMERAL_LIST = ("2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A")
 
 class card:
+
     def __init__(self, numeral, suit):
         self.numeral = numeral
         self.suit = suit
         self.card = self.numeral, self.suit
-    def __repr__(self):
-        return self.numeral + "-" + self.suit
 
-class poker_hand():
-    def __init__(self, card_list):
-        self.card_list = card_list
     def __repr__(self):
+        #return self.numeral + "-" + self.suit
+        return self.numeral + self.suit
+
+class deck(set):
+
+    def __init__(self):
+        for numeral, suit in itertools.product(NUMERAL_LIST, SUIT_LIST):
+            self.add(card(numeral, suit))
+
+    def get_card(self):
+
+        a_card = random.sample(self, 1)[0]
+        self.remove(a_card)
+        return a_card
+
+    def evaluate_hand(self, cards_list):
+
         short_desc = "Nothing."
         numeral_dict = collections.defaultdict(int)
         suit_dict = collections.defaultdict(int)
-        for my_card in self.card_list:
+        for my_card in cards_list:
             numeral_dict[my_card.numeral] += 1
             suit_dict[my_card.suit] += 1
         # Pair
@@ -58,22 +71,18 @@ class poker_hand():
                 short_desc ="Flush."
             elif flush and  straight:
                 short_desc ="Straight flush."
-        enumeration = "|".join([str(x) for x in self.card_list])
-        return "{enumeration} ({short_desc})".format(**locals())
 
-class deck(set):
-    def __init__(self):
-        for numeral, suit in itertools.product(NUMERAL_LIST, SUIT_LIST):
-            self.add(card(numeral, suit))
-    def get_card(self):
-        a_card = random.sample(self, 1)[0]
-        self.remove(a_card)
-        return a_card
+        return short_desc
+
     def get_hand(self, number_of_cards=5):
-        if number_of_cards == 5:
-            return poker_hand([self.get_card() for x in range(number_of_cards)])
-        else:
-            raise NotImplementedError
 
-#for i in range(2):
-#    print(deck().get_hand())
+        number_of_cards = 5
+        cards_list = [self.get_card() for x in range(number_of_cards)]
+        return cards_list
+
+
+if __name__ == '__main__':
+    for i in range(10000):
+        hand = deck().get_hand()
+        evaluated_hand = deck().evaluate_hand(hand)
+        print(hand, evaluated_hand)
