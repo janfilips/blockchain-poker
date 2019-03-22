@@ -27,11 +27,11 @@ def home(request):
 
     cards_deck = deck()
 
-    card1 = card('3','H')
-    card2 = card('4','D')
-    card3 = card('2','H')
-    card4 = card('3','D')
-    card5 = card('4','H')
+    card1 = card('A','H')
+    card2 = card('Q','H')
+    card3 = card('K','H')
+    card4 = card('J','H')
+    card5 = card('10','H')
     hand = []
     hand.insert(0, card1)
     hand.insert(0, card2)

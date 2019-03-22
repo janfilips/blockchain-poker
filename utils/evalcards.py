@@ -50,7 +50,7 @@ class deck(set):
             if 3 in numeral_dict.values():
                 short_desc ="Three-of-a-kind."
             else:
-                short_desc ="Two pair."
+                short_desc ="Two-pair."
         # Full house or 4-of-a-kind
         elif len(numeral_dict) == 2:
             if 2 in numeral_dict.values():

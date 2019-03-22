@@ -21,7 +21,34 @@
     $(this).toggleClass('active');
   });
 
-  var rowselector = 2;
+  {% if evaluated_hand == "Royal-flush." %}
+    var rowselector = 1;
+  {% endif %}
+  {% if evaluated_hand == "Straight-flush." %}
+    var rowselector = 2;
+  {% endif %}
+  {% if evaluated_hand == "Four-of-a-kind." %}
+    var rowselector = 3;
+  {% endif %}
+  {% if evaluated_hand == "Full-house." %}
+    var rowselector = 4;
+  {% endif %}
+  {% if evaluated_hand == "Flush." %}
+    var rowselector = 5;
+  {% endif %}
+  {% if evaluated_hand == "Straight." %}
+    var rowselector = 6;
+  {% endif %}
+  {% if evaluated_hand == "Three-of-a-kind." %}
+    var rowselector = 7;
+  {% endif %}
+  {% if evaluated_hand == "Two-pair." %}
+    var rowselector = 8;
+  {% endif %}
+  {% if evaluated_hand == "Jacks-or-better." %}
+    var rowselector = 9;
+  {% endif %}
+
   $('.type-list .points span:nth-child(' + rowselector + ')').addClass( "activeLine" );
   $('.type-list .combination span:nth-child(' + rowselector + ')').addClass( "activeLine" );
 
