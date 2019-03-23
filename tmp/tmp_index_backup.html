@@ -151,39 +151,64 @@
       </div><!-- points END -->
     </section><!-- type list END -->
 
-    <h2 class="curent-combination"></h2>
-
     <div class="deal-cards">
 
-        <section class="cards"><!-- cards -->
-          {% for card in hand %}
-              <div class="card-wrap">
-              <div class="indicator">Held</div>
-              <img src="static/cards/{{card}}.png" />
-            </div>
-            {% endfor %}
-        </section><!-- cards END -->  
+      <section class="cards"><!-- cards -->
+        {% for card in hand %}
+            <div class="card-wrap">
+            <div class="indicator">Held</div>
+            <img src="static/cards/{{card}}.png" />
+          </div>
+          {% endfor %}
+      </section><!-- cards END -->
 
       <div class="text-over">YOU WIN $5!!!</div>
       <div class="win-extras">
-        <img class="left" src="images/win-graphics-1.png" />
-        <img class="right" src="images/win-graphics-2.png" />
+        <img class="left" src="static/images/win-graphics-1.png" />
+        <img class="right" src="static/images/win-graphics-2.png" />
       </div>
     </div>
 
     <div class="stats-line"><!-- stats -->
-
       <span class="win style-font">BET $5</span>
 
+      {% if evaluated_hand != "Nothing." %}
 
-      
-      <div class="bet-amaunt">bet 1</div>
+          {% if evaluated_hand == "One-pair." %}
+            <div class="bet-amaunt">One pair</div>
+          {% endif %}
+          {% if evaluated_hand == "Jacks-or-better." %}
+            <div class="bet-amaunt">Jacks or better</div>
+          {% endif %}
+          {% if evaluated_hand == "Three-of-a-kind." %}
+            <div class="bet-amaunt">Three of a kind</div>
+          {% endif %}
+          {% if evaluated_hand == "Two-pair." %}
+            <div class="bet-amaunt">Two pairs</div>
+          {% endif %}
+          {% if evaluated_hand == "Full-house." %}
+            <div class="bet-amaunt">Full house/div>
+          {% endif %}
+          {% if evaluated_hand == "Four-of-a-kind." %}
+            <div class="bet-amaunt">Four of a kind</div>
+          {% endif %}
+          {% if evaluated_hand == "Straight." %}
+            <div class="bet-amaunt">Straight</div>
+          {% endif %}
+          {% if evaluated_hand == "Flush." %}
+            <div class="bet-amaunt">Flush</div>
+          {% endif %}
+          {% if evaluated_hand == "Royal-flush." %}
+            <div class="bet-amaunt">Royal flush</div>
+          {% endif %}
 
+      {% endif %}
 
-
-      <span class="credit style-font">Credit $255</span>
+      <span class="credit style-font">Credit $0</span>
     </div><!-- stats END -->
 
+
+    
     <div class="actions"><!-- actions -->
       <div class="perspective-in">
         <a class="btn-action" href="#">cashout</a>
