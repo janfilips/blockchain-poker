@@ -126,6 +126,8 @@ class deck(set):
                 if('K' in str(card)): sugested_hand.append(card)
                 if('A' in str(card)): sugested_hand.append(card)
 
+        # XXX check if there are 4 colors
+
         return sugested_hand
 
     def get_hand(self, number_of_cards=5):
