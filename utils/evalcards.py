@@ -106,6 +106,8 @@ class deck(set):
         #if(evaluated_hand == "Two-pair."):
         #if(evaluated_hand == "Four-of-a-kind."):
 
+        # XXX TODO if there is no suggested hand suggest high card
+
         return sugested_hand
 
     def get_hand(self, number_of_cards=5):
