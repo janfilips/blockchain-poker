@@ -86,9 +86,14 @@ class deck(set):
 
         return short_desc, numeral_dict, suit_dict
 
-    def hold_suggest(self):
+    def suggest_hand(self, evaluated_hand, numeral_dict, suit_dict):
         # XXX TODO
-        return ['xxx','wroking on this currently']
+        response = {
+            "evaluated_hand": evaluated_hand, 
+            "numeral_dict": numeral_dict, 
+            "suit_dict": suit_dict,
+        }
+        return response
 
     def get_hand(self, number_of_cards=5):
 

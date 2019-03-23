@@ -41,6 +41,7 @@ def home(request):
 
     #hand = deck().get_hand()
     evaluated_hand, numeral_dict, suit_dict = deck().evaluate_hand(hand)
+    suggested_hand = deck().suggest_hand(evaluated_hand, numeral_dict, suit_dict)
 
     credit = 0
 
@@ -55,6 +56,7 @@ def home(request):
             'numeral_dict': numeral_dict,
             'suit_dict':suit_dict,
             'credit': credit,
+            'suggested_hand': suggested_hand,
             },
     )
     response.set_cookie(key="player_session_key",value=player_session_key)
