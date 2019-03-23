@@ -16,6 +16,7 @@ logger = logging.getLogger(__name__)
 
 from utils.evalcards import deck, card
 
+from game.models import Players, Decks, Wins
 
 def home(request):
 
@@ -43,7 +44,11 @@ def home(request):
     evaluated_hand, numeral_dict, suit_dict = deck().evaluate_hand(hand)
     sugested_hand = deck().suggest_hand(hand, evaluated_hand, numeral_dict, suit_dict)
 
-    credit = 0
+    player, created = Players.objects.get_or_create(session_key=player_session_key)
+    print('player', player, 'is_new', created)
+
+    player_cards_deck = Decks.objects.create(player=player, deck=cards_deck)
+    print('deck', player_cards_deck)
 
     response = render(
         request=request,
@@ -55,7 +60,8 @@ def home(request):
             'evaluated_hand': evaluated_hand,
             'numeral_dict': numeral_dict,
             'suit_dict':suit_dict,
-            'credit': credit,
+            'credit': player.credit,
+            'mini_bonus': player.mini_bonus,
             'sugested_hand': sugested_hand,
             },
     )

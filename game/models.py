@@ -7,6 +7,7 @@ class Players(models.Model):
     address = models.CharField(max_length=128, default="")
     session_key = models.CharField(max_length=128)
     credit = models.IntegerField(default=0)
+    mini_bonus = models.FloatField(default=0)
 
 class Decks(models.Model):
     player = models.ForeignKey(Players, on_delete=models.CASCADE)

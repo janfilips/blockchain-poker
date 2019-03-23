@@ -189,7 +189,7 @@
        </div>
       {% endif %}
 
-      <span class="credit style-font">Credit $255</span>
+      <span class="credit style-font">Credit ${{credit|floatformat:2}}</span>
     </div><!-- stats END -->
 
     <div class="actions"><!-- actions -->
@@ -209,7 +209,7 @@
     <footer class="footer"><!-- footer -->
       <div class="combo-needed">jacks or better</div>
       <a class="btn-action autoplay" href="#">AUTOPLAY</a>
-      <div class="min-bonus">MINI BONUS $0.02</div>
+      <div class="min-bonus">MINI BONUS ${{mini_bonus|floatformat:3}}</div>
     </footer><!-- footer END -->
 
   </div>
