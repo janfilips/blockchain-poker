@@ -107,16 +107,16 @@ class deck(set):
                     for card in hand:
                         if(i in str(card)):
                             sugested_hand.append(card)
+               
+        if(evaluated_hand == "Three-of-a-kind."):
+            for i in numeral_dict:
+                if(numeral_dict[i] == 3):
+                    print(numeral_dict[i], i)
+                    for card in hand:
+                        if(i in str(card)):
+                            sugested_hand.append(card)
 
-        if(evaluated_hand == "Jacks-or-better."):
-            print('-'*100)
-            print("hand", hand)
-            print("suit_dict", suit_dict)
-            print("numeral_dict", numeral_dict)
-            print('-'*100)
-            # XXX TODO 
-            
-        #if(evaluated_hand == "Three-of-a-kind."):
+        #if(evaluated_hand == "Jacks-or-better."):     
         #if(evaluated_hand == "Two-pair."):
         #if(evaluated_hand == "Four-of-a-kind."):
 
