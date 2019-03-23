@@ -119,15 +119,20 @@ class deck(set):
                         if(i in str(card)):
                             sugested_hand.append(card)
 
+        # XXX check if there is a chance for straight using  
+
+        for i in suit_dict:
+            if(suit_dict[i]==4):
+                for card in hand:
+                    if(i in str(card)):
+                        sugested_hand.append(card)
+
         if not sugested_hand:
             for card in hand:
                 if('J' in str(card)): sugested_hand.append(card)
                 if('Q' in str(card)): sugested_hand.append(card)
                 if('K' in str(card)): sugested_hand.append(card)
                 if('A' in str(card)): sugested_hand.append(card)
-
-        # XXX check if there is a chance for postupka
-        # XXX check if there are 4 colors
 
         return sugested_hand
 
