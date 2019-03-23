@@ -29,9 +29,9 @@ def home(request):
 
     hand = []
     card1 = card('J','D')
-    card2 = card('2','H')
-    card3 = card('3','S')
-    card4 = card('J','S')
+    card2 = card('Q','H')
+    card3 = card('K','S')
+    card4 = card('A','S')
     card5 = card('10','H')
     hand.insert(0, card1)
     hand.insert(0, card2)
