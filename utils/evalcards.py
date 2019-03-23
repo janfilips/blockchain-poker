@@ -74,9 +74,6 @@ class deck(set):
                 straight = True
             if straight and not flush:
                 short_desc = "Straight."
-                print('pica here', numeral_dict.keys())
-                if('A' in numeral_dict.keys()):
-                    print('mrdka!!!!')
             elif flush and not straight:
                 short_desc = "Flush."
             elif flush and straight:
@@ -87,8 +84,6 @@ class deck(set):
         return short_desc, numeral_dict, suit_dict
 
     def suggest_hand(self, hand, evaluated_hand, numeral_dict, suit_dict):
-        # XXX TODO
-        # XXX TODO if suggeted hand explicit words highlight all (good zaciatok)
 
         sugested_hand = []
 
@@ -103,7 +98,13 @@ class deck(set):
         if(evaluated_hand == "Royal-flush."):
             sugested_hand = hand
 
-        # XXX TODO vsetky ostatne suggest kamo pochlub se ;) :) :)
+        # explicit poker hands
+
+        #if(evaluated_hand == "One-pair."):
+        #if(evaluated_hand == "Jacks-or-better."):
+        #if(evaluated_hand == "Three-of-a-kind."):
+        #if(evaluated_hand == "Two-pair."):
+        #if(evaluated_hand == "Four-of-a-kind."):
 
         return sugested_hand
 
