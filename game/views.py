@@ -41,7 +41,7 @@ def home(request):
 
     #hand = deck().get_hand()
     evaluated_hand, numeral_dict, suit_dict = deck().evaluate_hand(hand)
-    suggested_hand = deck().suggest_hand(evaluated_hand, numeral_dict, suit_dict)
+    suggested_hand = deck().suggest_hand(hand, evaluated_hand, numeral_dict, suit_dict)
 
     credit = 0
 

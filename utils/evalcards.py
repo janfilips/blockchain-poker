@@ -86,12 +86,13 @@ class deck(set):
 
         return short_desc, numeral_dict, suit_dict
 
-    def suggest_hand(self, evaluated_hand, numeral_dict, suit_dict):
+    def suggest_hand(self, hand, evaluated_hand, numeral_dict, suit_dict):
         # XXX TODO
         response = {
             "evaluated_hand": evaluated_hand, 
             "numeral_dict": numeral_dict, 
             "suit_dict": suit_dict,
+            "hand": hand,
         }
         return response
 
