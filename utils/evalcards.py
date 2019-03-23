@@ -100,7 +100,7 @@ class deck(set):
 
         # explicit poker hands
 
-        if(evaluated_hand == "One-pair."):
+        if(evaluated_hand == "One-pair." or evaluated_hand == "Jacks-or-better."):
             for i in numeral_dict:
                 if(numeral_dict[i] == 2):
                     print(numeral_dict[i], i)
@@ -124,7 +124,6 @@ class deck(set):
                         if(i in str(card)):
                             sugested_hand.append(card)
 
-        #if(evaluated_hand == "Jacks-or-better."):     
         #if(evaluated_hand == "Two-pair."):
 
         # XXX TODO if there is no suggested hand suggest high card
