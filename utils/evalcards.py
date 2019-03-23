@@ -100,7 +100,19 @@ class deck(set):
 
         # explicit poker hands
 
-        #if(evaluated_hand == "One-pair."):
+        if(evaluated_hand == "One-pair."):
+            print('-'*100)
+            print("hand", hand)
+            print("suit_dict", suit_dict)
+            print("numeral_dict", numeral_dict)
+            print('-'*100)
+            for i in numeral_dict:
+                if(numeral_dict[i] == 2):
+                    print(numeral_dict[i], i)
+                    for card in hand:
+                        if(i in str(card)):
+                            sugested_hand.append(card)
+
         #if(evaluated_hand == "Jacks-or-better."):
         #if(evaluated_hand == "Three-of-a-kind."):
         #if(evaluated_hand == "Two-pair."):
