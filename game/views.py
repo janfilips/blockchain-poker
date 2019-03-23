@@ -27,19 +27,19 @@ def home(request):
 
     cards_deck = deck()
 
-    hand = []
-    card1 = card('3','D')
-    card2 = card('4','D')
-    card3 = card('5','D')
-    card4 = card('6','D')
-    card5 = card('J','H')
-    hand.insert(0, card1)
-    hand.insert(0, card2)
-    hand.insert(0, card3)
-    hand.insert(0, card4)
-    hand.insert(0, card5)
+    # hand = []
+    # card1 = card('3','D')
+    # card2 = card('4','D')
+    # card3 = card('5','D')
+    # card4 = card('6','D')
+    # card5 = card('J','H')
+    # hand.insert(0, card1)
+    # hand.insert(0, card2)
+    # hand.insert(0, card3)
+    # hand.insert(0, card4)
+    # hand.insert(0, card5)
 
-    #hand = deck().get_hand()
+    hand = deck().get_hand()
     evaluated_hand, numeral_dict, suit_dict = deck().evaluate_hand(hand)
     sugested_hand = deck().suggest_hand(hand, evaluated_hand, numeral_dict, suit_dict)
 
