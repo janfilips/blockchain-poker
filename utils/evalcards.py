@@ -33,9 +33,11 @@ class deck(set):
         short_desc = "Nothing."
         numeral_dict = collections.defaultdict(int)
         suit_dict = collections.defaultdict(int)
+
         for my_card in cards_list:
             numeral_dict[my_card.numeral] += 1
             suit_dict[my_card.suit] += 1
+
         # Pair
         if len(numeral_dict) == 4:
             short_desc = "One-pair."
@@ -48,6 +50,7 @@ class deck(set):
                 short_desc ="Three-of-a-kind."
             else:
                 short_desc ="Two-pair."
+
         # Full house or 4-of-a-kind
         elif len(numeral_dict) == 2:
             if 2 in numeral_dict.values():
@@ -55,6 +58,7 @@ class deck(set):
             else:
                 short_desc ="Four-of-a-kind."
         else:
+
             # Flushes and straights
             straight, flush = False, False
             if len(suit_dict) == 1:
@@ -63,6 +67,7 @@ class deck(set):
             max_numeral = max([NUMERAL_LIST.index(x) for x in numeral_dict.keys()])
             if int(max_numeral) - int(min_numeral) == 4:
                 straight = True
+
             # Ace can be low
             low_straight = set(("A", "2", "3", "4", "5"))
             if not set(numeral_dict.keys()).difference(low_straight):
@@ -91,9 +96,8 @@ class deck(set):
         cards_list = [self.get_card() for x in range(number_of_cards)]
         return cards_list
 
-
 if __name__ == '__main__':
-    for i in range(10000):
+    for i in range(10000000):
         hand = deck().get_hand()
         evaluated_hand = deck().evaluate_hand(hand)
         print(hand, evaluated_hand)
