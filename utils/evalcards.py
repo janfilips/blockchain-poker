@@ -98,12 +98,9 @@ class deck(set):
         if(evaluated_hand == "Royal-flush."):
             sugested_hand = hand
 
-        # explicit poker hands
-
-        if(evaluated_hand == "One-pair." or evaluated_hand == "Jacks-or-better."):
+        if(evaluated_hand == "One-pair." or evaluated_hand == "Jacks-or-better." or evaluated_hand == "Two-pair."):
             for i in numeral_dict:
                 if(numeral_dict[i] == 2):
-                    print(numeral_dict[i], i)
                     for card in hand:
                         if(i in str(card)):
                             sugested_hand.append(card)
@@ -111,7 +108,6 @@ class deck(set):
         if(evaluated_hand == "Three-of-a-kind."):
             for i in numeral_dict:
                 if(numeral_dict[i] == 3):
-                    print(numeral_dict[i], i)
                     for card in hand:
                         if(i in str(card)):
                             sugested_hand.append(card)
@@ -119,14 +115,16 @@ class deck(set):
         if(evaluated_hand == "Four-of-a-kind."):
             for i in numeral_dict:
                 if(numeral_dict[i] == 4):
-                    print(numeral_dict[i], i)
                     for card in hand:
                         if(i in str(card)):
                             sugested_hand.append(card)
 
-        #if(evaluated_hand == "Two-pair."):
-
-        # XXX TODO if there is no suggested hand suggest high card
+        if not sugested_hand:
+            for card in hand:
+                if('J' in str(card)): sugested_hand.append(card)
+                if('Q' in str(card)): sugested_hand.append(card)
+                if('K' in str(card)): sugested_hand.append(card)
+                if('A' in str(card)): sugested_hand.append(card)
 
         return sugested_hand
 
