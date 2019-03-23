@@ -39,7 +39,7 @@ def home(request):
     hand.insert(0, card4)
     hand.insert(0, card5)
 
-    #hand = deck().get_hand()
+    hand = deck().get_hand()
     evaluated_hand, numeral_dict, suit_dict = deck().evaluate_hand(hand)
     sugest_hand = deck().suggest_hand(hand, evaluated_hand, numeral_dict, suit_dict)
 
