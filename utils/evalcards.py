@@ -90,22 +90,22 @@ class deck(set):
         # XXX TODO
         # XXX TODO if suggeted hand explicit words highlight all (good zaciatok)
 
-        sugest_hand = []
+        sugested_hand = []
 
         if(evaluated_hand == "Full-house."):
-            sugest_hand = hand
+            sugested_hand = hand
         if(evaluated_hand == "Straight."):
-            sugest_hand = hand
+            sugested_hand = hand
         if(evaluated_hand == "Flush."):
-            sugest_hand = hand
+            sugested_hand = hand
         if(evaluated_hand == "Straight-flush."):
-            sugest_hand = hand
+            sugested_hand = hand
         if(evaluated_hand == "Royal-flush."):
-            sugest_hand = hand
+            sugested_hand = hand
 
         # XXX TODO vsetky ostatne suggest kamo pochlub se ;) :) :)
 
-        return sugest_hand
+        return sugested_hand
 
     def get_hand(self, number_of_cards=5):
 
