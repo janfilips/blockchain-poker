@@ -30,7 +30,7 @@ def home(request):
     hand = []
     card1 = card('J','D')
     card2 = card('Q','H')
-    card3 = card('K','S')
+    card3 = card('Q','S')
     card4 = card('A','S')
     card5 = card('10','H')
     hand.insert(0, card1)
