@@ -88,6 +88,11 @@ class deck(set):
 
     def suggest_hand(self, hand, evaluated_hand, numeral_dict, suit_dict):
         # XXX TODO
+        # XXX TODO if suggeted hand explicit words highlight all (good zaciatok)
+
+
+
+
         response = {
             "evaluated_hand": evaluated_hand, 
             "numeral_dict": numeral_dict, 
