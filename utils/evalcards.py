@@ -116,9 +116,16 @@ class deck(set):
                         if(i in str(card)):
                             sugested_hand.append(card)
 
+        if(evaluated_hand == "Four-of-a-kind."):
+            for i in numeral_dict:
+                if(numeral_dict[i] == 4):
+                    print(numeral_dict[i], i)
+                    for card in hand:
+                        if(i in str(card)):
+                            sugested_hand.append(card)
+
         #if(evaluated_hand == "Jacks-or-better."):     
         #if(evaluated_hand == "Two-pair."):
-        #if(evaluated_hand == "Four-of-a-kind."):
 
         # XXX TODO if there is no suggested hand suggest high card
 
