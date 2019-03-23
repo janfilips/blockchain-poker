@@ -105,7 +105,6 @@ class deck(set):
 
         # XXX TODO vsetky ostatne suggest kamo pochlub se ;) :) :)
 
-
         return sugest_hand
 
     def get_hand(self, number_of_cards=5):

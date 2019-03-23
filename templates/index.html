@@ -195,6 +195,8 @@
         <br/>
         <br/>
         debug looks like the BSOD (a fucking blue screen of death) over here lol :D
+        <br/>
+        <br/>
         </font>
 
 
@@ -203,12 +205,13 @@
       <section class="cards"><!-- cards -->
 
         {% for card in hand %}
+          {% comment %}
           ### xxx todo tu checkni ci je karta v liste suggested hand (template tag) 
-          <div class="card-wrap held">
+          {% endcomment %}
+            <div class="card-wrap held">
             <div class="indicator">Held</div>
             <img src="static/cards/{{card}}.png" />
           </div>
-
           {% endfor %}
 
       </section><!-- cards END -->
