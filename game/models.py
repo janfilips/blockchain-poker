@@ -6,6 +6,7 @@ from django.db import models
 class Players(models.Model):
     address = models.CharField(max_length=128, default="")
     session_key = models.CharField(max_length=128)
+    credit = models.IntegerField(default=0)
 
 class Decks(models.Model):
     player = models.ForeignKey(Players, on_delete=models.CASCADE)
