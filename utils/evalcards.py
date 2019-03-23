@@ -84,7 +84,7 @@ class deck(set):
                 if('A' in numeral_dict.keys() and 'K' in numeral_dict.keys()):
                     short_desc = "Royal-flush."
 
-        return short_desc
+        return short_desc, numeral_dict, suit_dict
 
     def hold_suggest(self):
         # XXX TODO

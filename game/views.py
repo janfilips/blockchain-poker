@@ -29,7 +29,7 @@ def home(request):
 
     hand = []
     card1 = card('J','D')
-    card2 = card('3','H')
+    card2 = card('2','H')
     card3 = card('3','S')
     card4 = card('J','S')
     card5 = card('10','H')
@@ -40,7 +40,7 @@ def home(request):
     hand.insert(0, card5)
 
     #hand = deck().get_hand()
-    evaluated_hand = deck().evaluate_hand(hand)
+    evaluated_hand, numeral_dict, suit_dict = deck().evaluate_hand(hand)
 
     credit = 0
 
@@ -52,6 +52,8 @@ def home(request):
             'deck': cards_deck,
             'hand': hand,
             'evaluated_hand': evaluated_hand,
+            'numeral_dict': numeral_dict,
+            'suit_dict':suit_dict,
             'credit': credit,
             },
     )
