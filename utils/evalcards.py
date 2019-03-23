@@ -126,6 +126,7 @@ class deck(set):
                 if('K' in str(card)): sugested_hand.append(card)
                 if('A' in str(card)): sugested_hand.append(card)
 
+        # XXX check if there is a chance for postupka
         # XXX check if there are 4 colors
 
         return sugested_hand
