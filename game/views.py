@@ -53,6 +53,15 @@ def home(request):
     player_cards_deck = Decks.objects.create(player=player, deck=cards_deck)
     print('deck', player_cards_deck)
 
+    ###################################
+    # XXX temporarily simulating credit
+    if(player.credit == 0):
+        player.credit = 101
+        player.save()
+    player.credit -= 1
+    player.save()
+    ###################################
+
     response = render(
         request=request,
         template_name='index.html',
