@@ -200,15 +200,15 @@ class deck(set):
         return sugested_hand
 
 
-
     def get_hand(self, number_of_cards=5):
 
         number_of_cards = 5
         cards_list = [self.get_card() for x in range(number_of_cards)]
         return cards_list
 
+
 if __name__ == '__main__':
-    for i in range(10000000):
+    for i in range(1000000):
         hand = deck().get_hand()
         evaluated_hand = deck().evaluate_hand(hand)
         print(hand, evaluated_hand)
