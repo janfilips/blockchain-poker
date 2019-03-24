@@ -104,7 +104,6 @@ class deck(set):
                 if(numeral_dict[i] == 3):
                     for card in hand:
                         if(i in str(card)):
-                            print('2 kicked in')
                             sugested_hand.append(card)
 
         if(evaluated_hand == "Four-of-a-kind."):
@@ -112,17 +111,15 @@ class deck(set):
                 if(numeral_dict[i] == 4):
                     for card in hand:
                         if(i in str(card)):
-                            print('3 kicked in')
                             sugested_hand.append(card)
 
-        # XXX check if there is a chance for straight using  
+        # XXX TODO check if there is a chance for straight
 
         if not sugested_hand:
             for i in suit_dict:
                 if(suit_dict[i]==4):
                     for card in hand:
                         if(i in str(card)):
-                            print('4 kicked in')
                             sugested_hand.append(card)
 
         if not sugested_hand:
@@ -131,7 +128,6 @@ class deck(set):
                     if(numeral_dict[i] == 2):
                         for card in hand:
                             if(i in str(card)):
-                                print('1 kicked in')
                                 sugested_hand.append(card)
 
         if not sugested_hand:
