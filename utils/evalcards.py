@@ -85,9 +85,6 @@ class deck(set):
 
     def suggest_hand(self, player, hand, evaluated_hand, numeral_dict, suit_dict):
 
-        # XXX TODO put in the debugging to see which suggested hand kicked in
-        # XXX BUG https://github.com/jparicka/poker/issues/1
-
         sugested_hand = []
 
         if(evaluated_hand == "Full-house."):
@@ -121,6 +118,9 @@ class deck(set):
                     for card in hand:
                         if(i in str(card)):
                             sugested_hand.append(card)
+
+        # XXX TODO put in the debugging to see which suggested hand kicked in
+        # XXX BUG https://github.com/jparicka/poker/issues/1
 
         # XXX check if there is a chance for straight using  
 
