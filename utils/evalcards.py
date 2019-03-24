@@ -115,9 +115,6 @@ class deck(set):
                             print('3 kicked in')
                             sugested_hand.append(card)
 
-        # XXX TODO put in the debugging to see which suggested hand kicked in
-        # XXX BUG https://github.com/jparicka/poker/issues/1
-
         # XXX check if there is a chance for straight using  
 
         if not sugested_hand:
