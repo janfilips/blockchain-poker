@@ -16,7 +16,8 @@ logger = logging.getLogger(__name__)
 
 from utils.evalcards import deck, card
 
-from game.models import Players, Decks, Wins
+from game.models import Players, Decks, Wins, Jackpot
+
 
 def home(request):
 
@@ -57,11 +58,11 @@ def home(request):
             'deck': cards_deck,
             'hand': hand,
             'evaluated_hand': evaluated_hand,
+            'sugested_hand': sugested_hand,
             'numeral_dict': numeral_dict,
             'suit_dict':suit_dict,
             'credit': player.credit,
             'mini_bonus': player.mini_bonus,
-            'sugested_hand': sugested_hand,
             },
     )
     response.set_cookie(key="player_session_key",value=player_session_key)

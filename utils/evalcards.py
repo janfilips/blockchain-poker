@@ -105,6 +105,8 @@ class deck(set):
                     for card in hand:
                         if(i in str(card)):
                             sugested_hand.append(card)
+                            player.mini_bonus += 0.02
+                            player.save()
 
         if(evaluated_hand == "Four-of-a-kind."):
             for i in numeral_dict:

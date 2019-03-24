@@ -18,3 +18,9 @@ class Wins(models.Model):
     player = models.ForeignKey(Players, on_delete=models.CASCADE)
     deck = models.ForeignKey(Decks, on_delete=models.CASCADE)
     winning_hand = models.CharField(max_length=64)
+
+class Jackpot(models.Model):
+    super_jackpot = models.FloatField(default=0)
+    mega_jackpot = models.FloatField(default=0)
+    major_jackpot = models.FloatField(default=0)
+    minor_jackpot = models.FloatField(default=0)
