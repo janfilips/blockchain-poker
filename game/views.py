@@ -62,6 +62,13 @@ def home(request):
     player.save()
     ###################################
 
+
+
+
+    # XXX TODO change Deal button to Draw button on the second turn
+
+
+
     response = render(
         request=request,
         template_name='index.html',
