@@ -98,18 +98,13 @@ class deck(set):
         if(evaluated_hand == "Royal-flush."):
             sugested_hand = hand
 
-        if(evaluated_hand == "One-pair." or evaluated_hand == "Jacks-or-better." or evaluated_hand == "Two-pair."):
-            for i in numeral_dict:
-                if(numeral_dict[i] == 2):
-                    for card in hand:
-                        if(i in str(card)):
-                            sugested_hand.append(card)
-               
+
         if(evaluated_hand == "Three-of-a-kind."):
             for i in numeral_dict:
                 if(numeral_dict[i] == 3):
                     for card in hand:
                         if(i in str(card)):
+                            print('2 kicked in')
                             sugested_hand.append(card)
 
         if(evaluated_hand == "Four-of-a-kind."):
@@ -117,6 +112,7 @@ class deck(set):
                 if(numeral_dict[i] == 4):
                     for card in hand:
                         if(i in str(card)):
+                            print('3 kicked in')
                             sugested_hand.append(card)
 
         # XXX TODO put in the debugging to see which suggested hand kicked in
@@ -124,11 +120,22 @@ class deck(set):
 
         # XXX check if there is a chance for straight using  
 
-        for i in suit_dict:
-            if(suit_dict[i]==4):
-                for card in hand:
-                    if(i in str(card)):
-                        sugested_hand.append(card)
+        if not sugested_hand:
+            for i in suit_dict:
+                if(suit_dict[i]==4):
+                    for card in hand:
+                        if(i in str(card)):
+                            print('4 kicked in')
+                            sugested_hand.append(card)
+
+        if not sugested_hand:
+            if(evaluated_hand == "One-pair." or evaluated_hand == "Jacks-or-better." or evaluated_hand == "Two-pair."):
+                for i in numeral_dict:
+                    if(numeral_dict[i] == 2):
+                        for card in hand:
+                            if(i in str(card)):
+                                print('1 kicked in')
+                                sugested_hand.append(card)
 
         if not sugested_hand:
             for card in hand:
