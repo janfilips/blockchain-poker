@@ -83,7 +83,10 @@ class deck(set):
 
         return short_desc, numeral_dict, suit_dict
 
-    def suggest_hand(self, hand, evaluated_hand, numeral_dict, suit_dict):
+    def suggest_hand(self, player, hand, evaluated_hand, numeral_dict, suit_dict):
+
+        # XXX TODO put in the debugging to see which suggested hand kicked in
+        # XXX BUG https://github.com/jparicka/poker/issues/1
 
         sugested_hand = []
 

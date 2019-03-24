@@ -25,6 +25,8 @@ def home(request):
     except:
         player_session_key = uuid.uuid4()
 
+    player, created = Players.objects.get_or_create(session_key=player_session_key)
+    print('player', player, 'is_new', created)
 
     cards_deck = deck()
 
@@ -42,10 +44,7 @@ def home(request):
 
     hand = deck().get_hand()
     evaluated_hand, numeral_dict, suit_dict = deck().evaluate_hand(hand)
-    sugested_hand = deck().suggest_hand(hand, evaluated_hand, numeral_dict, suit_dict)
-
-    player, created = Players.objects.get_or_create(session_key=player_session_key)
-    print('player', player, 'is_new', created)
+    sugested_hand = deck().suggest_hand(player, hand, evaluated_hand, numeral_dict, suit_dict)
 
     player_cards_deck = Decks.objects.create(player=player, deck=cards_deck)
     print('deck', player_cards_deck)
