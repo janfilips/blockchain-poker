@@ -47,6 +47,9 @@ def home(request):
     evaluated_hand, numeral_dict, suit_dict = deck().evaluate_hand(hand)
     sugested_hand = deck().suggest_hand(player, hand, evaluated_hand, numeral_dict, suit_dict)
 
+    # XXX TODO jackpot sa navysuje z kazdej prehranej hry
+    # XXX TODO zistit ako presne funguje jackpot na mega moolah
+
     player_cards_deck = Decks.objects.create(player=player, deck=cards_deck)
     print('deck', player_cards_deck)
 
