@@ -159,6 +159,55 @@
         All in all, the Jacks or Better gives you a really good chance to win, that's why it's our favorite game.
       </p>
 
+      <h2>Provably Fair In Technical Terms</h2>
+      <p>
+          We guarantee that every Jacks or Better game you play with us is completely fair. You will be dealt a completely
+          random deck of cards every game, and provably demonstrate that we have in no way manipulated the shuffle.
+          <br/>
+          <br/>
+          Instead of just taking our word for it, we make available all of the information you need to verify that our game is fair.
+          <br/>
+          <br/>
+          The reason that we can guarantee this is that your web browser supplies a random number that we must incorporate into the
+          random number generator in a provably consistent way. Our server shuffles the deck, and your computer then gives us a random
+          number that we must use to repeatedly cut the deck. Since our servers do not know what random number your computer will send,
+          we have no way of knowing how the shuffle will look in the end.
+          <br/>
+          <br/>
+          This is how the deck shuffling mechanism works in technical terms.
+          <br/>
+          Before the game is started, a random seed number is first chosen by our server.
+          <br/>
+          <br/>
+          We then create an SHA-256 hash of this server seed and send it to your web browser. This hash serves as a sort of encryption of the
+          original seed number chosen by the server. From this hash you can not identify the seed number chosen, but you can later use it to
+          verify that we did not change the seed number afterwards.
+          <br/>
+          <br/>
+          Your web browser then sends our server a random seed number. Your web browser just selects any random number, although technically
+          there is nothing preventing the client sending any number they want. The point is that there is no way of knowing what this random
+          number will be.
+          <br/>
+          <br/>
+          After the server receives this client seed number, it combines the server seed and the client seed into a single final game seed.
+          For example, if the sercer seed was 7UD11wUoLxDSEKU and the client seed was 1000293221
+          then the final game seed will be 7UD11wUoLxDSEKU1000293221.
+          <br/>
+          The server is required to use the server seed that it picked up earlier, since the client can use the previously received server hash to verify this.
+          Therefore, the server has no control over what the final game seed will be, and therefore has no way to manipulate the outcome of your game.
+          <br/>
+          <br/>
+          Once the game is finished, the server reveals the server seed that it initially chose. The client can then verify that the hash
+          of this server seed does indeed match what the server originally sent before the game started, and your browser will automatically verify that everything was legitimate.
+          <br/>
+          <br/>
+          On top of this, and for your enjoyment, we decided to make the source code of this game completely open-source.
+          The code can be accessed at this link <a href="#">https://github.com/......</a>.
+          <br/>
+          <br/>
+          Enjoy!
+      </p>
+
       <h2>Contact and Terms of Service</h2>
       <p>
           Before playing Jacks or Better you must agree to these simple <a href="#">terms of service</a>. If you do not agree to these terms, do not play this game. We reserve the right to make changes to these Terms. If you have any questions, e-mail us at xxx@xxxx.com.
