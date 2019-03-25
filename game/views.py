@@ -62,13 +62,6 @@ def home(request):
     player.save()
     ###################################
 
-
-
-
-    # XXX TODO change Deal button to Draw button on the second turn
-
-
-
     response = render(
         request=request,
         template_name='index.html',
@@ -107,3 +100,6 @@ def about(request):
     response.set_cookie(key="player_session_key",value=player_session_key)
 
     return response
+
+def deck(request, deck_id):
+    return HttpResponse("working on this currently", deck_id)
