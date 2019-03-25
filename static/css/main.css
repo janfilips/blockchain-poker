@@ -223,6 +223,7 @@ body {
   position: relative;
   box-sizing: border-box;
   opacity: 0.9;
+  height: 26.5rem;
 }
 .card-wrap img {
   display: inline-block;
@@ -249,7 +250,7 @@ body {
   margin-top: -1rem;
 }
 
-.text-over {
+.text-over, .inser-coin {
   font-size: 6.3rem;
   color: #FF1F41;
   -webkit-text-stroke: 3px #F3D040;
@@ -259,6 +260,9 @@ body {
   top: 12rem;
   text-shadow: 3px 3px 0 rgba(0,0,0,0.7);
   display: none;
+}
+.inser-coin.show-inser {
+  display: block;
 }
 .win-extras {
   display: none;
@@ -527,4 +531,38 @@ body {
 .about-page h2 {
   color: #0134B4;
   padding-bottom: 1rem;
+}
+
+
+/*-- flip card  --*/
+.card-wrap {
+  background-color: transparent;
+  perspective: 1000px;
+}
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  background: none;
+}
+.card-wrap.flipit .flip-card-inner {
+  transform: rotateY(180deg);
+}
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+.flip-card-front {
+  color: black;
+  z-index: 2;
+}
+.flip-card-back {
+  color: white;
+  transform: rotateY(180deg);
+  z-index: 1;
 }
