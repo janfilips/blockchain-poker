@@ -9,18 +9,21 @@
   crossorigin="anonymous">
 </script>
 
-<script type="text/javascript">
-      $( document ).ready(function() {
-
+<script>
+    $( document ).ready(function() {
+  
       $('.card-wrap').click(function() {
         $(this).toggleClass('held');
       });
-
+  
       $('.type-list .points').click(function() {
         $('.type-list .points').removeClass('active');
         $(this).toggleClass('active');
       });
 
+      {% if evaluated_hand == "Nothing." %}
+        var rowselector = 0;
+      {% endif %}
       {% if evaluated_hand == "Royal-flush." %}
         var rowselector = 1;
       {% endif %}
@@ -51,9 +54,18 @@
 
       $('.type-list .points span:nth-child(' + rowselector + ')').addClass( "activeLine" );
       $('.type-list .combination span:nth-child(' + rowselector + ')').addClass( "activeLine" );
-
+  
+      $('.card-wrap').each(function(i){
+      var cardflip = $(this);
+        setTimeout(function() {
+                cardflip.toggleClass('flipit', !cardflip.hasClass('flipit'));
+            }, 500*i);
+  
       });
-</script>
+  
+    });
+  </script>
+  
 
 
 <link rel="stylesheet" href="static/css/main.css" type="text/css" />
@@ -156,13 +168,22 @@
     <div class="deal-cards">
 
         <section class="cards"><!-- cards -->
+
           {% for card in hand %}
-              <div class="card-wrap {% if card in sugested_hand %} held {% endif %}">
+            <div class="card-wrap {% if card in sugested_hand %} held {% endif %}">
               <div class="indicator">Held</div>
-              <img src="static/cards/{{card}}.png" />
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <img src="static/cards/card-back.png" />
+                </div>
+                <div class="flip-card-back">
+                  <img src="static/cards/{{card}}.png" />
+                </div>
+              </div>
             </div>
-            {% endfor %}
-        </section><!-- cards END -->  
+          {% endfor %}
+
+        </section><!-- cards END -->
 
       <div class="text-over">YOU WIN $5!!!</div>
       <div class="win-extras">
