@@ -3,6 +3,7 @@ import os
 import django
 import uuid
 import string
+import pickle
 
 from datetime import timedelta
 
@@ -52,8 +53,14 @@ def home(request):
 
     deck_hash = (''.join([choice(string.ascii_letters + string.digits) for i in range(15)]) + \
                         ''.join([choice(string.digits) for i in range(10)])).upper()
-    player_cards_deck = Decks.objects.create(player=player, deck=cards_deck, deck_hash=deck_hash)
-    print('deck', deck_hash, player_cards_deck)
+
+    cards_deck_ = []
+    for card in cards_deck:
+        cards_deck_.append(card)
+
+    cards_deck_pickled = pickle.dumps(cards_deck_)
+    player_cards_deck = Decks.objects.create(player=player, deck=cards_deck_pickled, deck_hash=deck_hash)
+
 
     ###################################
     # XXX temporarily simulating credit
@@ -117,6 +124,7 @@ def reveal_deck(request, deck_hash):
     #player_wins = Wins.objects.get(deck=player_deck)
 
     tmp_cards_deck = Decks.objects.get(deck_hash=deck_hash)
+    tmp_cards_deck = pickle.loads(tmp_cards_deck)
 
     response = render(
         request=request,
