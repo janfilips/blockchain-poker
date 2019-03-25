@@ -103,5 +103,30 @@ def about(request):
 
     return response
 
-def reveal_deck(request, deck_id):
-    return HttpResponse("working on this currently", deck_id)
+def reveal_deck(request, deck_hash):
+
+
+    try:
+        player_session_key = request.COOKIES["player_session_key"]
+    except:
+        player_session_key = uuid.uuid4()
+
+    # XXX TODO reveal deck really shoul reveal player deck
+    # XXX TODO for now we display just the deck since we're not yet recoding wins
+    #player_deck = Decks.objects.get(deck_hash=deck_hash)
+    #player_wins = Wins.objects.get(deck=player_deck)
+
+    tmp_cards_deck = Decks.objects.get(deck_hash=deck_hash)
+
+    response = render(
+        request=request,
+        template_name='deck.html',
+        context={
+            'deck_hash': deck_hash,
+            'tmp_cards_deck': tmp_cards_deck,
+            'player_session_key': player_session_key,
+            },
+    )
+    response.set_cookie(key="player_session_key",value=player_session_key)
+
+    return response

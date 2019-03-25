@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Jacks or Better Poker</title>
+<script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/static/css/main.css" type="text/css" />
+</head>
+
+<body>
+
+  <div class="site-wrap about-page">
+    <header>
+      <h1>Cards Deck</h1>
+      <h2>{{deck_hash}}</h2>
+    </header>
+    <section>
+
+      Status: verified
+      <br/>
+      <br/>
+
+      <p>
+
+        {% for card in tmp_cards_deck.deck %}
+            {{forloop.counter}}<br/>
+            {{card}}
+        {% endfor %}
+
+        <br/>
+        <br/>
+        Shuffled: {{tmp_cards_deck.shuffled_at}}
+      </p>
+
+    </section>
+  
+  </div>
+
+</body>
+</html>
