@@ -189,7 +189,7 @@
 
         </section><!-- cards END -->
 
-      <div class="inser-coin">INSERT COIN</div>
+      <div class="inser-coin {% if credit == 0 %}show-inser{% endif %}">PLAY 5 CREDITS</div>
       <div class="text-over">YOU WIN $5!!!</div>
       <div class="win-extras">
         <img class="left" src="static/images/win-graphics-1.png" />
@@ -235,7 +235,13 @@
 
     <footer class="footer"><!-- footer -->
       <div class="combo-needed">jacks or better</div>
-      <a class="btn-action autoplay" href="#">Autoplay</a>
+      <a class="btn-action autoplay" href="#">
+        {% if credit == 0 %}
+          BUY CREDIT
+        {% else %}
+          Autoplay
+        {% endif %}
+      </a>
       <div class="min-bonus">MINI BONUS ${{mini_bonus|floatformat:2}}</div>
     </footer><!-- footer END -->
 
