@@ -12,6 +12,7 @@ class Players(models.Model):
 class Decks(models.Model):
     player = models.ForeignKey(Players, on_delete=models.CASCADE)
     deck_id = models.AutoField(primary_key=True)
+    deck_hash = models.CharField(max_length=128)
     deck = models.CharField(max_length=1024)
 
 class Wins(models.Model):
