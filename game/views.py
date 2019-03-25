@@ -124,7 +124,11 @@ def reveal_deck(request, deck_hash):
     #player_wins = Wins.objects.get(deck=player_deck)
 
     tmp_cards_deck = Decks.objects.get(deck_hash=deck_hash)
-    tmp_cards_deck = pickle.loads(tmp_cards_deck)
+
+    print('pica mrdka here', pickle.loads(tmp_cards_deck.deck_pickled))
+
+
+    #tmp_cards_deck = pickle.loads(tmp_cards_deck.deck_pickled)
 
     response = render(
         request=request,
