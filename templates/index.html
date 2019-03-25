@@ -24,6 +24,9 @@
       {% if evaluated_hand == "Nothing." %}
         var rowselector = 0;
       {% endif %}
+      {% if evaluated_hand == "One-pair." %}
+        var rowselector = 0;
+      {% endif %}
       {% if evaluated_hand == "Royal-flush." %}
         var rowselector = 1;
       {% endif %}
