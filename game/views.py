@@ -51,8 +51,8 @@ def home(request):
     # XXX TODO zistit ako presne funguje jackpot na mega moolah
 
     # XXX TODO generate deck hash
-    
-    player_cards_deck = Decks.objects.create(player=player, deck=cards_deck)
+    deck_hash = "XXX TODO"
+    player_cards_deck = Decks.objects.create(player=player, deck=cards_deck, deck_hash=deck_hash)
     print('deck', player_cards_deck)
 
     ###################################
@@ -103,5 +103,5 @@ def about(request):
 
     return response
 
-def deck(request, deck_id):
+def reveal_deck(request, deck_id):
     return HttpResponse("working on this currently", deck_id)
