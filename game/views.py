@@ -2,6 +2,7 @@
 import os
 import django
 import uuid
+import string
 
 from datetime import timedelta
 
@@ -17,7 +18,7 @@ logger = logging.getLogger(__name__)
 from utils.evalcards import deck, card
 
 from game.models import Players, Decks, Wins, Jackpot
-
+from random import choice
 
 def home(request):
 
@@ -48,12 +49,11 @@ def home(request):
     sugested_hand = deck().suggest_hand(player, hand, evaluated_hand, numeral_dict, suit_dict)
 
     # XXX TODO jackpot sa navysuje z kazdej prehranej hry
-    # XXX TODO zistit ako presne funguje jackpot na mega moolah
 
-    # XXX TODO generate deck hash
-    deck_hash = "XXX TODO"
+    deck_hash = (''.join([choice(string.ascii_letters + string.digits) for i in range(15)]) + \
+                        ''.join([choice(string.digits) for i in range(10)])).upper()
     player_cards_deck = Decks.objects.create(player=player, deck=cards_deck, deck_hash=deck_hash)
-    print('deck', player_cards_deck)
+    print('deck', deck_hash, player_cards_deck)
 
     ###################################
     # XXX temporarily simulating credit
