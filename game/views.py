@@ -59,7 +59,7 @@ def home(request):
         cards_deck_.append(card)
 
     cards_deck_pickled = pickle.dumps(cards_deck_)
-    player_cards_deck = Decks.objects.create(player=player, deck=cards_deck_pickled, deck_hash=deck_hash)
+    player_cards_deck = Decks.objects.create(player=player, deck_pickled=cards_deck_pickled, deck_hash=deck_hash)
 
 
     ###################################
