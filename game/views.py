@@ -50,6 +50,8 @@ def home(request):
     # XXX TODO jackpot sa navysuje z kazdej prehranej hry
     # XXX TODO zistit ako presne funguje jackpot na mega moolah
 
+    # XXX TODO generate deck hash
+    
     player_cards_deck = Decks.objects.create(player=player, deck=cards_deck)
     print('deck', player_cards_deck)
 
