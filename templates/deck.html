@@ -19,20 +19,57 @@
     </header>
     <section>
 
-      Status: verified
+      Status: <font color="green">verified</font>
       <br/>
       <br/>
 
       <p>
 
-        {% for card in tmp_cards_deck.deck %}
-            {{forloop.counter}}<br/>
-            {{card}}
+        {% for card in tmp_cards_deck %}
+            <img src="/static/cards/{{card}}.png" height="100">
         {% endfor %}
 
         <br/>
         <br/>
-        Shuffled: {{tmp_cards_deck.shuffled_at}}
+
+        <b>Winning Hand</b>
+        <br/>
+        <br/>
+        <img src="/static/cards/AH.png" height="100">
+        <img src="/static/cards/AH.png" height="100">
+        <img src="/static/cards/AH.png" height="100">
+        <img src="/static/cards/AH.png" height="100">
+        <img src="/static/cards/AH.png" height="100">
+        <br/>
+        <br/>
+
+        <b>Post-game</b>
+        <br/>
+        <br/>
+        Hand Evaluation: Flush
+        <br/>
+        Prize: $1,500
+        <br/>
+        <br/>
+
+
+        <b>Verification</b>
+        <br/>
+        <br/>
+        &#10003; Server Seed Hash Matches
+        <br/>
+        &#10003; Mersenne Twister Proves the Deck
+        <br/>
+        &#10003; Hand Evaluation is legitimate
+        <br/>
+        <br/>
+
+        Shuffled: {{deck_shuffled_at}}
+        <br/>
+        <br/>
+        Tx <a href="https://etherscan.io/tx/0xf02047baf2a06c17a9d96e10a8f14ab14715577a1d4e8c48fc495b43b20d1657">0xf02047baf2a06c17a9d96e10a8f14ab14715577a1d4e8c48fc495b43b20d1657</a>
+        <br/>
+
       </p>
 
     </section>

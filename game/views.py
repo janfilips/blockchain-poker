@@ -3,7 +3,6 @@ import os
 import django
 import uuid
 import string
-import pickle
 
 from datetime import timedelta
 
@@ -54,22 +53,27 @@ def home(request):
     deck_hash = (''.join([choice(string.ascii_letters + string.digits) for i in range(15)]) + \
                         ''.join([choice(string.digits) for i in range(10)])).upper()
 
-    cards_deck_ = []
+    cards_deck_ = ""
     for card in cards_deck:
-        cards_deck_.append(card)
+        cards_deck_ += str(card) + "|"
+    cards_deck = cards_deck_[:-1]
 
-    cards_deck_pickled = pickle.dumps(cards_deck_)
-    player_cards_deck = Decks.objects.create(player=player, deck_pickled=cards_deck_pickled, deck_hash=deck_hash)
+    player_cards_deck = Decks.objects.create(player=player, deck=cards_deck, deck_hash=deck_hash)
 
 
-    ###################################
+    ######################################################################
     # XXX temporarily simulating credit
     if(player.credit == 0):
         player.credit = 11
         player.save()
     player.credit -= 1
     player.save()
-    ###################################
+    ######################################################################
+
+    ######################################################################
+    # XXX delete this shit it's for debug purposes only ##################
+    DELETEME_TEMP_ONLY_DECKS = Decks.objects.all().order_by('-pk')
+    ######################################################################
 
     response = render(
         request=request,
@@ -84,6 +88,7 @@ def home(request):
             'suit_dict':suit_dict,
             'credit': player.credit,
             'mini_bonus': player.mini_bonus,
+            'DELETEME_TEMP_ONLY_DECKS': DELETEME_TEMP_ONLY_DECKS,
             },
     )
     response.set_cookie(key="player_session_key",value=player_session_key)
@@ -123,12 +128,9 @@ def reveal_deck(request, deck_hash):
     #player_deck = Decks.objects.get(deck_hash=deck_hash)
     #player_wins = Wins.objects.get(deck=player_deck)
 
-    tmp_cards_deck = Decks.objects.get(deck_hash=deck_hash)
-
-    print('pica mrdka here', pickle.loads(tmp_cards_deck.deck_pickled))
-
-
-    #tmp_cards_deck = pickle.loads(tmp_cards_deck.deck_pickled)
+    cards_deck = Decks.objects.get(deck_hash=deck_hash)
+    tmp_cards_deck = cards_deck.deck
+    tmp_cards_deck = tmp_cards_deck.split('|')
 
     response = render(
         request=request,
@@ -136,6 +138,7 @@ def reveal_deck(request, deck_hash):
         context={
             'deck_hash': deck_hash,
             'tmp_cards_deck': tmp_cards_deck,
+            'deck_shuffled_at': cards_deck.shuffled_at,
             'player_session_key': player_session_key,
             },
     )

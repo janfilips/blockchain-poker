@@ -14,7 +14,7 @@ class Decks(models.Model):
     player = models.ForeignKey(Players, on_delete=models.CASCADE)
     deck_id = models.AutoField(primary_key=True)
     deck_hash = models.CharField(max_length=25)
-    deck_pickled = models.CharField(max_length=2048)
+    deck = models.CharField(max_length=256)
     shuffled_at = models.DateTimeField(auto_now=True)
 
 class Wins(models.Model):
