@@ -61,19 +61,19 @@ def home(request):
     player_cards_deck = Decks.objects.create(player=player, deck=cards_deck, deck_hash=deck_hash)
 
 
-    ######################################################################
+    #########################################################################
     # XXX temporarily simulating credit
     if(player.credit == 0):
         player.credit = 11
         player.save()
     player.credit -= 1
     player.save()
-    ######################################################################
+    #########################################################################
 
-    ######################################################################
-    # XXX delete this shit it's for debug purposes only ##################
-    DELETEME_TEMP_ONLY_DECKS = Decks.objects.all().order_by('-pk')
-    ######################################################################
+    #########################################################################
+    # XXX delete this shit it's for debug purposes only #####################
+    DELETEME_TEMP_ONLY_DECKS = Decks.objects.all().order_by('-pk').limit(100)
+    #########################################################################
 
     response = render(
         request=request,
