@@ -69,6 +69,17 @@
   
       });
   
+      setTimeout(function(){
+      $('.preselect').css('opacity','1');
+      $('.preselect .indicator').css('opacity','1');
+      $('.preselect img').css('margin-top','-1rem');
+    }, 1300);
+
+     $('.type-list .points').on( "click", ".preselect", function() {
+       $('.type-list .points').removeClass('active');
+       $(this).toggleClass('active');
+     });
+
     });
   </script>
   
@@ -177,7 +188,7 @@
         <section class="cards"><!-- cards -->
 
           {% for card in hand %}
-            <div class="card-wrap {% if card in sugested_hand %} held {% endif %}">
+            <div class="card-wrap preselect {% if card in sugested_hand %} held {% endif %}">
               <div class="indicator">Held</div>
               <div class="flip-card-inner">
                 <div class="flip-card-front">
