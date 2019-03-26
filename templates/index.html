@@ -188,7 +188,7 @@
         <section class="cards"><!-- cards -->
 
           {% for card in hand %}
-            <div class="card-wrap preselect {% if card in sugested_hand %} held {% endif %}">
+            <div class="card-wrap {% if card in sugested_hand %} preselect {% endif %}"> <!-- on the second listing put simply "held" here not preselect -->
               <div class="indicator">Held</div>
               <div class="flip-card-inner">
                 <div class="flip-card-front">
