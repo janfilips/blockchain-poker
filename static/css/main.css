@@ -263,6 +263,7 @@ body {
 }
 .inser-coin.show-inser {
   display: block;
+  animation: blink-animation 1s steps(5, start) infinite;
 }
 .win-extras {
   display: none;
