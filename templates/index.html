@@ -255,9 +255,10 @@
       <table class="table-beets">
         <tr>
           <th>Created</th>
+          <th>User</th>
           <th>Deck Seed</th>
-          <th>Payment Transaction</th>
           <th>Hand</th>
+          <th>Result</th>
           <th>Bid</th>
           <th>Wins</th>
         </tr>
@@ -265,9 +266,10 @@
         {% for deck in DELETEME_TEMP_ONLY_DECKS %}
         <tr>
           <td>{{deck.shuffled_at|naturaltime}}</td>
+          <td><a href="#">7e08c3b0asa4aas1231saaaaa679</a></td>
           <td><a href="/deck/{{deck.deck_hash}}">{{deck.deck_hash}}</a></td>
-          <td><a href="#">{{0x7e08c3b0a679..debdsds121aasebb95ea70f0188b36a678|shrink_tx_string}}</a></td>
           <td class="card-list"><img src="static/cards/2C.png"><img src="static/cards/3C.png"><img src="static/cards/4C.png"><img src="static/cards/4C.png"><img src="static/cards/4C.png"></td>
+          <td>Royal flush</td>
           <td class="bidon">$1.00</td>
           <td>$30</td>
         </tr>
