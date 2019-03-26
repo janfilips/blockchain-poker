@@ -59,7 +59,7 @@ def home(request):
     cards_deck = cards_deck_[:-1]
 
     player_cards_deck = Decks.objects.create(player=player, deck=cards_deck, deck_hash=deck_hash)
-
+    print('player_cards_deck', player_cards_deck)
 
     #########################################################################
     # XXX temporarily simulating credit
