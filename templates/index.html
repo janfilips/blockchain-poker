@@ -1,3 +1,5 @@
+{% load humanize %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -251,8 +253,8 @@
     <div class="tablewrap"><!-- table beets -->
       <table class="table-beets">
         <tr>
-          <th></th>
-          <th>Deck</th>
+          <th>Created</th>
+          <th>Deck Seed</th>
           <th>Transaction</th>
           <th>Hand</th>
           <th>Bid</th>
@@ -261,9 +263,9 @@
 
         {% for deck in DELETEME_TEMP_ONLY_DECKS %}
         <tr>
-          <td>14 minutes ago</td>
+          <td>{{deck.shuffled_at|naturaltime}}</td>
           <td><a href="/deck/{{deck.deck_hash}}">{{deck.deck_hash}}</a></td>
-          <td><a href="#">0x7e08c3b0a67fcdcc78479...de09820c3abebb95ea70f0188b36a678</a></td>
+          <td><a href="#">0x7e08c3b0a679..debdsds121aasebb95ea70f0188b36a678</a></td>
           <td class="card-list"><img src="static/cards/2C.png"><img src="static/cards/3C.png"><img src="static/cards/4C.png"><img src="static/cards/4C.png"><img src="static/cards/4C.png"></td>
           <td class="bidon">$1.00</td>
           <td>$30</td>
