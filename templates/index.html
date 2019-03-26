@@ -1,4 +1,5 @@
 {% load humanize %}
+{% load poker_extras %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -265,7 +266,7 @@
         <tr>
           <td>{{deck.shuffled_at|naturaltime}}</td>
           <td><a href="/deck/{{deck.deck_hash}}">{{deck.deck_hash}}</a></td>
-          <td><a href="#">0x7e08c3b0a679..debdsds121aasebb95ea70f0188b36a678</a></td>
+          <td><a href="#">{{0x7e08c3b0a679..debdsds121aasebb95ea70f0188b36a678|shrink_tx_string}}</a></td>
           <td class="card-list"><img src="static/cards/2C.png"><img src="static/cards/3C.png"><img src="static/cards/4C.png"><img src="static/cards/4C.png"><img src="static/cards/4C.png"></td>
           <td class="bidon">$1.00</td>
           <td>$30</td>
