@@ -25,7 +25,7 @@ def home(request):
     try:
         player_session_key = request.COOKIES["player_session_key"]
     except:
-        player_session_key = uuid.uuid4()
+        player_session_key = (''.join([choice(string.ascii_letters + string.digits) for i in range(28)]))
 
     player, created = Players.objects.get_or_create(session_key=player_session_key)
     print('player', player, 'is_new', created)
@@ -50,7 +50,7 @@ def home(request):
 
     # XXX TODO jackpot sa navysuje z kazdej prehranej hry
 
-    deck_hash = (''.join([choice(string.ascii_letters + string.digits) for i in range(15)]) + \
+    deck_hash = (''.join([choice(string.ascii_letters + string.digits) for i in range(28)]) + \
                         ''.join([choice(string.digits) for i in range(10)])).upper()
 
     cards_deck_ = ""
@@ -101,7 +101,7 @@ def about(request):
     try:
         player_session_key = request.COOKIES["player_session_key"]
     except:
-        player_session_key = uuid.uuid4()
+        player_session_key = (''.join([choice(string.ascii_letters + string.digits) for i in range(28)]))
 
 
     response = render(
@@ -121,7 +121,7 @@ def reveal_deck(request, deck_hash):
     try:
         player_session_key = request.COOKIES["player_session_key"]
     except:
-        player_session_key = uuid.uuid4()
+        player_session_key = (''.join([choice(string.ascii_letters + string.digits) for i in range(28)]))
 
     # XXX TODO reveal deck really shoul reveal player deck
     # XXX TODO for now we display just the deck since we're not yet recoding wins
