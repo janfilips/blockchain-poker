@@ -229,26 +229,51 @@ body {
   display: inline-block;
   cursor: pointer;
   max-width: 16.8rem;
+  margin-top: 0;
 }
 .card-wrap .indicator {
   position: absolute;
-  display: none;
+  opacity: 0;
   width: 100%;
   top: 0;
   text-align: center;
   font-size: 2.3rem;
   color: #FFFF2D;
+  height: 2.6rem;
+  opacity: 0;
+  vertical-align: -1000rem;
   text-shadow: 3px 3px 0 rgba(0,0,0,0.7);
 }
 .card-wrap.held {
   opacity: 1;
 }
 .card-wrap.held .indicator {
-  display: block;
+  opacity: 1;
 }
 .card-wrap.held img {
   margin-top: -1rem;
 }
+
+/*-- preselect
+.card-wrap.preselect {
+  -webkit-transition: opacity 0.5s;
+  transition: opacity 0.5s;
+  transition-delay: 2s;
+  opacity: 1;
+}
+.card-wrap.preselect .indicator {
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+  transition-delay: 2s;
+  opacity: 1;
+}
+.card-wrap.preselect img {
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+  transition-delay: 2s;
+  margin-top: -1rem;
+}
+--*/
 
 .text-over, .inser-coin {
   font-size: 6.3rem;
@@ -260,10 +285,10 @@ body {
   top: 12rem;
   text-shadow: 3px 3px 0 rgba(0,0,0,0.7);
   display: none;
+  animation: blink-animation 1s steps(5, start) infinite;
 }
 .inser-coin.show-inser {
   display: block;
-  animation: blink-animation 1s steps(5, start) infinite;
 }
 .win-extras {
   display: none;
@@ -545,7 +570,7 @@ body {
   width: 100%;
   height: 100%;
   text-align: center;
-  transition: transform 0.4s;
+  transition: transform 0.6s;
   transform-style: preserve-3d;
   background: none;
 }
@@ -556,6 +581,12 @@ body {
   position: absolute;
   width: 100%;
   height: 100%;
+
+  color: white;
+  -webkit-perspective: 0;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform: translate3d(0,0,0);
+  visibility:visible;
   backface-visibility: hidden;
 }
 .flip-card-front {
