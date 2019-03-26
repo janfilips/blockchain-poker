@@ -72,7 +72,7 @@ def home(request):
 
     #########################################################################
     # XXX delete this shit it's for debug purposes only #####################
-    DELETEME_TEMP_ONLY_DECKS = Decks.objects.all().order_by('-pk').[:100]
+    DELETEME_TEMP_ONLY_DECKS = Decks.objects.all().order_by('-pk')[:100]
     #########################################################################
 
     response = render(
