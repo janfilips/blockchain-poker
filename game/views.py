@@ -166,3 +166,25 @@ def reveal_deck(request, deck_hash):
     response.set_cookie(key="player_session_key",value=player_session_key)
 
     return response
+
+def ajax_draw(request):
+    # XXX this thing will receive info about which cards to hold,
+    # XXX replaces the cards it's supposed to
+    # XXX returns the new cards, info about the actual new credit (including the win if there is any)
+
+    held_cards = request.POST.get('hold_cards')
+
+    xxx_credit = "xxx"
+    xxx_final_hand = "xxx"
+    xxx_evaluated_hand = "xxx"
+    xxx_contrats_you_won_flag = True
+
+    response = {
+        'credit': xxx_credit,
+        'final_hand': xxx_final_hand,
+        'evaluated_hand': xxx_evaluated_hand,
+        'congrats_you_won_flag': xxx_contrats_you_won_flag,
+    }
+
+    return HttpResponse("working on this currently")
+    #return JsonResponse({"result": "true"})
