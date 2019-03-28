@@ -186,5 +186,8 @@ def ajax_draw(request):
         'congrats_you_won_flag': xxx_contrats_you_won_flag,
     }
 
-    return HttpResponse("working on this currently")
+    return HttpResponse("xxx working on this currently")
     #return JsonResponse({"result": "true"})
+
+def ajax_swap_bet(request):
+    return HttpResponse("xxx working on this currently")
