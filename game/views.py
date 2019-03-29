@@ -15,7 +15,7 @@ django.setup()
 import logging
 logger = logging.getLogger(__name__)
 
-from utils.evalcards import deck, card
+from utils.evalcards import card, deck
 
 from game.models import Players, Decks, Wins, Jackpot
 from random import choice
@@ -30,14 +30,14 @@ def home(request):
     player, created = Players.objects.get_or_create(session_key=player_session_key)
     print('player', player, 'is_new', created)
 
+    hand = []
     cards_deck = deck()
 
-    # hand = []
     # card1 = card('2','S')
-    # card2 = card('4','S')
+    # card2 = card('Q','S')
     # card3 = card('J','S')
-    # card4 = card('6','S')
-    # card5 = card('2','D')
+    # card4 = card('K','S')
+    # card5 = card('A','D')
     # hand.insert(0, card1)
     # hand.insert(0, card2)
     # hand.insert(0, card3)

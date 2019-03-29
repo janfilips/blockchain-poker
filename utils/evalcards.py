@@ -131,11 +131,10 @@ class deck(set):
 
         if not sugested_hand:
             for card in hand:
+                if('K' in str(card)): sugested_hand.append(card)
                 if('J' in str(card)): sugested_hand.append(card)
                 if('Q' in str(card)): sugested_hand.append(card)
-                if('K' in str(card)): sugested_hand.append(card)
                 if('A' in str(card)): sugested_hand.append(card)
-
 
         # player mini-bonus
 
