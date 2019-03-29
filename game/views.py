@@ -72,7 +72,7 @@ def home(request):
 
     #########################################################################
     # XXX delete this shit it's for debug purposes only #####################
-    DELETEME_TEMP_ONLY_DECKS = Decks.objects.all().order_by('-pk')[:100]
+    XXX_DELETEME_TEMP_ONLY_DECKS = Decks.objects.all().order_by('-pk')[:100]
     #########################################################################
 
     response = render(
@@ -88,7 +88,7 @@ def home(request):
             'suit_dict':suit_dict,
             'credit': player.credit,
             'mini_bonus': player.mini_bonus,
-            'DELETEME_TEMP_ONLY_DECKS': DELETEME_TEMP_ONLY_DECKS,
+            'DELETEME_TEMP_ONLY_DECKS': XXX_DELETEME_TEMP_ONLY_DECKS,
             },
     )
     response.set_cookie(key="player_session_key",value=player_session_key)
