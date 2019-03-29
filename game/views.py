@@ -189,5 +189,5 @@ def ajax_draw(request):
     return HttpResponse("xxx working on this currently")
     #return JsonResponse({"result": "true"})
 
-def ajax_swap_bet(request):
+def ajax_swap_bet_amount(request):
     return HttpResponse("xxx working on this currently")
