@@ -1,7 +1,8 @@
+Nothing.
 One-pair.
 Jacks-or-better.
-Three-of-a-kind.
 Two-pair.
+Three-of-a-kind.
 Full-house.
 Four-of-a-kind.
 Straight.
