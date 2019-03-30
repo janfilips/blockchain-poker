@@ -14,7 +14,12 @@ from game.models import Players, Wins
 from random import choice
 
 if __name__ == '__main__':
+    
     players = Players.objects.all()
+
+    print('\nJacks or Better poker report\n')
+    print(len(players),'players in total played the game\n')
+
     for player in players:
         print(player)
-    print('hello world')
+
