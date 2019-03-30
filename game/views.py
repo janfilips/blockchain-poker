@@ -103,6 +103,8 @@ def about(request):
     except:
         player_session_key = (''.join([choice(string.ascii_letters + string.digits) for i in range(28)]))
 
+    player, created = Players.objects.get_or_create(session_key=player_session_key)
+    print('player', player, 'is_new', created)
 
     response = render(
         request=request,
@@ -123,6 +125,8 @@ def tos(request):
     except:
         player_session_key = (''.join([choice(string.ascii_letters + string.digits) for i in range(28)]))
 
+    player, created = Players.objects.get_or_create(session_key=player_session_key)
+    print('player', player, 'is_new', created)
 
     response = render(
         request=request,
@@ -138,11 +142,13 @@ def tos(request):
 
 def reveal_deck(request, deck_hash):
 
-
     try:
         player_session_key = request.COOKIES["player_session_key"]
     except:
         player_session_key = (''.join([choice(string.ascii_letters + string.digits) for i in range(28)]))
+
+    player, created = Players.objects.get_or_create(session_key=player_session_key)
+    print('player', player, 'is_new', created)
 
     # XXX TODO reveal deck really shoul reveal player deck
     # XXX TODO for now we display just the deck since we're not yet recoding wins
@@ -166,6 +172,29 @@ def reveal_deck(request, deck_hash):
     response.set_cookie(key="player_session_key",value=player_session_key)
 
     return response
+
+def credit(request):
+
+    try:
+        player_session_key = request.COOKIES["player_session_key"]
+    except:
+        player_session_key = (''.join([choice(string.ascii_letters + string.digits) for i in range(28)]))
+
+    player, created = Players.objects.get_or_create(session_key=player_session_key)
+    print('player', player, 'is_new', created)
+
+    response = render(
+        request=request,
+        template_name='credit.html',
+        context={
+            'credit': player.credit,
+            'player_session_key': player_session_key,
+            },
+    )
+    response.set_cookie(key="player_session_key",value=player_session_key)
+
+    return response
+
 
 def ajax_draw(request):
     # XXX this thing will receive info about which cards to hold,

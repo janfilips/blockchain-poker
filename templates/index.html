@@ -70,15 +70,13 @@
       });
   
       setTimeout(function(){
-      $('.preselect').css('opacity','1');
-      $('.preselect .indicator').css('opacity','1');
-      $('.preselect img').css('margin-top','-1rem');
-    }, 1300);
+        $('.preselect').addClass('held');
+      }, 1300);
 
-     $('.type-list .points').on( "click", ".preselect", function() {
-       $('.type-list .points').removeClass('active');
-       $(this).toggleClass('active');
-     });
+      $('.type-list .points').on( "click", ".preselect", function() {
+        $('.type-list .points').removeClass('active');
+        $(this).toggleClass('active');
+      });
 
     });
   </script>
