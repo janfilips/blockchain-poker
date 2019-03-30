@@ -28,3 +28,9 @@ class Jackpot(models.Model):
     mega_jackpot = models.FloatField(default=0)
     major_jackpot = models.FloatField(default=0)
     minor_jackpot = models.FloatField(default=0)
+
+class Logs(models.Model):
+    player = models.ForeignKey(Players, on_delete=models.CASCADE)
+    action = models.CharField(max_length=16)
+    text = models.CharField(max_length=1024)
+    created_at = models.DateTimeField(auto_now=True)
