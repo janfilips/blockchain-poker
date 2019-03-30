@@ -239,7 +239,7 @@
         <a class="coin btn-action" href="#"><span>$10</span></a>
         <a class="btn-action" href="#">Cancel</a>
         <a class="btn-action" href="#">Bet max</a>
-        <a class="btn-action deal-action" href="#">Deal</a>
+        <a class="btn-action deal-action" href="#">Draw</a>
       </div>
     </div><!-- actions END -->
 
@@ -247,13 +247,15 @@
 
     <footer class="footer"><!-- footer -->
       <div class="combo-needed">jacks or better</div>
-      <a class="btn-action autoplay" href="#">
         {% if credit == 0 %}
+        <a class="btn-action autoplay" href="/credit">
           <font color="white">BUY COINS</font>
+        </a>
         {% else %}
+        <a class="btn-action autoplay" href="#">
           Autoplay
+        </a>
         {% endif %}
-      </a>
       <div class="min-bonus">MINI BONUS ${{mini_bonus|floatformat:2}}</div>
     </footer><!-- footer END -->
 
