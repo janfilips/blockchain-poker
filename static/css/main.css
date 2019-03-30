@@ -560,6 +560,60 @@ body {
   padding-bottom: 1rem;
 }
 
+/*-- bay cards --*/
+.cards {
+  overflow: hidden;
+  padding-bottom: 2rem;
+}
+.bay-card {
+  float: left;
+  width: 23%;
+  padding: 2rem 1rem;
+  background: #162850;
+  box-sizing: border-box;
+  color: #fff;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  text-decoration: none;
+  position: relative;
+}
+.bay-card:hover {
+  background: #000;
+}
+.bay-card.price1 { color: #fff; }
+.bay-card.price2 { color: #FDF524; }
+.bay-card.price3 { color: #FF6700; }
+.bay-card.price4 { color: #FE0002; }
+
+.bay-card .price {
+  font-family: 'Bungee', cursive;
+  padding-bottom: 1rem;
+  display: block;
+}
+.bay-card .bonus {
+  display: block;
+  font-size: 1.3rem;
+}
+.bay-card .bonus {
+  color: #fff!important;
+}
+.bay-card .curency {
+  position: absolute;
+  width: 3rem;
+  height: 3rem;
+  right: 1rem;
+  top: 1rem;
+  font-size: 1.2rem;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0.3rem 0.3rem 1rem rgba(0, 0, 0, 0.3);
+  color: #FE0002;
+  font-family: 'Bungee', cursive;
+  border-radius: 100%;
+  line-height: 3rem;
+  text-align: center;
+}
+.bay-card:not(:last-child) {
+  margin-right: 2%;
+}
 
 /*-- about page --*/
 .deck-page {
