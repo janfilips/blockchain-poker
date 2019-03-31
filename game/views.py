@@ -64,9 +64,9 @@ def home(request):
     #########################################################################
     # XXX temporarily simulating credit
     if(player.credit == 0):
-        player.credit = 6
+        player.credit = 30
         player.save()
-    player.credit -= 1
+    player.credit -= 5
     player.save()
     #########################################################################
 
