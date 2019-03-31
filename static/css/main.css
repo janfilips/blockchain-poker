@@ -560,6 +560,34 @@ body {
   padding-bottom: 1rem;
 }
 
+
+/*-- about page - tmp desired look --*/
+.about-tmp {
+  max-width: 69rem;
+  background: #fff;
+  padding: 2rem;
+  margin-top: 3rem;
+}
+.about-tmp p {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-size: 1.6rem;
+  /* -- line-height: 2rem; -- */
+  line-height: 2px;
+  padding-bottom: 2rem;
+}
+.about-tmp h1 {
+  font-size: 3rem;
+  padding-bottom: 2rem;
+  color: #FF1F41;
+  text-shadow: 3px 3px 0 rgba(0,0,0,0.7);
+  -webkit-text-stroke: 1px #F3D040;
+}
+.about-tmp h2 {
+  color: #0134B4;
+  padding-bottom: 1rem;
+}
+
+
 /*-- bay cards --*/
 .cards {
   overflow: hidden;

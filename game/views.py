@@ -118,6 +118,16 @@ def about(request):
     return response
 
 
+def tmp_about_desired_look(request):
+
+    response = render(
+        request=request,
+        template_name='tmp_about_desired_look.html',
+    )
+
+    return response
+
+
 def tos(request):
 
     try:
