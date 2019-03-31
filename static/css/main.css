@@ -544,8 +544,7 @@ body {
 .about-page p {
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-size: 1.6rem;
-  /* -- line-height: 2rem; -- */
-  line-height: 2px;
+  line-height: 1.8rem;
   padding-bottom: 2rem;
 }
 .about-page h1 {
