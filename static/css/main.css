@@ -394,6 +394,23 @@ body {
   margin: -1.3rem 1rem -1.8rem;
   padding: 0.4rem;
 }
+.btn-action.btn-blink {
+  animation: blink-btn 1s steps(5, start) infinite;
+  -webkit-animation: blink-btn 1s steps(5, start) infinite;
+}
+@keyframes blink-btn {
+  to {
+    background: #000;
+    color: #FFE136;
+  }
+}
+@-webkit-keyframes blink-btn {
+  to {
+    visibility: #E2C625;
+    color: #000;
+  }
+}
+
 .btn-action.coin span {
   display: block;
   border: solid 2px #162850;
