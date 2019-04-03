@@ -34,6 +34,7 @@ def home(request):
     cards_deck = deck()
     starting_nonreduced_cards_deck = cards_deck.copy()
 
+    # Note: this would be an example how to work with cards individually
     # card1 = card('2','S')
     # card2 = card('Q','S')
     # card3 = card('J','S')
