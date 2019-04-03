@@ -32,6 +32,7 @@ def home(request):
 
     hand = []
     cards_deck = deck()
+    starting_nonreduced_cards_deck = cards_deck.copy()
 
     # card1 = card('2','S')
     # card2 = card('Q','S')
@@ -44,21 +45,21 @@ def home(request):
     # hand.insert(0, card4)
     # hand.insert(0, card5)
 
-    hand = deck().get_hand()
-    evaluated_hand, numeral_dict, suit_dict = deck().evaluate_hand(hand)
-    sugested_hand = deck().suggest_hand(player, hand, evaluated_hand, numeral_dict, suit_dict)
+    hand = cards_deck.get_hand()
+    evaluated_hand, numeral_dict, suit_dict = cards_deck.evaluate_hand(hand)
+    sugested_hand = cards_deck.suggest_hand(player, hand, evaluated_hand, numeral_dict, suit_dict)
 
     # XXX TODO jackpot sa navysuje z kazdej prehranej hry
 
     deck_hash = (''.join([choice(string.ascii_letters + string.digits) for i in range(28)]) + \
                         ''.join([choice(string.digits) for i in range(10)])).upper()
 
-    cards_deck_ = ""
-    for card in cards_deck:
-        cards_deck_ += str(card) + "|"
-    cards_deck = cards_deck_[:-1]
+    starting_nonreduced_cards_deck_ = ""
+    for card in starting_nonreduced_cards_deck:
+        starting_nonreduced_cards_deck_ += str(card) + "|"
+    starting_cards_deck = starting_nonreduced_cards_deck_[:-1]
 
-    player_cards_deck = Decks.objects.create(player=player, deck=cards_deck, deck_hash=deck_hash)
+    player_cards_deck = Decks.objects.create(player=player, deck=starting_cards_deck, deck_hash=deck_hash)
     print('player_cards_deck', player_cards_deck)
 
     #########################################################################

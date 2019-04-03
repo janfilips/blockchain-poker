@@ -23,10 +23,11 @@ class deck(set):
             self.add(card(numeral, suit))
 
     def get_card(self):
-
-        a_card = random.sample(self, 1)[0]
-        self.remove(a_card)
+        a_card = self.pop()
         return a_card
+
+    def get_deck(self):
+        return self
 
     def evaluate_hand(self, cards_list):
 
