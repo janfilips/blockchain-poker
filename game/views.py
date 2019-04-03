@@ -52,7 +52,7 @@ def home(request):
 
     # XXX TODO jackpot sa navysuje z kazdej prehranej hry
 
-    deck_hash = (''.join([choice(string.ascii_letters + string.digits) for i in range(15)]) + \
+    deck_hash = (''.join([choice(string.ascii_letters + string.digits) for i in range(25)]) + \
                         ''.join([choice(string.digits) for i in range(10)])).upper()
 
     starting_nonreduced_cards_deck_ = ""
