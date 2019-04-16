@@ -106,12 +106,12 @@ html {
   font-size: 62.5%;
 }
 body {
-  background: #0134B4;
-  font-family: 'Bungee', cursive;
-  font-size: 1.9rem;
+  background: #ffff2d;
+  font-family: 'sans-serif', cursive;
+  font-size: 2rem;
 }
 .site-wrap {
-  max-width: 960px;
+  max-width: 1460px;
   margin: 0 auto;
   padding-top: 1.5rem;
 }
@@ -137,33 +137,15 @@ body {
   box-sizing: border-box;
   padding: 1.3rem 1rem;
   color: #fff;
-  font-size: 1.8rem;
-}
-.main-head > div:not(:last-child) {
-  border-right: solid 2px #F9FC27;
-}
-.main-head > div span:first-child {
-  float: left;
-}
-.main-head > div span:last-child {
-  float: right;
-}
-.main-head .major {
-  color: #FDF524;
-}
-.main-head .minor {
-  color: #FF6700;
-}
-.main-head .mini {
-  color: #FE0002;
+  font-size: 3.5rem;
 }
 
 /*-- type list --*/
 .type-list {
-  background: #162850;
-  border: solid 2px #F9FC27;
+  background: #9838be;
+  border: solid 5px #ffffff;
   overflow: hidden;
-  color: #FDF524;
+  color: #ffffff;
   font-size: 1.8rem;
   margin-bottom: 1rem;
 }
@@ -172,7 +154,7 @@ body {
   width: 25%;
   box-sizing: border-box;
   padding: 1.5rem 0;
-  border-right: solid 2px #F9FC27;
+  border-right: solid 2px #ffffff;
 }
 .type-list .points:last-child {
   border: none;
@@ -189,7 +171,7 @@ body {
   padding: 0.4rem 2rem;
 }
 .type-list .active {
-  background: #FE0002;
+  background: rgb(32, 14, 116);
 }
 .type-list span.activeLine {
   background: #F9FC27;
@@ -417,7 +399,7 @@ body {
   background: #E2C625;
   box-shadow: inset 6px 6px 0 #FFE136, inset -6px -6px 0 #CAAE0D;
   border-radius: 100%;
-  padding: 1.5rem 1rem;
+  padding: 1rem 2rem;
 }
 .btn-action.coin:hover span {
   box-shadow: none;
@@ -451,174 +433,10 @@ body {
   display: block;
 }
 
-
-/*-- table list --*/
-.lists {
-  margin: 0 2rem 6rem;
-  overflow: hidden;
-}
-.lists .tablewrap {
-  width: 100%;
-  max-width: 120rem;
-  margin: 0 auto;
-}
-.lists .tablewrap h3 {
-  text-align: center;
-  padding-bottom: 2rem;
-  font-size: 2rem;
-  font-weight: bold;
-}
-.lists .tablewrap h3::before {
-  content: '';
-  margin-right: 1rem;
-  width: 3.4rem;
-  height: 3rem;
-  display: inline-block;
-  background: url(../images/crown.svg) no-repeat;
-  background-size: cover;
-  margin-bottom: -0.5rem;
-}
-.lists table {
-  margin-bottom: 2rem;
-  border: solid 1px #F9FC27;
-  background: #162850;
-  width: 100%;
-}
-.lists table tr {
-  border-bottom: solid 1px #F9FC27;
-}
-
-.lists table th {
-   padding: 2rem 1rem;
-   color: #FDF524;
-}
-.lists table td {
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  padding: 2rem 1rem;
-  color: #fff;
-}
-.lists table td {
-  font-size: 1.4rem;
-  vertical-align: middle;
-}
-.lists table a {
-  color: #fff;
-  text-decoration: none;
-}
-.lists table a:hover {
-  color: #F9FC27;
-}
-.lists table .name {
-  display: block;
-  font-size: 2.3rem;
-  color: #333;
-  font-weight: 700;
-  padding-bottom: 0.5rem;
-}
-.lists table .time {
-  display: block;
-  color: #666;
-  padding: 0.5rem 0 0.2rem;
-}
-.lists table tr td:last-child, .lists table.table-winners tr td:nth-child(2) {
-  font-size: 1.9rem;
-  color: #999;
-  font-weight: 700;
-  text-align: center;
-  vertical-align: middle;
-}
-.lists table th {
-  font-weight: 500;
-  text-align: left;
-  padding: 1.6rem 1rem;
-}
-.lists table th:last-child, .lists table.table-winners th:nth-child(2) {
-  text-align: center;
-}
-.lists .card-list {
-  padding: 0 1rem;
-}
-.lists .card-list img {
-  display: block;
-  float: left;
-  max-width: 2rem;
-}
-.lists .card-list img:not(:last-child) {
-  margin-right: 1rem;
-}
-.lists .bidon {
-  font-weight: bold;
-  font-size: 1.6rem;
-}
-
-/*-- about page --*/
-.about-page {
-  max-width: 69rem;
-  background: #fff;
-  padding: 2rem;
-  margin-top: 3rem;
-}
-.about-page p {
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  font-size: 1.6rem;
-  line-height: 1.8rem;
-  padding-bottom: 2rem;
-}
-.about-page h1 {
-  font-size: 3rem;
-  padding-bottom: 2rem;
-  color: #FF1F41;
-  text-shadow: 3px 3px 0 rgba(0,0,0,0.7);
-  -webkit-text-stroke: 1px #F3D040;
-}
-.about-page h2 {
-  color: #0134B4;
-  padding-bottom: 1rem;
-}
-
-
-/*-- about page - tmp desired look --*/
-.about-tmp {
-  max-width: 69rem;
-  background: #fff;
-  padding: 2rem;
-  margin-top: 3rem;
-}
-.about-tmp p {
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  font-size: 1.6rem;
-  /* -- line-height: 2rem; -- */
-  line-height: 2px;
-  padding-bottom: 2rem;
-}
-.about-tmp h1 {
-  font-size: 3rem;
-  padding-bottom: 2rem;
-  color: #FF1F41;
-  text-shadow: 3px 3px 0 rgba(0,0,0,0.7);
-  -webkit-text-stroke: 1px #F3D040;
-}
-.about-tmp h2 {
-  color: #0134B4;
-  padding-bottom: 1rem;
-}
-
-
 /*-- bay cards --*/
 .cards {
-  overflow: hidden;
-  padding-bottom: 2rem;
 }
 .bay-card {
-  float: left;
-  width: 23%;
-  padding: 2rem 1rem;
-  background: #162850;
-  box-sizing: border-box;
-  color: #fff;
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  text-decoration: none;
-  position: relative;
 }
 .bay-card:hover {
   background: #000;
@@ -629,117 +447,16 @@ body {
 .bay-card.price4 { color: #FE0002; }
 
 .bay-card .price {
-  font-family: 'Bungee', cursive;
-  padding-bottom: 1rem;
-  display: block;
 }
 .bay-card .bonus {
-  display: block;
-  font-size: 1.3rem;
 }
 .bay-card .bonus {
-  color: #fff!important;
 }
 .bay-card .curency {
-  position: absolute;
-  width: 3rem;
-  height: 3rem;
-  right: 1rem;
-  top: 1rem;
-  font-size: 1.2rem;
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0.3rem 0.3rem 1rem rgba(0, 0, 0, 0.3);
-  color: #FE0002;
-  font-family: 'Bungee', cursive;
-  border-radius: 100%;
-  line-height: 3rem;
-  text-align: center;
 }
 .bay-card:not(:last-child) {
   margin-right: 2%;
 }
-
-/*-- deck page --*/
-.deck-page {
-  max-width: 69rem;
-  background: #fff;
-  padding: 2rem;
-  margin-top: 3rem;
-}
-.deck-page p {
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  font-size: 1.6rem;
-  line-height: 2rem;
-  padding-bottom: 2rem;
-}
-.deck-page h1 {
-  font-size: 3rem;
-  padding-bottom: 2rem;
-  color: #FF1F41;
-  text-shadow: 3px 3px 0 rgba(0,0,0,0.7);
-  -webkit-text-stroke: 1px #F3D040;
-}
-.deck-page h2 {
-  color: #0134B4;
-  padding-bottom: 1rem;
-}
-
-
-/*-- tos page --*/
-.tos-page {
-  max-width: 69rem;
-  background: #fff;
-  padding: 2rem;
-  margin-top: 3rem;
-}
-.tos-page p {
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  font-size: 1.6rem;
-  line-height: 2rem;
-  padding-bottom: 2rem;
-}
-.tos-page h1 {
-  font-size: 3rem;
-  padding-bottom: 2rem;
-  color: #FF1F41;
-  text-shadow: 3px 3px 0 rgba(0,0,0,0.7);
-  -webkit-text-stroke: 1px #F3D040;
-}
-.tos-page h2 {
-  color: #0134B4;
-  padding-bottom: 1rem;
-}
-
-
-/*-- credit page --*/
-.credit-page {
-  max-width: 69rem;
-  background: #fff;
-  padding: 2rem;
-  margin-top: 3rem;
-}
-.credit-page p {
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  font-size: 1.6rem;
-  line-height: 2rem;
-  padding-bottom: 2rem;
-}
-.credit-page h1 {
-  font-size: 3rem;
-  padding-bottom: 2rem;
-  color: #FF1F41;
-  text-shadow: 3px 3px 0 rgba(0,0,0,0.7);
-  -webkit-text-stroke: 1px #F3D040;
-}
-.credit-page h2 {
-  color: #0134B4;
-  padding-bottom: 1rem;
-}
-
-
-
-
-
 
 /*-- flip card  --*/
 .card-wrap {
@@ -747,26 +464,16 @@ body {
   perspective: 1000px;
 }
 .flip-card-inner {
-  position: relative;
   width: 100%;
   height: 100%;
-  text-align: center;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
-  background: none;
 }
 .card-wrap.flipit .flip-card-inner {
-  transform: rotateY(180deg);
 }
 .flip-card-front, .flip-card-back {
   position: absolute;
   width: 100%;
   height: 100%;
-
   color: white;
-  -webkit-perspective: 0;
-  -webkit-backface-visibility: hidden;
-  -webkit-transform: translate3d(0,0,0);
   visibility:visible;
   backface-visibility: hidden;
 }
@@ -776,6 +483,5 @@ body {
 }
 .flip-card-back {
   color: white;
-  transform: rotateY(180deg);
   z-index: 1;
 }
