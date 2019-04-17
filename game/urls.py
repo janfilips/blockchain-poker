@@ -7,6 +7,8 @@ from django.urls import path
 from game.views import home, about, tos, credit
 from game.views import reveal_deck
 
+from game.views import ajax_bet
+
 from game.views import tmp_about_desired_look
 
 urlpatterns = [
@@ -18,5 +20,5 @@ urlpatterns = [
     url(r'^tos$', tos, name='tos'),
     url(r'^credit$', credit, name='credit'),
     # ajax
-    #url(r'^ajax/bet$', ajax_bet, name='ajax_bet'),
+    url(r'^ajax/bet$', ajax_bet, name='ajax_bet'),
 ]

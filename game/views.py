@@ -207,6 +207,16 @@ def credit(request):
 
     return response
 
+def ajax_bet(request):
+
+    set_new_bet_amount = request.POST['bet_amount']
+    player_session_key = request.POST['player_session_key']
+
+    player, created = Players.objects.get_or_create(session_key=player_session_key)
+    print('player', player, 'is_new', created)
+
+
+    return HttpResponse(10)
 
 def ajax_draw(request):
     # XXX this thing will receive info about which cards to hold,
