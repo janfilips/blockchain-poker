@@ -89,6 +89,7 @@ def home(request):
             'numeral_dict': numeral_dict,
             'suit_dict':suit_dict,
             'credit': player.credit,
+            'bet_amount': player.bet_amount,
             'mini_bonus': player.mini_bonus,
             'DELETEME_TEMP_ONLY_DECKS': XXX_DELETEME_TEMP_ONLY_DECKS,
             },
@@ -209,14 +210,17 @@ def credit(request):
 
 def ajax_bet(request):
 
-    set_new_bet_amount = request.POST['bet_amount']
+    bet_amount = request.POST['bet_amount']
     player_session_key = request.POST['player_session_key']
 
     player, created = Players.objects.get_or_create(session_key=player_session_key)
-    print('player', player, 'is_new', created)
+    player.bet_amount = int(bet_amount)
+    player.save()
 
+    print('player', player, 'bet_amount', bet_amount)
 
-    return HttpResponse(10)
+    return HttpResponse(bet_amount)
+
 
 def ajax_draw(request):
     # XXX this thing will receive info about which cards to hold,
