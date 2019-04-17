@@ -14,11 +14,11 @@
 
 <script>
     $( document ).ready(function() {
-  
+
       $('.card-wrap').click(function() {
         $(this).toggleClass('held');
       });
-  
+
       $('.type-list .points').click(function() {
         $('.type-list .points').removeClass('active');
         $(this).toggleClass('active');
@@ -60,15 +60,15 @@
 
       $('.type-list .points span:nth-child(' + rowselector + ')').addClass( "activeLine" );
       $('.type-list .combination span:nth-child(' + rowselector + ')').addClass( "activeLine" );
-  
+
       $('.card-wrap').each(function(i){
       var cardflip = $(this);
         setTimeout(function() {
                 cardflip.toggleClass('flipit', !cardflip.hasClass('flipit'));
             }, 200*i);
-  
+
       });
-  
+
       setTimeout(function(){
         $('.preselect').addClass('held');
       }, 1300);
@@ -80,10 +80,10 @@
 
     });
   </script>
-  
 
 
-<link rel="stylesheet" href="static/css/main-s.css" type="text/css" />
+
+<link rel="stylesheet" href="static/css/main.css" type="text/css" />
 </head>
 
 <body>
