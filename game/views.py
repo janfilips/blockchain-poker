@@ -221,7 +221,7 @@ def ajax_bet(request):
     return HttpResponse(bet_amount)
 
 
-def ajax_draw(request):
+def ajax_draw_cards(request):
     
     hold_cards = request.POST.get('hold_cards')
     player_session_key = request.POST['player_session_key']
