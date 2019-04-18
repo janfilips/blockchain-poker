@@ -98,8 +98,11 @@
           type: "POST",
           url: '/ajax/bet/',
           headers: {
-              'X-CSRFToken': csrf_token,
-              'X-session-key': session_key
+              'X-CSRFToken': csrf_token
+          },
+          data: {
+            player_session_key: session_key,
+            bet_amount: 1
           },
           success: function (response) {
             console.log("data sent");

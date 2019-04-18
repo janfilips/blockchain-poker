@@ -210,6 +210,8 @@ def credit(request):
 
 def ajax_bet(request):
 
+    print(request.POST)
+
     bet_amount = request.POST['bet_amount']
     player_session_key = request.POST['player_session_key']
 
