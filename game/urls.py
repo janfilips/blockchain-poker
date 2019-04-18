@@ -20,5 +20,5 @@ urlpatterns = [
     url(r'^tos$', tos, name='tos'),
     url(r'^credit$', credit, name='credit'),
     # ajax
-    url(r'^ajax/bet_amount/$', ajax_bet, name='ajax_bet'),
+    url(r'^ajax/change/bet/$', ajax_bet, name='ajax_bet'),
 ]
