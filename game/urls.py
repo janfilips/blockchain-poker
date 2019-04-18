@@ -7,7 +7,7 @@ from django.urls import path
 from game.views import home, about, tos, credit
 from game.views import reveal_deck
 
-from game.views import ajax_bet
+from game.views import ajax_bet, ajax_draw_cards
 
 from game.views import tmp_about_desired_look
 
