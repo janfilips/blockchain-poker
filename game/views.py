@@ -82,12 +82,9 @@ def home(request):
         template_name='index.html',
         context={
             'player_session_key': player_session_key,
-            'deck': cards_deck,
             'hand': hand,
             'evaluated_hand': evaluated_hand,
             'sugested_hand': sugested_hand,
-            'numeral_dict': numeral_dict,
-            'suit_dict':suit_dict,
             'credit': player.credit,
             'bet_amount': player.bet_amount,
             'mini_bonus': player.mini_bonus,
@@ -215,7 +212,7 @@ def ajax_bet(request):
     bet_amount = request.POST['bet_amount']
     player_session_key = request.POST['player_session_key']
 
-    player, created = Players.objects.get_or_create(session_key=player_session_key)
+    player, created = Players.objects.get(session_key=player_session_key)
     player.bet_amount = int(bet_amount)
     player.save()
 
@@ -227,6 +224,11 @@ def ajax_bet(request):
 def ajax_draw(request):
     
     hold_cards = request.POST.get('hold_cards')
+    player_session_key = request.POST['player_session_key']
+
+    player, created = Players.objects.get(session_key=player_session_key)
+
+    # xxx get the latest deck from game_decks for the player
 
     response = {
         'credit': "xxx_credit",
