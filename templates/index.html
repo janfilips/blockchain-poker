@@ -81,26 +81,31 @@
       }, 1300);
 
 
-  /*    $('.type-list .points').on( "click", ".preselect", function() {
-
+  /*  $('.type-list .points').on( "click", ".preselect", function() {
         console.log("Hello world!");
         $('.type-list .points').removeClass('active');
         $(this).toggleClass('active');
-
-
       });
       */
+
 
   function sendDataAjax() {
       $.ajax({
           type: "POST",
-          url: '/ajax/bet/',
+          url: '/ajax/bet_amount/',
           headers: {
               'X-CSRFToken': csrf_token
           },
           data: {
             player_session_key: session_key,
-            bet_amount: 1
+            bet_amount: 5
+            /* 
+              We have a problem.
+              One should be able to change the bet only when the game finishes - after you draw cards.
+              So I don't know - maybe when you change the bet we need to finish the round (draw the cards)
+              and only then change the bet amount?
+              Shit...  :-/
+            */
           },
           success: function (response) {
             console.log("data sent");
@@ -109,11 +114,11 @@
             console.log("error!!!");
           }
       });
+      location.reload();
     }
   });
 
   </script>
-
 
 
 <link rel="stylesheet" href="static/css/main.css" type="text/css" />
