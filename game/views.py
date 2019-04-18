@@ -27,8 +27,8 @@ def home(request):
     except:
         player_session_key = (''.join([choice(string.ascii_letters + string.digits) for i in range(28)]))
 
-    player = Players.objects.get_or_create(session_key=player_session_key)
-    print('player', player)
+    player, created = Players.objects.get_or_create(session_key=player_session_key)
+    print('player', player, 'is_new', created)
 
     hand = []
     cards_deck = deck()
@@ -103,8 +103,8 @@ def about(request):
     except:
         player_session_key = (''.join([choice(string.ascii_letters + string.digits) for i in range(28)]))
 
-    player = Players.objects.get_or_create(session_key=player_session_key)
-    print('player', player)
+    player, created = Players.objects.get_or_create(session_key=player_session_key)
+    print('player', player, 'is_new', created)
 
     response = render(
         request=request,
@@ -135,8 +135,8 @@ def tos(request):
     except:
         player_session_key = (''.join([choice(string.ascii_letters + string.digits) for i in range(28)]))
 
-    player = Players.objects.get_or_create(session_key=player_session_key)
-    print('player', player, 'is_new')
+    player, created = Players.objects.get_or_create(session_key=player_session_key)
+    print('player', player, 'is_new', created)
 
     response = render(
         request=request,
@@ -157,8 +157,8 @@ def reveal_deck(request, deck_hash):
     except:
         player_session_key = (''.join([choice(string.ascii_letters + string.digits) for i in range(28)]))
 
-    player = Players.objects.get_or_create(session_key=player_session_key)
-    print('player', player)
+    player, created = Players.objects.get_or_create(session_key=player_session_key)
+    print('player', player, 'is_new', created)
 
     # XXX TODO reveal deck really shoul reveal player deck
     # XXX TODO for now we display just the deck since we're not yet recoding wins
@@ -190,8 +190,8 @@ def credit(request):
     except:
         player_session_key = (''.join([choice(string.ascii_letters + string.digits) for i in range(28)]))
 
-    player = Players.objects.get_or_create(session_key=player_session_key)
-    print('player', player)
+    player, created = Players.objects.get_or_create(session_key=player_session_key)
+    print('player', player, 'is_new', created)
 
     response = render(
         request=request,
