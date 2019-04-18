@@ -13,11 +13,10 @@
   crossorigin="anonymous">
 </script>
 
-igor_csrf_token = {{csrf_token}}
-
-igor_here_is_the_session_key = {{player_session_key}}
-
-
+<script>
+	var csrf_token = "{{csrf_token}}"
+	var session_key = "{{player_session_key}}"
+</script>
 <script>
     $( document ).ready(function() {
 
@@ -28,7 +27,9 @@ igor_here_is_the_session_key = {{player_session_key}}
       $('.type-list .points').click(function() {
         $('.type-list .points').removeClass('active');
         $(this).toggleClass('active');
+        sendDataAjax();
       });
+
 
       {% if evaluated_hand == "Nothing." %}
         var rowselector = 0;
@@ -79,12 +80,37 @@ igor_here_is_the_session_key = {{player_session_key}}
         $('.preselect').addClass('held');
       }, 1300);
 
-      $('.type-list .points').on( "click", ".preselect", function() {
+
+  /*    $('.type-list .points').on( "click", ".preselect", function() {
+
+        console.log("Hello world!");
         $('.type-list .points').removeClass('active');
         $(this).toggleClass('active');
-      });
 
-    });
+
+      });
+      */
+
+
+
+  function sendDataAjax() {
+      $.ajax({
+          type: "POST",
+          url: '/ajax/bet/',
+          headers: {
+              'X-CSRFToken': csrf_token,
+              'X-session-key': session_key
+          },
+          success: function (response) {
+            console.log("data sent");
+          },
+          error: function () {
+            console.log("error!!!");
+          }
+      });
+    }
+  });
+
   </script>
 
 
@@ -93,6 +119,7 @@ igor_here_is_the_session_key = {{player_session_key}}
 </head>
 
 <body>
+
 
   <div class="site-wrap">
 
