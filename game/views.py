@@ -27,8 +27,8 @@ def home(request):
     except:
         player_session_key = (''.join([choice(string.ascii_letters + string.digits) for i in range(28)]))
 
-    player, created = Players.objects.get_or_create(session_key=player_session_key)
-    print('player', player, 'is_new', created)
+    player = Players.objects.get_or_create(session_key=player_session_key)
+    print('player', player)
 
     hand = []
     cards_deck = deck()
@@ -103,8 +103,8 @@ def about(request):
     except:
         player_session_key = (''.join([choice(string.ascii_letters + string.digits) for i in range(28)]))
 
-    player, created = Players.objects.get_or_create(session_key=player_session_key)
-    print('player', player, 'is_new', created)
+    player = Players.objects.get_or_create(session_key=player_session_key)
+    print('player', player)
 
     response = render(
         request=request,
@@ -135,8 +135,8 @@ def tos(request):
     except:
         player_session_key = (''.join([choice(string.ascii_letters + string.digits) for i in range(28)]))
 
-    player, created = Players.objects.get_or_create(session_key=player_session_key)
-    print('player', player, 'is_new', created)
+    player = Players.objects.get_or_create(session_key=player_session_key)
+    print('player', player, 'is_new')
 
     response = render(
         request=request,
@@ -157,8 +157,8 @@ def reveal_deck(request, deck_hash):
     except:
         player_session_key = (''.join([choice(string.ascii_letters + string.digits) for i in range(28)]))
 
-    player, created = Players.objects.get_or_create(session_key=player_session_key)
-    print('player', player, 'is_new', created)
+    player = Players.objects.get_or_create(session_key=player_session_key)
+    print('player', player)
 
     # XXX TODO reveal deck really shoul reveal player deck
     # XXX TODO for now we display just the deck since we're not yet recoding wins
@@ -190,8 +190,8 @@ def credit(request):
     except:
         player_session_key = (''.join([choice(string.ascii_letters + string.digits) for i in range(28)]))
 
-    player, created = Players.objects.get_or_create(session_key=player_session_key)
-    print('player', player, 'is_new', created)
+    player = Players.objects.get_or_create(session_key=player_session_key)
+    print('player', player)
 
     response = render(
         request=request,
@@ -212,7 +212,7 @@ def ajax_bet(request):
     bet_amount = request.POST['bet_amount']
     player_session_key = request.POST['player_session_key']
 
-    player, created = Players.objects.get(session_key=player_session_key)
+    player = Players.objects.get(session_key=player_session_key)
     player.bet_amount = int(bet_amount)
     player.save()
 
@@ -226,7 +226,7 @@ def ajax_draw_cards(request):
     hold_cards = request.POST.get('hold_cards')
     player_session_key = request.POST['player_session_key']
 
-    player, created = Players.objects.get(session_key=player_session_key)
+    player = Players.objects.get(session_key=player_session_key)
 
     # xxx get the latest deck from game_decks for the player
 
