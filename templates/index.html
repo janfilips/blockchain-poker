@@ -24,11 +24,93 @@
         $(this).toggleClass('held');
       });
 
+      // function for table
+
       $('.type-list .points').click(function() {
         $('.type-list .points').removeClass('active');
         $(this).toggleClass('active');
-        sendDataAjax();
+        var bet_amount = $(this).find('span:last-child').html();
+            bet_amount = bet_amount.split('$');
+            bet_amount = bet_amount[1];
+        $.ajax({
+            type: "POST",
+            url: '/ajax/change/bet/',
+            headers: {
+                'X-CSRFToken': csrf_token
+            },
+            data: {
+              player_session_key: session_key,
+              bet_amount: bet_amount
+              /*
+                We have a problem.
+                One should be able to change the bet only when the game finishes - after you draw cards.
+                Meaning, when you change the bet, we need to do the Draw first and only then change the bet...
+                Shit...  :-/
+              */
+            },
+            success: function (response) {
+              console.log("data sent");
+            },
+            error: function () {
+              console.log("error!!!");
+            }
+        });
       });
+
+
+      // function for draw
+
+        $(".deal-action").click(function(){
+          var data=new Array()
+          $(".cards .card-wrap").each(function(i){
+            data[i]=null
+            if($(this).hasClass("held")){
+              var cname=$(this).find(".flip-card-back img").attr("src")
+              var pth=cname.split("/")
+              pth=pth[pth.length-1]
+              data[i]=(pth.split(".")[0])
+            }
+          })
+          $.ajax({
+              type: "POST",
+              url: '/ajax/draw/cards/',
+              headers: {
+                  'X-CSRFToken': csrf_token
+              },
+              data: {
+                player_session_key: session_key,
+                cardData:data,
+                /*
+                  We have a problem.
+                  One should be able to change the bet only when the game finishes - after you draw cards.
+                  Meaning, when you change the bet, we need to do the Draw first and only then change the bet...
+                  Shit...  :-/
+                */
+              },
+              success: function (response) {
+                var obj = jQuery.parseJSON( response );
+
+                jQuery('.deal-cards .cards .card-wrap').each(function(index){
+                  console.log(obj);
+                  if(!jQuery(this).hasClass('held')){
+                    var car_to_swich = "static/cards/"+obj.final_hand[index]+".png";
+                    jQuery(this).removeClass('flipit');
+                    jQuery(this).find('img').attr('src', car_to_swich);
+                    jQuery('.flip-card-inner').on('transitionend webkitTransitionEnd oTransitionEnd', function () {
+                        jQuery('.card-wrap').removeClass('held');
+                    });
+                    jQuery('.credit').html('Credit $'+obj.credit);
+                    if(obj.congrats_you_won_flag){
+                      jQuery('.deal-cards').addClass('player-win');
+                    }
+                  }
+                })
+              },
+              error: function () {
+                console.log("error!!!");
+              }
+          });
+        })
 
 
       {% if evaluated_hand == "Nothing." %}
@@ -73,87 +155,11 @@
         setTimeout(function() {
                 cardflip.toggleClass('flipit', !cardflip.hasClass('flipit'));
             }, 200*i);
-
       });
 
       setTimeout(function(){
         $('.preselect').addClass('held');
       }, 1300);
-
-
-  /*  $('.type-list .points').on( "click", ".preselect", function() {
-        console.log("Hello world!");
-        $('.type-list .points').removeClass('active');
-        $(this).toggleClass('active');
-      });
-      */
-
-
-  function sendDataAjax() {
-      $.ajax({
-          type: "POST",
-          url: '/ajax/change/bet/',
-          headers: {
-              'X-CSRFToken': csrf_token
-          },
-          data: {
-            player_session_key: session_key,
-            bet_amount: 5
-            /*
-              We have a problem.
-              One should be able to change the bet only when the game finishes - after you draw cards.
-              Meaning, when you change the bet, we need to do the Draw first and only then change the bet...
-              Shit...  :-/
-            */
-          },
-          success: function (response) {
-            console.log("data sent");
-          },
-          error: function () {
-            console.log("error!!!");
-          }
-      });
-      location.reload(forceGet=true);
-    }
-
-
-
-  $(".deal-action").click(function(){
-    var data=new Array()
-    $(".cards .card-wrap").each(function(i){
-      data[i]=null
-      if($(this).hasClass("held")){
-        var cname=$(this).find(".flip-card-back img").attr("src")
-        var pth=cname.split("/")
-        pth=pth[pth.length-1]
-        data[i]=(pth.split(".")[0])
-      }
-    })
-    $.ajax({
-        type: "POST",
-        url: '/ajax/draw/cards/',
-        headers: {
-            'X-CSRFToken': csrf_token
-        },
-        data: {
-          player_session_key: session_key,
-          bet_amount: 5,
-          cardData:data,
-          /*
-            We have a problem.
-            One should be able to change the bet only when the game finishes - after you draw cards.
-            Meaning, when you change the bet, we need to do the Draw first and only then change the bet...
-            Shit...  :-/
-          */
-        },
-        success: function (response) {
-          console.log("data sent");
-        },
-        error: function () {
-          console.log("error!!!");
-        }
-    });
-  })
 
 
     });
