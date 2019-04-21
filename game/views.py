@@ -66,7 +66,7 @@ def home(request):
 
     #########################################################################
     # XXX temporarily simulating credit
-    if(player.credit == 0):
+    if(player.credit <= 0):
         player.credit = 30
         player.save()
     player.credit -= 5
@@ -259,6 +259,8 @@ def ajax_draw_cards(request):
 
     for c in final_hand_:
         final_hand.append(str(c))
+
+    final_hand.reverse()
 
     print('final_hand', final_hand)
 
