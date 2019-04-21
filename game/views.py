@@ -276,4 +276,6 @@ def ajax_draw_cards(request):
 
     print('response', response)
 
-    return JsonResponse(response)
+    #return JsonResponse(response, safe=True)
+    import json
+    return HttpResponse(json.dumps(response).replace('"','"'))
