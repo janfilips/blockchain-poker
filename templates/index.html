@@ -61,14 +61,14 @@
       // function for draw
 
         $(".deal-action").click(function(){
-          var data=new Array()
+          var hand=new Array()
           $(".cards .card-wrap").each(function(i){
-            data[i]=null
+            hand[i]=null
             if($(this).hasClass("held")){
               var cname=$(this).find(".flip-card-back img").attr("src")
               var pth=cname.split("/")
               pth=pth[pth.length-1]
-              data[i]=(pth.split(".")[0])
+              hand[i]=(pth.split(".")[0])
             }
           })
           $.ajax({
@@ -79,13 +79,7 @@
               },
               data: {
                 player_session_key: session_key,
-                cardData:data,
-                /*
-                  We have a problem.
-                  One should be able to change the bet only when the game finishes - after you draw cards.
-                  Meaning, when you change the bet, we need to do the Draw first and only then change the bet...
-                  Shit...  :-/
-                */
+                cardData:hand,
               },
               success: function (response) {
                 var obj = jQuery.parseJSON( response );
