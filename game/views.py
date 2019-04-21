@@ -225,50 +225,55 @@ def ajax_bet(request):
 
 def ajax_draw_cards(request):
 
-    # hold_cards = [1,3]
-    # #hold_cards = request.POST.get('hold_cards')
+    print(request.POST)
 
-    # player_session_key = "rncbZ2gRNSGIo6NCUrXEUAmqYZq7"
-    # #player_session_key = request.POST['player_session_key']
+    hold_cards = request.POST.getlist('cardData[]')
+    print('hold_cards', hold_cards)
 
-    # player = Players.objects.get(session_key=player_session_key)
+    player_session_key = request.POST['player_session_key']
+    player = Players.objects.get(session_key=player_session_key)
 
-    # player_deck = Decks.objects.filter(player=player).order_by("-pk")[0]
-    # print(player_deck.deck)
+    player_deck = Decks.objects.filter(player=player).order_by("-pk")[0]
+    player_deck = player_deck.deck.split('|')
 
-    # # XXX replace cards over here........
-    # final_hand_ = ["10D","JD","QD","KD","AD"]
+    final_hand_ = []
+    for i in range(0,5):
+        if(hold_cards[i]):
+            final_hand_.append(player_deck[i])
+        if(hold_cards[i]==""):
+            final_hand_.append(player_deck[i+5])
 
-    # final_hand = []
-    # for c_ in final_hand_:
-    #     if(len(c_)==2):
-    #         c = card(c_[0],c_[1])
-    #     if(len(c_)==3):
-    #         c = card(c_[0:2],c_[2])
-    #     final_hand.insert(0, c)
+    final_hand = []
+    for c_ in final_hand_:
+        if(len(c_)==2):
+            c = card(c_[0],c_[1])
+        if(len(c_)==3):
+            c = card(c_[0:2],c_[2])
+        final_hand.insert(0, c)
 
-    # evaluated_hand, numeral_dict, suit_dict = deck().evaluate_hand(final_hand)
+    evaluated_hand, numeral_dict, suit_dict = deck().evaluate_hand(final_hand)
 
-    # final_hand_ = final_hand
-    # final_hand = []
+    final_hand_ = final_hand
+    final_hand = []
 
-    # for c in final_hand_:
-    #     final_hand.append(str(c))
+    for c in final_hand_:
+        final_hand.append(str(c))
 
-    # congrats_you_won_flag = False
-    # if(evaluated_hand!="Nothing."):
-    #     congrats_you_won_flag = True
+    print('final_hand', final_hand)
 
-    # # XXX if winning hand, write the winning deck into the table...
+    congrats_you_won_flag = False
+    if(evaluated_hand!="Nothing."):
+        congrats_you_won_flag = True
 
-    # # XXX increase credit in case of win....
+    # XXX increase credit in case of win....
 
-    # response = {
-    #     'credit': player.credit,
-    #     'final_hand': final_hand,
-    #     'evaluated_hand': evaluated_hand,
-    #     'congrats_you_won_flag': congrats_you_won_flag,
-    # }
-    #     
-    #return JsonResponse(response)
-    return HttpResponse('{"credit": 25, "final_hand": ["AD", "KD", "QD", "JD", "10D"], "evaluated_hand": "Royal-flush.", "congrats_you_won_flag": true}')
+    response = {
+        'credit': player.credit,
+        'final_hand': final_hand,
+        'evaluated_hand': evaluated_hand,
+        'congrats_you_won_flag': congrats_you_won_flag,
+    }
+
+    print('response', response)
+
+    return JsonResponse(response)
