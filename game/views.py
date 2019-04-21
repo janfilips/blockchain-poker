@@ -3,6 +3,7 @@ import os
 import django
 import uuid
 import string
+import json
 
 from datetime import timedelta
 
@@ -262,20 +263,58 @@ def ajax_draw_cards(request):
     print('final_hand', final_hand)
 
     congrats_you_won_flag = False
-    if(evaluated_hand!="Nothing."):
+    if(evaluated_hand!="Nothing." and evaluated_hand!="One-pair."):
         congrats_you_won_flag = True
 
-    # XXX increase credit in case of win....
+
+    win_amount = 0
+
+    if(evaluated_hand=="Jacks-or-better."):
+        win_amount = player.bet_amount
+
+    if(evaluated_hand=="Two-pair."):
+        win_amount = player.bet_amount * 2
+
+    if(evaluated_hand=="Three-of-a-kind."):
+        win_amount = player.bet_amount * 3
+
+    if(evaluated_hand=="Full-house."):
+        win_amount = player.bet_amount * 9
+
+    if(evaluated_hand=="Four-of-a-kind."):
+        win_amount = player.bet_amount * 25
+
+    if(evaluated_hand=="Straight."):
+        win_amount = player.bet_amount * 4
+
+    if(evaluated_hand=="Flush."):
+        win_amount = player.bet_amount * 6
+
+    if(evaluated_hand=="Straight-flush."):
+        win_amount = player.bet_amount * 50
+
+    if(evaluated_hand=="Royal-flush."):
+        if(player.bet_amount == 1):
+            win_amount = 250
+        if(player.bet_amount == 2):
+            win_amount = 500
+        if(player.bet_amount == 3):
+            win_amount = 750
+        if(player.bet_amount == 5):
+            win_amount = 1500
+        if(player.bet_amount == 10):
+            win_amount = 5000
+
+    player.credit = player.credit + win_amount
+    player.save()
 
     response = {
         'credit': player.credit,
         'final_hand': final_hand,
         'evaluated_hand': evaluated_hand,
         'congrats_you_won_flag': congrats_you_won_flag,
+        'win_amount': win_amount,
     }
 
     print('response', response)
-
-    #return JsonResponse(response, safe=True)
-    import json
     return HttpResponse(json.dumps(response).replace('"','"'))
