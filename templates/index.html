@@ -20,6 +20,10 @@
 <script>
     $( document ).ready(function() {
 
+      const sleep = (milliseconds) => {
+        return new Promise(resolve => setTimeout(resolve, milliseconds))
+      }
+
       $('.card-wrap').click(function() {
         $(this).toggleClass('held');
       });
@@ -96,6 +100,9 @@
                     jQuery('.credit').html('Credit $'+obj.credit);
                     if(obj.congrats_you_won_flag){
                       jQuery('.deal-cards').addClass('player-win');
+                      sleep(3000).then(() => {
+                        location.reload();
+                      })
                     }
                   }
                 })
