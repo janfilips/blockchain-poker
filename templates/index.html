@@ -100,10 +100,16 @@
                     jQuery('.credit').html('Credit $'+obj.credit);
                     if(obj.congrats_you_won_flag){
                       jQuery('.deal-cards').addClass('player-win');
-                      //xxx todo Draw button changes to deal button
-                      sleep(3000).then(() => {
-                        location.reload();
-                      })
+
+                      //xxx todo Draw button changes to Deal button and the thing keeps
+                      // until the Deal button is pressed
+                      // what it does when you press Deal is that it forces the location.reload();
+
+                      //xxx on autoplay do the delay and force the page fresh
+                      //sleep(3500).then(() => {
+                      //  location.reload();
+                      //})
+
                     }
                   }
                 })
