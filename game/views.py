@@ -316,6 +316,7 @@ def ajax_draw_cards(request):
         'evaluated_hand': evaluated_hand,
         'congrats_you_won_flag': congrats_you_won_flag,
         'win_amount': win_amount,
+        'winning_cards': 'xxx todo highlight winning cards',
     }
 
     print('response', response)
