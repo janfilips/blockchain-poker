@@ -51,6 +51,10 @@ def home(request):
     evaluated_hand, numeral_dict, suit_dict = cards_deck.evaluate_hand(hand)
     sugested_hand = cards_deck.suggest_hand(player, hand, evaluated_hand, numeral_dict, suit_dict)
 
+    print('evaluated_hand debug', evaluated_hand, numeral_dict, suit_dict)
+    print('suggested_hand debug', sugested_hand)
+
+
     # XXX TODO jackpot sa navysuje z kazdej prehranej hry
 
     deck_hash = (''.join([choice(string.ascii_letters + string.digits) for i in range(25)]) + \

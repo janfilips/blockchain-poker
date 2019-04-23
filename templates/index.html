@@ -95,7 +95,8 @@
                     jQuery(this).removeClass('flipit');
                     jQuery(this).find('img').attr('src', car_to_swich);
                     jQuery('.flip-card-inner').on('transitionend webkitTransitionEnd oTransitionEnd', function () {
-                        jQuery('.card-wrap').removeClass('held');
+                        // lets keep this temporarily disabled until we come up with the way to highlight winning hand...
+                        //jQuery('.card-wrap').removeClass('held');
                     });
                     jQuery('.credit').html('Credit $'+obj.credit);
                     if(obj.congrats_you_won_flag){
