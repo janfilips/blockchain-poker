@@ -213,7 +213,7 @@
         <span>Two pair</span>
         <span>Jacks or better</span>
       </div><!-- combinations END -->
-      <div class="points point-1 active"><!-- points -->
+      <div class="points point-1 {% if bet_amount == 1 %}active{% endif %}"><!-- points -->
         <span>$250</span>
         <span>$50</span>
         <span>$25</span>
@@ -224,7 +224,7 @@
         <span>$2</span>
         <span>$1</span>
       </div><!-- points END -->
-      <div class="points point-2"><!-- points -->
+      <div class="points point-2 {% if bet_amount == 2 %}active{% endif %}"><!-- points -->
         <span>$500</span>
         <span>$100</span>
         <span>$50</span>
@@ -235,7 +235,7 @@
         <span>$4</span>
         <span>$2</span>
       </div><!-- points END -->
-      <div class="points point-3"><!-- points -->
+      <div class="points point-3 {% if bet_amount == 3 %}active{% endif %}"><!-- points -->
         <span>$750</span>
         <span>$150</span>
         <span>$75</span>
@@ -246,7 +246,7 @@
         <span>$6</span>
         <span>$3</span>
       </div><!-- points END -->
-      <div class="points point-4"><!-- points -->
+      <div class="points point-4 {% if bet_amount == 5 %}active{% endif %}"><!-- points -->
         <span>$1500</span>
         <span>$250</span>
         <span>$125</span>
@@ -257,7 +257,7 @@
         <span>$10</span>
         <span>$5</span>
       </div><!-- points END -->
-      <div class="points point-5"><!-- points -->
+      <div class="points point-5 {% if bet_amount == 10 %}active{% endif %}"><!-- points -->
         <span>$5000</span>
         <span>$500</span>
         <span>$250</span>
