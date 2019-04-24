@@ -157,12 +157,6 @@ def reveal_deck(request, deck_hash):
         player_session_key = (''.join([choice(string.ascii_letters + string.digits) for i in range(28)]))
 
     player, created = Players.objects.get_or_create(session_key=player_session_key)
-    print('player', player, 'is_new', created)
-
-    # XXX TODO reveal deck really shoul reveal player deck
-    # XXX TODO for now we display just the deck since we're not yet recoding wins
-    #player_deck = Decks.objects.get(deck_hash=deck_hash)
-    #player_wins = Wins.objects.get(deck=player_deck)
 
     cards_deck = Decks.objects.get(deck_hash=deck_hash)
     cards_deck_split = cards_deck.deck
