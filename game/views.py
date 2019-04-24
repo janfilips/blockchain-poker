@@ -69,10 +69,8 @@ def home(request):
     #########################################################################
     # XXX temporarily simulating credit
     if(player.credit <= 0):
-        player.credit = 100
+        player.credit = 10
         player.save()
-    player.credit -= player.bet_amount
-    player.save()
     #########################################################################
 
     winning_decks = Decks.objects.filter(player_wins=True).order_by('-pk')[:100]
@@ -85,6 +83,9 @@ def home(request):
     autoplay = 0
     if(player.autoplay):
         autoplay = 1
+
+    player.credit -= player.bet_amount
+    player.save()
 
     response = render(
         request=request,
