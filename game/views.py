@@ -233,6 +233,23 @@ def ajax_bet(request):
     return HttpResponse(bet_amount)
 
 
+def ajax_autoplay(request):
+
+    autoplay = request.POST['autoplay']
+    player_session_key = request.POST['player_session_key']
+
+    player = Players.objects.get(session_key=player_session_key)
+
+    if(autoplay=="on"):
+        player.autoplay = True
+    else:
+        player.autoplay = False
+
+    player.save()
+
+    return HttpResponse(player.autoplay)
+
+
 def ajax_draw_cards(request):
 
     hold_cards = request.POST.getlist('cardData[]')
