@@ -398,6 +398,9 @@ body {
   animation: blink-btn 1s steps(5, start) infinite;
   -webkit-animation: blink-btn 1s steps(5, start) infinite;
 }
+.draw-action {
+  display: none;
+}
 @keyframes blink-btn {
   to {
     background: #000;

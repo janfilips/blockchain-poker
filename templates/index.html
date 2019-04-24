@@ -24,6 +24,11 @@
         return new Promise(resolve => setTimeout(resolve, milliseconds))
       }
 
+      $('.draw-action').click(function() {
+        console.log('reload');
+        location.reload();
+      });
+
       $('.card-wrap').click(function() {
         $(this).toggleClass('held');
       });
@@ -64,7 +69,8 @@
 
       // function for draw
 
-        $(".deal-action").click(function(){
+        $(".deal-action").click(function(event){
+          event.preventDefault();
           var hand=new Array()
           $(".cards .card-wrap").each(function(i){
             hand[i]=null
@@ -74,7 +80,11 @@
               pth=pth[pth.length-1]
               hand[i]=(pth.split(".")[0])
             }
-          })
+          });
+
+          jQuery(this).next('.draw-action').show();
+          jQuery(this).hide();
+
           $.ajax({
               type: "POST",
               url: '/ajax/draw/cards/',
@@ -101,6 +111,7 @@
                     jQuery('.credit').html('Credit $'+obj.credit);
                     if(obj.congrats_you_won_flag){
                       jQuery('.deal-cards').addClass('player-win');
+                      jQuery('.deal-cards .text-over').html('YOU WIN $' + obj.win_amount);
 
                       //xxx todo Draw button changes to Deal button and the thing keeps
                       // until the Deal button is pressed
@@ -119,7 +130,9 @@
                 console.log("error!!!");
               }
           });
-        })
+        });
+
+
 
 
       {% if evaluated_hand == "Nothing." %}
@@ -333,6 +346,7 @@
         <a class="btn-action" href="#">Cancel</a>
         <a class="btn-action" href="#">Bet max</a>
         <a class="btn-action deal-action" href="#">Draw</a>
+        <a class="btn-action draw-action" href="#">Deal</a>
       </div>
     </div><!-- actions END -->
 
