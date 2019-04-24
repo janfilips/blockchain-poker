@@ -82,11 +82,16 @@ def home(request):
         player.swap_bet_amount = 0
         player.save()
 
+    autoplay = 0
+    if(player.autoplay):
+        autoplay = 1
+
     response = render(
         request=request,
         template_name='index.html',
         context={
             'player_session_key': player_session_key,
+            'autoplay': autoplay,
             'hand': hand,
             'evaluated_hand': evaluated_hand,
             'sugested_hand': sugested_hand,

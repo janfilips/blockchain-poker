@@ -9,6 +9,7 @@ class Players(models.Model):
     bet_amount = models.IntegerField(default=1)
     swap_bet_amount = models.IntegerField(default=0)
     credit = models.IntegerField(default=0)
+    autoplay = models.BooleanField(default=False)
     mini_bonus = models.FloatField(default=0)
     created_at = models.DateTimeField(auto_now=True)
 
