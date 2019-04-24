@@ -71,9 +71,9 @@ def home(request):
     #########################################################################
     # XXX temporarily simulating credit
     if(player.credit <= 0):
-        player.credit = 30
+        player.credit = 100
         player.save()
-    player.credit -= 5
+    player.credit -= player.bet_amount
     player.save()
     #########################################################################
 
@@ -214,8 +214,6 @@ def credit(request):
 
 def ajax_bet(request):
 
-    print(request.POST)
-
     bet_amount = request.POST['bet_amount']
     player_session_key = request.POST['player_session_key']
 
@@ -223,14 +221,12 @@ def ajax_bet(request):
     player.bet_amount = int(bet_amount)
     player.save()
 
-    print('player', player, 'bet_amount', bet_amount)
+    print('player', player, 'changed bet_amount', bet_amount)
 
     return HttpResponse(bet_amount)
 
 
 def ajax_draw_cards(request):
-
-    print(request.POST)
 
     hold_cards = request.POST.getlist('cardData[]')
     print('hold_cards', hold_cards)
@@ -271,7 +267,6 @@ def ajax_draw_cards(request):
     congrats_you_won_flag = False
     if(evaluated_hand!="Nothing." and evaluated_hand!="One-pair."):
         congrats_you_won_flag = True
-
 
     win_amount = 0
 
@@ -314,6 +309,9 @@ def ajax_draw_cards(request):
     player.credit = player.credit + win_amount
     player.save()
 
+    print('win amount', win_amount)
+    print('player credit', player.credit)
+
     response = {
         'credit': player.credit,
         'final_hand': final_hand,
@@ -322,5 +320,4 @@ def ajax_draw_cards(request):
         'win_amount': win_amount,
     }
 
-    print('response', response)
     return HttpResponse(json.dumps(response).replace('"','"'))
