@@ -72,6 +72,7 @@
 
         $(".deal-action").click(function(event){
           event.preventDefault();
+
           var hand=new Array()
           $(".cards .card-wrap").each(function(i){
             hand[i]=null
@@ -113,6 +114,9 @@
                     if(obj.congrats_you_won_flag){
                       jQuery('.deal-cards').addClass('player-win');
                       jQuery('.deal-cards .text-over').html('YOU WIN $' + obj.win_amount);
+
+                      $('.type-list .points span:nth-child('+ obj.row_selector +')').addClass( "activeLine" );
+                      $('.type-list .combination span:nth-child(' + obj.row_selector + ')').addClass( "activeLine" );
 
                       //xxx on autoplay do the delay and force the page fresh
                       //sleep(3500).then(() => {
@@ -165,6 +169,7 @@
 
       $('.type-list .points span:nth-child(' + rowselector + ')').addClass( "activeLine" );
       $('.type-list .combination span:nth-child(' + rowselector + ')').addClass( "activeLine" );
+
 
       $('.card-wrap').each(function(i){
       var cardflip = $(this);
