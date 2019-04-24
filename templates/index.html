@@ -115,6 +115,9 @@
                       jQuery('.deal-cards').addClass('player-win');
                       jQuery('.deal-cards .text-over').html('YOU WIN $' + obj.win_amount);
 
+                      $('.type-list .points span').removeClass( "activeLine" );
+                      $('.type-list .combination span').removeClass( "activeLine" );
+
                       $('.type-list .points span:nth-child('+ obj.row_selector +')').addClass( "activeLine" );
                       $('.type-list .combination span:nth-child(' + obj.row_selector + ')').addClass( "activeLine" );
 
