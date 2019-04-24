@@ -23,7 +23,7 @@ class Decks(models.Model):
     winning_hand_extrapolated = models.CharField(max_length=64)
     winning_hand_result = models.CharField(max_length=64)
     swapped_cards = models.CharField(max_length=64,blank=True)
-    swapped_cards_count = models.IntegerField(blank=True)
+    swapped_cards_count = models.IntegerField(default=0)
     shuffled_at = models.DateTimeField(auto_now=True)
 
 class Jackpot(models.Model):

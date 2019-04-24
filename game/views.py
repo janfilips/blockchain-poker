@@ -167,8 +167,8 @@ def reveal_deck(request, deck_hash):
         template_name='deck.html',
         context={
             'deck_hash': deck_hash,
+            'cards_deck': cards_deck,
             'cards_deck_split': cards_deck_split,
-            'deck_shuffled_at': cards_deck.shuffled_at,
             'player_session_key': player_session_key,
             },
     )
@@ -225,12 +225,19 @@ def ajax_draw_cards(request):
     player_deck_obj = Decks.objects.filter(player=player).order_by("-pk")[0]
     player_deck = player_deck_obj.deck.split('|')
 
+    swapped_cards = []
+
     final_hand_ = []
     for i in range(0,5):
         if(hold_cards[i]):
             final_hand_.append(player_deck[i])
+            swapped_cards.append(hold_cards[i])
         if(hold_cards[i]==""):
             final_hand_.append(player_deck[i+5])
+
+    player_deck_obj.swapped_cards = swapped_cards
+    player_deck_obj.swapped_cards_count = len(swapped_cards)
+    player_deck_obj.save()
 
     final_hand = []
     for c_ in final_hand_:

@@ -25,4 +25,3 @@ def random_int(a, b=None):
 @register.filter(name="extrapolate_hand")
 def extrapolate_hand(hand):
     return hand.split('|')
-

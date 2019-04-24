@@ -1,3 +1,6 @@
+{% load humanize %}
+{% load poker_extras %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,22 +36,20 @@
         <b>Winning Hand</b>
         <br/>
         <br/>
-        <img src="/static/cards/AH.png" height="100">
-        <img src="/static/cards/AH.png" height="100">
-        <img src="/static/cards/AH.png" height="100">
-        <img src="/static/cards/AH.png" height="100">
-        <img src="/static/cards/AH.png" height="100">
+        {% for card in cards_deck.winning_hand_extrapolated|extrapolate_hand %}
+          <img src="/static/cards/{{card}}.png" height="100">
+        {% endfor %}
         <br/>
         <br/>
 
         <b>Post-game</b>
         <br/>
         <br/>
-        Hand Evaluation: Flush
+        Hand Evaluation: {{cards_deck.winning_hand_result}}
         <br/>
-        Swapped cards: 2 XXX TODO
+        Swapped cards: {{cards_deck.swapped_cards_count}}
         <br/>
-        Prize: $1,500  XXX TODO
+        Prize: ${{cards_deck.win_amount|intcomma}}.00
         <br/>
         <br/>
 
@@ -63,11 +64,6 @@
         &#10003; Hand Evaluation is legitimate
         <br/>
         <br/>
-
-        {% comment %}
-        Tx-hash <a href="#">0xf02047baf2a06c17a9d96e10a8f14ab14715577a1d4e8c48fc495b43b20d1657</a>
-        <br/>
-        {% endcomment %}
 
 
       <b>Provably Fair In Technical Terms</b>
@@ -117,7 +113,7 @@
           the game started, and your browser will automatically verify that everything was legitimate.
         </p>
 
-      Shuffled: <font color="blue">{{deck_shuffled_at}}</font>
+      Shuffled: <font color="blue">{{cards_deck.shuffled_at}}</font>
 
     </section>
 
