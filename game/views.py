@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 
 from utils.evalcards import card, deck
 
-from game.models import Players, Decks, Wins, Jackpot
+from game.models import Players, Decks, Jackpot
 from random import choice
 
 def home(request):
@@ -54,9 +54,6 @@ def home(request):
     print('evaluated_hand debug', evaluated_hand, numeral_dict, suit_dict)
     print('suggested_hand debug', sugested_hand)
 
-
-    # XXX TODO jackpot sa navysuje z kazdej prehranej hry
-
     deck_hash = (''.join([choice(string.ascii_letters + string.digits) for i in range(25)]) + \
                         ''.join([choice(string.digits) for i in range(10)])).upper()
 
@@ -65,22 +62,24 @@ def home(request):
         starting_nonreduced_cards_deck_ += str(card) + "|"
     starting_cards_deck = starting_nonreduced_cards_deck_[:-1]
 
-    player_cards_deck = Decks.objects.create(player=player, deck=starting_cards_deck, deck_hash=deck_hash)
+    player_cards_deck = Decks.objects.create(player=player, bet_amount=player.bet_amount, deck=starting_cards_deck, deck_hash=deck_hash)
     print('player_cards_deck', player_cards_deck)
 
     #########################################################################
     # XXX temporarily simulating credit
     if(player.credit <= 0):
-        player.credit = 30
+        player.credit = 100
         player.save()
-    player.credit -= 5
+    player.credit -= player.bet_amount
     player.save()
     #########################################################################
 
-    #########################################################################
-    # XXX delete this shit it's for debug purposes only #####################
-    XXX_DELETEME_TEMP_ONLY_DECKS = Decks.objects.all().order_by('-pk')[:100]
-    #########################################################################
+    winning_decks = Decks.objects.filter(player_wins=True).order_by('-pk')[:100]
+
+    if(player.swap_bet_amount):
+        player.bet_amount = player.swap_bet_amount
+        player.swap_bet_amount = 0
+        player.save()
 
     response = render(
         request=request,
@@ -93,7 +92,7 @@ def home(request):
             'credit': player.credit,
             'bet_amount': player.bet_amount,
             'mini_bonus': player.mini_bonus,
-            'DELETEME_TEMP_ONLY_DECKS': XXX_DELETEME_TEMP_ONLY_DECKS,
+            'winning_decks': winning_decks,
             },
     )
     response.set_cookie(key="player_session_key",value=player_session_key)
@@ -163,24 +162,18 @@ def reveal_deck(request, deck_hash):
         player_session_key = (''.join([choice(string.ascii_letters + string.digits) for i in range(28)]))
 
     player, created = Players.objects.get_or_create(session_key=player_session_key)
-    print('player', player, 'is_new', created)
-
-    # XXX TODO reveal deck really shoul reveal player deck
-    # XXX TODO for now we display just the deck since we're not yet recoding wins
-    #player_deck = Decks.objects.get(deck_hash=deck_hash)
-    #player_wins = Wins.objects.get(deck=player_deck)
 
     cards_deck = Decks.objects.get(deck_hash=deck_hash)
-    tmp_cards_deck = cards_deck.deck
-    tmp_cards_deck = tmp_cards_deck.split('|')
+    cards_deck_split = cards_deck.deck
+    cards_deck_split = cards_deck_split.split('|')
 
     response = render(
         request=request,
         template_name='deck.html',
         context={
             'deck_hash': deck_hash,
-            'tmp_cards_deck': tmp_cards_deck,
-            'deck_shuffled_at': cards_deck.shuffled_at,
+            'cards_deck': cards_deck,
+            'cards_deck_split': cards_deck_split,
             'player_session_key': player_session_key,
             },
     )
@@ -214,23 +207,19 @@ def credit(request):
 
 def ajax_bet(request):
 
-    print(request.POST)
-
     bet_amount = request.POST['bet_amount']
     player_session_key = request.POST['player_session_key']
 
     player = Players.objects.get(session_key=player_session_key)
-    player.bet_amount = int(bet_amount)
+    player.swap_bet_amount = int(bet_amount)
     player.save()
 
-    print('player', player, 'bet_amount', bet_amount)
+    print('player', player, 'changed bet_amount', bet_amount)
 
     return HttpResponse(bet_amount)
 
 
 def ajax_draw_cards(request):
-
-    print(request.POST)
 
     hold_cards = request.POST.getlist('cardData[]')
     print('hold_cards', hold_cards)
@@ -238,8 +227,10 @@ def ajax_draw_cards(request):
     player_session_key = request.POST['player_session_key']
     player = Players.objects.get(session_key=player_session_key)
 
-    player_deck = Decks.objects.filter(player=player).order_by("-pk")[0]
-    player_deck = player_deck.deck.split('|')
+    player_deck_obj = Decks.objects.filter(player=player).order_by("-pk")[0]
+    player_deck = player_deck_obj.deck.split('|')
+
+    swapped_cards = []
 
     final_hand_ = []
     for i in range(0,5):
@@ -247,6 +238,11 @@ def ajax_draw_cards(request):
             final_hand_.append(player_deck[i])
         if(hold_cards[i]==""):
             final_hand_.append(player_deck[i+5])
+            swapped_cards.append(player_deck[i])
+
+    player_deck_obj.swapped_cards = swapped_cards
+    player_deck_obj.swapped_cards_count = len(swapped_cards)
+    player_deck_obj.save()
 
     final_hand = []
     for c_ in final_hand_:
@@ -267,10 +263,6 @@ def ajax_draw_cards(request):
     final_hand.reverse()
 
     print('final_hand', final_hand)
-
-    congrats_you_won_flag = False
-    if(evaluated_hand!="Nothing." and evaluated_hand!="One-pair."):
-        congrats_you_won_flag = True
 
 
     win_amount = 0
@@ -314,6 +306,30 @@ def ajax_draw_cards(request):
     player.credit = player.credit + win_amount
     player.save()
 
+    print('win amount', win_amount)
+    print('player credit', player.credit)
+
+
+    congrats_you_won_flag = False
+
+    if(evaluated_hand!="Nothing." and evaluated_hand!="One-pair."):
+
+        congrats_you_won_flag = True
+
+        winning_hand_extrapolated = ""
+        for c_ in final_hand:
+            winning_hand_extrapolated += c_ + "|"
+
+        winning_hand_extrapolated = winning_hand_extrapolated[:-1]
+
+        player_deck_obj.winning_hand_extrapolated = winning_hand_extrapolated
+        player_deck_obj.player_wins = True
+        player_deck_obj.bet_amount = player.bet_amount
+        player_deck_obj.win_amount = win_amount
+        player_deck_obj.winning_hand = final_hand
+        player_deck_obj.winning_hand_result = evaluated_hand.replace('-',' ')
+        player_deck_obj.save()
+
     response = {
         'credit': player.credit,
         'final_hand': final_hand,
@@ -322,5 +338,4 @@ def ajax_draw_cards(request):
         'win_amount': win_amount,
     }
 
-    print('response', response)
     return HttpResponse(json.dumps(response).replace('"','"'))

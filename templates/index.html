@@ -371,19 +371,23 @@
           <th>Deck Seed</th>
           <th>Hand</th>
           <th>Result</th>
-          <th>Bid</th>
           <th>Wins</th>
+          <th>Bet</th>
         </tr>
 
-        {% for deck in DELETEME_TEMP_ONLY_DECKS %}
+        {% for deck in winning_decks %}
         <tr>
           <td>{{deck.shuffled_at|naturaltime}}</td>
           <td>{{deck.player.session_key}}</td>
           <td><a href="/deck/{{deck.deck_hash}}">{{deck.deck_hash}}</a></td>
-          <td class="card-list"><img src="static/cards/2C.png"><img src="static/cards/3C.png"><img src="static/cards/4C.png"><img src="static/cards/4C.png"><img src="static/cards/4C.png"></td>
-          <td>Royal flush</td>
-          <td class="bidon">$1.00</td>
-          <td>$30</td>
+          <td class="card-list">
+            {% for card in deck.winning_hand_extrapolated|extrapolate_hand %}
+            <img src="static/cards/{{card}}.png">
+            {% endfor %}
+          </td>
+          <td>{{deck.winning_hand_result}}</td>
+          <td class="bidon">${{deck.win_amount}}.00</td>
+          <td>${{deck.bet_amount}}</td>
         </tr>
         {% endfor %}
 
