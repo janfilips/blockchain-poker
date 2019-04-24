@@ -7,6 +7,7 @@ class Players(models.Model):
     address = models.CharField(max_length=128, default="")
     session_key = models.CharField(max_length=128)
     bet_amount = models.IntegerField(default=1)
+    swap_bet_amount = models.IntegerField(default=0)
     credit = models.IntegerField(default=0)
     mini_bonus = models.FloatField(default=0)
     created_at = models.DateTimeField(auto_now=True)

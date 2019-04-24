@@ -76,6 +76,11 @@ def home(request):
 
     winning_decks = Decks.objects.filter(player_wins=True).order_by('-pk')[:100]
 
+    if(player.swap_bet_amount):
+        player.bet_amount = player.swap_bet_amount
+        player.swap_bet_amount = 0
+        player.save()
+
     response = render(
         request=request,
         template_name='index.html',
@@ -206,7 +211,7 @@ def ajax_bet(request):
     player_session_key = request.POST['player_session_key']
 
     player = Players.objects.get(session_key=player_session_key)
-    player.bet_amount = int(bet_amount)
+    player.swap_bet_amount = int(bet_amount)
     player.save()
 
     print('player', player, 'changed bet_amount', bet_amount)
