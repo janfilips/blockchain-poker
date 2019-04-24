@@ -276,31 +276,42 @@ def ajax_draw_cards(request):
 
     win_amount = 0
 
+    row_selector = 0
+
     if(evaluated_hand=="Jacks-or-better."):
+        row_selector = 9
         win_amount = player.bet_amount
 
     if(evaluated_hand=="Two-pair."):
+        row_selector = 8
         win_amount = player.bet_amount * 2
 
     if(evaluated_hand=="Three-of-a-kind."):
+        row_selector = 7
         win_amount = player.bet_amount * 3
 
     if(evaluated_hand=="Full-house."):
+        row_selector = 4
         win_amount = player.bet_amount * 9
 
     if(evaluated_hand=="Four-of-a-kind."):
+        row_selector = 3
         win_amount = player.bet_amount * 25
 
     if(evaluated_hand=="Straight."):
+        row_selector = 6
         win_amount = player.bet_amount * 4
 
     if(evaluated_hand=="Flush."):
+        row_selector = 5
         win_amount = player.bet_amount * 6
 
     if(evaluated_hand=="Straight-flush."):
+        row_selector = 2
         win_amount = player.bet_amount * 50
 
     if(evaluated_hand=="Royal-flush."):
+        row_selector = 1
         if(player.bet_amount == 1):
             win_amount = 250
         if(player.bet_amount == 2):
@@ -345,6 +356,7 @@ def ajax_draw_cards(request):
         'evaluated_hand': evaluated_hand,
         'congrats_you_won_flag': congrats_you_won_flag,
         'win_amount': win_amount,
+        'row_selector': row_selector,
     }
 
     return HttpResponse(json.dumps(response).replace('"','"'))
