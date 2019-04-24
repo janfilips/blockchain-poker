@@ -16,6 +16,7 @@ class Decks(models.Model):
     deck_id = models.AutoField(primary_key=True)
     deck_hash = models.CharField(max_length=25)
     deck = models.CharField(max_length=256)
+    winning_hand = models.BooleanField(default=False)
     shuffled_at = models.DateTimeField(auto_now=True)
 
 class Wins(models.Model):
