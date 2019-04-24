@@ -4,6 +4,7 @@ import django
 import uuid
 import string
 import json
+import ast
 
 from datetime import timedelta
 
@@ -167,11 +168,19 @@ def reveal_deck(request, deck_hash):
     cards_deck_split = cards_deck.deck
     cards_deck_split = cards_deck_split.split('|')
 
+    starting_hand = []
+    for i in range(0,5):
+        starting_hand.append(cards_deck_split[i])
+
+    swapped_cards = ast.literal_eval(cards_deck.swapped_cards)
+
     response = render(
         request=request,
         template_name='deck.html',
         context={
             'deck_hash': deck_hash,
+            'starting_hand': starting_hand,
+            'swapped_cards': swapped_cards,
             'cards_deck': cards_deck,
             'cards_deck_split': cards_deck_split,
             'player_session_key': player_session_key,
