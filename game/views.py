@@ -62,7 +62,7 @@ def home(request):
         starting_nonreduced_cards_deck_ += str(card) + "|"
     starting_cards_deck = starting_nonreduced_cards_deck_[:-1]
 
-    player_cards_deck = Decks.objects.create(player=player, deck=starting_cards_deck, deck_hash=deck_hash)
+    player_cards_deck = Decks.objects.create(player=player, bet_amount=player.bet_amount, deck=starting_cards_deck, deck_hash=deck_hash)
     print('player_cards_deck', player_cards_deck)
 
     #########################################################################
@@ -259,24 +259,6 @@ def ajax_draw_cards(request):
     print('final_hand', final_hand)
 
 
-    congrats_you_won_flag = False
-
-    if(evaluated_hand!="Nothing." and evaluated_hand!="One-pair."):
-
-        congrats_you_won_flag = True
-
-        winning_hand_extrapolated = ""
-        for c_ in final_hand:
-            winning_hand_extrapolated += c_ + "|"
-
-        winning_hand_extrapolated = winning_hand_extrapolated[:-1]
-
-        player_deck_obj.winning_hand_extrapolated = winning_hand_extrapolated
-        player_deck_obj.player_wins = True
-        player_deck_obj.winning_hand = final_hand
-        player_deck_obj.save()
-
-
     win_amount = 0
 
     if(evaluated_hand=="Jacks-or-better."):
@@ -320,6 +302,27 @@ def ajax_draw_cards(request):
 
     print('win amount', win_amount)
     print('player credit', player.credit)
+
+
+    congrats_you_won_flag = False
+
+    if(evaluated_hand!="Nothing." and evaluated_hand!="One-pair."):
+
+        congrats_you_won_flag = True
+
+        winning_hand_extrapolated = ""
+        for c_ in final_hand:
+            winning_hand_extrapolated += c_ + "|"
+
+        winning_hand_extrapolated = winning_hand_extrapolated[:-1]
+
+        player_deck_obj.winning_hand_extrapolated = winning_hand_extrapolated
+        player_deck_obj.player_wins = True
+        player_deck_obj.bet_amount = player.bet_amount
+        player_deck_obj.win_amount = win_amount
+        player_deck_obj.winning_hand = final_hand
+        player_deck_obj.winning_hand_result = evaluated_hand.replace('-',' ')
+        player_deck_obj.save()
 
     response = {
         'credit': player.credit,

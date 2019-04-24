@@ -375,7 +375,7 @@
           <th>Deck Seed</th>
           <th>Hand</th>
           <th>Result</th>
-          <th>Bid</th>
+          <th>Bet</th>
           <th>Wins</th>
         </tr>
 
@@ -385,14 +385,13 @@
           <td>{{deck.player.session_key}}</td>
           <td><a href="/deck/{{deck.deck_hash}}">{{deck.deck_hash}}</a></td>
           <td class="card-list">
-            {% for card in deck.winning_hand|extrapolate_hand %}
-              {{card}}
+            {% for card in deck.winning_hand_extrapolated|extrapolate_hand %}
+            <img src="static/cards/{{card}}.png">
             {% endfor %}
-            <img src="static/cards/3C.png"><img src="static/cards/4C.png"><img src="static/cards/4C.png"><img src="static/cards/4C.png">
           </td>
-          <td>Royal flush</td>
-          <td class="bidon">$1.00</td>
-          <td>$30</td>
+          <td>{{deck.winning_hand_result}}</td>
+          <td class="bidon">${{deck.bet_amount}}.00</td>
+          <td>${{deck.win_amount}}</td>
         </tr>
         {% endfor %}
 
