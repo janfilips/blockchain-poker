@@ -165,15 +165,15 @@ def reveal_deck(request, deck_hash):
     #player_wins = Wins.objects.get(deck=player_deck)
 
     cards_deck = Decks.objects.get(deck_hash=deck_hash)
-    tmp_cards_deck = cards_deck.deck
-    tmp_cards_deck = tmp_cards_deck.split('|')
+    cards_deck_split = cards_deck.deck
+    cards_deck_split = cards_deck_split.split('|')
 
     response = render(
         request=request,
         template_name='deck.html',
         context={
             'deck_hash': deck_hash,
-            'tmp_cards_deck': tmp_cards_deck,
+            'cards_deck_split': cards_deck_split,
             'deck_shuffled_at': cards_deck.shuffled_at,
             'player_session_key': player_session_key,
             },

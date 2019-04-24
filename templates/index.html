@@ -375,8 +375,8 @@
           <th>Deck Seed</th>
           <th>Hand</th>
           <th>Result</th>
-          <th>Bet</th>
           <th>Wins</th>
+          <th>Bet</th>
         </tr>
 
         {% for deck in winning_decks %}
@@ -390,8 +390,8 @@
             {% endfor %}
           </td>
           <td>{{deck.winning_hand_result}}</td>
-          <td class="bidon">${{deck.bet_amount}}.00</td>
-          <td>${{deck.win_amount}}</td>
+          <td class="bidon">${{deck.win_amount}}.00</td>
+          <td>${{deck.bet_amount}}</td>
         </tr>
         {% endfor %}
 
