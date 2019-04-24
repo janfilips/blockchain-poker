@@ -233,7 +233,7 @@ def ajax_draw_cards(request):
             final_hand_.append(player_deck[i])
         if(hold_cards[i]==""):
             final_hand_.append(player_deck[i+5])
-            swapped_cards.append(hold_cards[i])
+            swapped_cards.append(player_deck[i])
 
     player_deck_obj.swapped_cards = swapped_cards
     player_deck_obj.swapped_cards_count = len(swapped_cards)
