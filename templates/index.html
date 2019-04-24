@@ -379,12 +379,17 @@
           <th>Wins</th>
         </tr>
 
-        {% for deck in DELETEME_TEMP_ONLY_DECKS %}
+        {% for deck in winning_decks %}
         <tr>
           <td>{{deck.shuffled_at|naturaltime}}</td>
           <td>{{deck.player.session_key}}</td>
           <td><a href="/deck/{{deck.deck_hash}}">{{deck.deck_hash}}</a></td>
-          <td class="card-list"><img src="static/cards/2C.png"><img src="static/cards/3C.png"><img src="static/cards/4C.png"><img src="static/cards/4C.png"><img src="static/cards/4C.png"></td>
+          <td class="card-list">
+            {% for card in deck.winning_hand|extrapolate_hand %}
+              {{card}}
+            {% endfor %}
+            <img src="static/cards/3C.png"><img src="static/cards/4C.png"><img src="static/cards/4C.png"><img src="static/cards/4C.png">
+          </td>
           <td>Royal flush</td>
           <td class="bidon">$1.00</td>
           <td>$30</td>

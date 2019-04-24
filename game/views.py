@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 
 from utils.evalcards import card, deck
 
-from game.models import Players, Decks, Wins, Jackpot
+from game.models import Players, Decks, Jackpot
 from random import choice
 
 def home(request):
@@ -74,10 +74,7 @@ def home(request):
     player.save()
     #########################################################################
 
-    #########################################################################
-    # XXX delete this shit it's for debug purposes only #####################
-    XXX_DELETEME_TEMP_ONLY_DECKS = Decks.objects.all().order_by('-pk')[:100]
-    #########################################################################
+    winning_decks = Decks.objects.filter(player_wins=True).order_by('-pk')[:100]
 
     response = render(
         request=request,
@@ -90,7 +87,7 @@ def home(request):
             'credit': player.credit,
             'bet_amount': player.bet_amount,
             'mini_bonus': player.mini_bonus,
-            'DELETEME_TEMP_ONLY_DECKS': XXX_DELETEME_TEMP_ONLY_DECKS,
+            'winning_decks': winning_decks,
             },
     )
     response.set_cookie(key="player_session_key",value=player_session_key)
@@ -231,8 +228,8 @@ def ajax_draw_cards(request):
     player_session_key = request.POST['player_session_key']
     player = Players.objects.get(session_key=player_session_key)
 
-    player_deck = Decks.objects.filter(player=player).order_by("-pk")[0]
-    player_deck = player_deck.deck.split('|')
+    player_deck_obj = Decks.objects.filter(player=player).order_by("-pk")[0]
+    player_deck = player_deck_obj.deck.split('|')
 
     final_hand_ = []
     for i in range(0,5):
@@ -261,9 +258,24 @@ def ajax_draw_cards(request):
 
     print('final_hand', final_hand)
 
+
     congrats_you_won_flag = False
+
     if(evaluated_hand!="Nothing." and evaluated_hand!="One-pair."):
+
         congrats_you_won_flag = True
+
+        winning_hand_extrapolated = ""
+        for c_ in final_hand:
+            winning_hand_extrapolated += c_ + "|"
+
+        winning_hand_extrapolated = winning_hand_extrapolated[:-1]
+
+        player_deck_obj.winning_hand_extrapolated = winning_hand_extrapolated
+        player_deck_obj.player_wins = True
+        player_deck_obj.winning_hand = final_hand
+        player_deck_obj.save()
+
 
     win_amount = 0
 

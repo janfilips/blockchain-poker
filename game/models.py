@@ -16,14 +16,10 @@ class Decks(models.Model):
     deck_id = models.AutoField(primary_key=True)
     deck_hash = models.CharField(max_length=25)
     deck = models.CharField(max_length=256)
-    winning_hand = models.BooleanField(default=False)
-    shuffled_at = models.DateTimeField(auto_now=True)
-
-class Wins(models.Model):
-    player = models.ForeignKey(Players, on_delete=models.CASCADE)
-    deck = models.ForeignKey(Decks, on_delete=models.CASCADE)
+    player_wins = models.BooleanField(default=False)
     winning_hand = models.CharField(max_length=64)
-    created_at = models.DateTimeField(auto_now=True)
+    winning_hand_extrapolated = models.CharField(max_length=64)
+    shuffled_at = models.DateTimeField(auto_now=True)
 
 class Jackpot(models.Model):
     super_jackpot = models.FloatField(default=0)
