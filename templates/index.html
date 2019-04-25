@@ -16,7 +16,7 @@
 <script>
 	var csrf_token = "{{csrf_token}}"
 	var session_key = "{{player_session_key}}"
-  var autoplay = {{autoplay}}
+  var autoplay_id = true;
 </script>
 <script>
     $( document ).ready(function() {
@@ -67,11 +67,9 @@
         });
       });
 
-
       // function for draw
 
-        $(".deal-action").click(function(event){
-          event.preventDefault();
+      function drawcards() {
 
           var hand=new Array()
           $(".cards .card-wrap").each(function(i){
@@ -84,8 +82,8 @@
             }
           });
 
-          jQuery(this).next('.draw-action').show();
-          jQuery(this).hide();
+          jQuery(".deal-action").next('.draw-action').show();
+          jQuery(".deal-action").hide();
 
           $.ajax({
               type: "POST",
@@ -134,7 +132,38 @@
                 console.log("error!!!");
               }
           });
+
+      }
+      // function end
+
+
+        $(".deal-action").click(function(event){
+          event.preventDefault();
+          drawcards();
         });
+
+
+        // function for autoplay
+
+        if (autoplay_id == true ) {
+          $.ajax({
+              type: "POST",
+              url: '/ajax/autoplay',
+              headers: {
+                  'X-CSRFToken': csrf_token
+              },
+              data: {
+                player_session_key: session_key,
+                autoplayind: true,
+              }
+          });
+          $('.flip-card-inner').on('transitionend webkitTransitionEnd oTransitionEnd', function () {
+            setTimeout(function(){
+                drawcards();
+              }, 2000);
+          });
+        }
+
 
       {% if evaluated_hand == "Nothing." %}
         var rowselector = 0;
