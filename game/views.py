@@ -80,9 +80,9 @@ def home(request):
         player.swap_bet_amount = 0
         player.save()
 
-    autoplay = 0
+    autoplay = "false"
     if(player.autoplay):
-        autoplay = 1
+        autoplay = "true"
 
     player.credit -= player.bet_amount
     player.save()
@@ -236,12 +236,14 @@ def ajax_bet(request):
 
 def ajax_autoplay(request):
 
+    print('autoplay POST', request.POST)
+
     autoplay = request.POST['autoplay']
     player_session_key = request.POST['player_session_key']
 
     player = Players.objects.get(session_key=player_session_key)
 
-    if(autoplay=="on"):
+    if(autoplay=="true"):
         player.autoplay = True
     else:
         player.autoplay = False

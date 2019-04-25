@@ -16,7 +16,7 @@
 <script>
 	var csrf_token = "{{csrf_token}}"
 	var session_key = "{{player_session_key}}"
-  var autoplay_id = true;
+  var autoplay = {{autoplay}};
 </script>
 <script>
     $( document ).ready(function() {
@@ -149,7 +149,7 @@
 
         // function for autoplay
 
-        if (autoplay_id == true ) {
+        if (autoplay == true ) {
           $.ajax({
               type: "POST",
               url: '/ajax/autoplay/',
@@ -158,7 +158,7 @@
               },
               data: {
                 player_session_key: session_key,
-                autoplayind: true,
+                autoplay: true,
               }
           });
           $('.flip-card-inner').on('transitionend webkitTransitionEnd oTransitionEnd', function () {
