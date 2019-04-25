@@ -69,7 +69,7 @@
 
       // function for draw
 
-      function drawcards() {
+      function drawcards(shoudRefresh) {
 
           var hand=new Array()
           $(".cards .card-wrap").each(function(i){
@@ -123,8 +123,12 @@
                       //sleep(3500).then(() => {
                       //  location.reload();
                       //})
-
                     }
+                  }
+                  if(shoudRefresh){
+                    setTimeout(function(){
+                        location.reload();
+                    }, 2000);
                   }
                 })
               },
@@ -139,7 +143,7 @@
 
         $(".deal-action").click(function(event){
           event.preventDefault();
-          drawcards();
+          drawcards(false);
         });
 
 
@@ -159,7 +163,7 @@
           });
           $('.flip-card-inner').on('transitionend webkitTransitionEnd oTransitionEnd', function () {
             setTimeout(function(){
-                drawcards();
+                drawcards(true);
               }, 2000);
           });
         }
