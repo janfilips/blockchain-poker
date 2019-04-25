@@ -61,7 +61,7 @@
         });
       });
 
-      // function for draw
+      // function for draw cards
 
       function drawcards(shoudRefresh) {
 
@@ -90,18 +90,18 @@
                 cardData: hand,
               },
               success: function (response) {
+
                 var obj = jQuery.parseJSON( response );
+                console.log(obj);
 
                 jQuery('.deal-cards .cards .card-wrap').each(function(index){
-
-                  console.log(obj);
 
                   if(!jQuery(this).hasClass('held')){
                     var car_to_swich = "static/cards/"+obj.final_hand[index]+".png";
                     jQuery(this).removeClass('flipit');
                     jQuery(this).find('img').attr('src', car_to_swich);
                     //jQuery('.flip-card-inner').on('transitionend webkitTransitionEnd oTransitionEnd', function () {
-                        //jQuery('.card-wrap').removeClass('held');
+                    //   jQuery('.card-wrap').removeClass('held');
                     //});
                     jQuery('.credit').html('Credit $'+obj.credit);
                     if(obj.congrats_you_won_flag){
@@ -113,12 +113,12 @@
                       $('.type-list .combination span:nth-child(' + obj.row_selector + ')').addClass( "activeLine" );
                     }
                   }
-                  if(shoudRefresh){
+                })
+                if(shoudRefresh){
                     setTimeout(function(){
                         location.reload();
                     }, 2000);
                   }
-                })
               },
               error: function () {
                 console.log("error!!!");
@@ -127,7 +127,6 @@
 
       }
       // function end
-
 
       $(".deal-action").click(function(event){
         event.preventDefault();
@@ -147,17 +146,17 @@
         //////////////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////////
-        $.ajax({
-                type: "POST",
-                url: '/ajax/autoplay/',
-                headers: {
-                    'X-CSRFToken': csrf_token
-                },
-                data: {
-                  player_session_key: session_key,
-                  autoplay: true,
-                }
-            });
+        // $.ajax({
+        //         type: "POST",
+        //         url: '/ajax/autoplay/',
+        //         headers: {
+        //             'X-CSRFToken': csrf_token
+        //         },
+        //         data: {
+        //           player_session_key: session_key,
+        //           autoplay: true,
+        //         }
+        //     });
         //////////////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////////
@@ -170,6 +169,7 @@
               drawcards(true);
             }, 2000);
         });
+
       }
 
 
