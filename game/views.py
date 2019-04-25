@@ -84,6 +84,8 @@ def home(request):
     if(player.autoplay):
         autoplay = "true"
 
+    autoplay = "true"
+
     player.credit -= player.bet_amount
     player.save()
 
@@ -264,6 +266,10 @@ def ajax_draw_cards(request):
     player_deck_obj = Decks.objects.filter(player=player).order_by("-pk")[0]
     player_deck = player_deck_obj.deck.split('|')
 
+    if(player_deck_obj.game_finalized):
+        print('*** WARNING ATTEMPT TO ACCESS FINALIZED GAME *** ' * 100)
+        return HttpResponse("Sorry this game was finalized.")
+
     swapped_cards = []
 
     final_hand_ = []
@@ -374,6 +380,9 @@ def ajax_draw_cards(request):
         player_deck_obj.winning_hand = final_hand
         player_deck_obj.winning_hand_result = evaluated_hand.replace('-',' ')
         player_deck_obj.save()
+
+    player_deck_obj.game_finalized = True
+    player_deck_obj.save()
 
     response = {
         'credit': player.credit,

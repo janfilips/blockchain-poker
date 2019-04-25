@@ -87,29 +87,28 @@
               },
               data: {
                 player_session_key: session_key,
-                cardData:hand,
+                cardData: hand,
               },
               success: function (response) {
                 var obj = jQuery.parseJSON( response );
 
                 jQuery('.deal-cards .cards .card-wrap').each(function(index){
+
                   console.log(obj);
+
                   if(!jQuery(this).hasClass('held')){
                     var car_to_swich = "static/cards/"+obj.final_hand[index]+".png";
                     jQuery(this).removeClass('flipit');
                     jQuery(this).find('img').attr('src', car_to_swich);
-                    jQuery('.flip-card-inner').on('transitionend webkitTransitionEnd oTransitionEnd', function () {
-                        // lets keep this temporarily disabled until we come up with the way to highlight winning hand...
+                    //jQuery('.flip-card-inner').on('transitionend webkitTransitionEnd oTransitionEnd', function () {
                         //jQuery('.card-wrap').removeClass('held');
-                    });
+                    //});
                     jQuery('.credit').html('Credit $'+obj.credit);
                     if(obj.congrats_you_won_flag){
                       jQuery('.deal-cards').addClass('player-win');
                       jQuery('.deal-cards .text-over').html('YOU WIN $' + obj.win_amount);
-
                       $('.type-list .points span').removeClass( "activeLine" );
                       $('.type-list .combination span').removeClass( "activeLine" );
-
                       $('.type-list .points span:nth-child('+ obj.row_selector +')').addClass( "activeLine" );
                       $('.type-list .combination span:nth-child(' + obj.row_selector + ')').addClass( "activeLine" );
                     }

@@ -27,6 +27,7 @@ class Decks(models.Model):
     swapped_cards = models.CharField(max_length=64,blank=True)
     swapped_cards_count = models.IntegerField(default=0)
     shuffled_at = models.DateTimeField(auto_now=True)
+    game_finalized = models.BooleanField(default=False)
 
 class Jackpot(models.Model):
     super_jackpot = models.FloatField(default=0)
