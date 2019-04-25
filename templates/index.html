@@ -51,12 +51,6 @@
             data: {
               player_session_key: session_key,
               bet_amount: bet_amount
-              /*
-                We have a problem.
-                One should be able to change the bet only when the game finishes - after you draw cards.
-                Meaning, when you change the bet, we need to do the Draw first and only then change the bet...
-                Shit...  :-/
-              */
             },
             success: function (response) {
               console.log("data sent");
@@ -118,11 +112,6 @@
 
                       $('.type-list .points span:nth-child('+ obj.row_selector +')').addClass( "activeLine" );
                       $('.type-list .combination span:nth-child(' + obj.row_selector + ')').addClass( "activeLine" );
-
-                      //xxx on autoplay do the delay and force the page fresh
-                      //sleep(3500).then(() => {
-                      //  location.reload();
-                      //})
                     }
                   }
                   if(shoudRefresh){
@@ -141,32 +130,48 @@
       // function end
 
 
-        $(".deal-action").click(function(event){
-          event.preventDefault();
-          drawcards(false);
+      $(".deal-action").click(function(event){
+        event.preventDefault();
+        drawcards(false);
+      });
+
+
+      // function for autoplay
+
+      if (autoplay == true ) {
+
+        {% comment %}
+        //////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////
+        // this does not belong here, it should be tied on a button
+        //////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////
+        $.ajax({
+                type: "POST",
+                url: '/ajax/autoplay/',
+                headers: {
+                    'X-CSRFToken': csrf_token
+                },
+                data: {
+                  player_session_key: session_key,
+                  autoplay: true,
+                }
+            });
+        //////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////
+        {% endcomment %}
+
+        $('.flip-card-inner').on('transitionend webkitTransitionEnd oTransitionEnd', function () {
+          setTimeout(function(){
+              drawcards(true);
+            }, 2000);
         });
-
-
-        // function for autoplay
-
-        if (autoplay == true ) {
-          $.ajax({
-              type: "POST",
-              url: '/ajax/autoplay/',
-              headers: {
-                  'X-CSRFToken': csrf_token
-              },
-              data: {
-                player_session_key: session_key,
-                autoplay: true,
-              }
-          });
-          $('.flip-card-inner').on('transitionend webkitTransitionEnd oTransitionEnd', function () {
-            setTimeout(function(){
-                drawcards(true);
-              }, 2000);
-          });
-        }
+      }
 
 
       {% if evaluated_hand == "Nothing." %}
@@ -217,7 +222,6 @@
       setTimeout(function(){
         $('.preselect').addClass('held');
       }, 1300);
-
 
     });
   </script>
@@ -343,7 +347,7 @@
         </section><!-- cards END -->
 
       <div class="inser-coin {% if credit == 0 %}show-inser{% endif %}">PLAY 5 CREDITS</div>
-      <div class="text-over">YOU WIN $5!!!</div>
+
       <div class="win-extras">
         <img class="left" src="static/images/win-graphics-1.png" />
         <img class="right" src="static/images/win-graphics-2.png" />
