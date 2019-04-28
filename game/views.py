@@ -48,30 +48,43 @@ def home(request):
     # hand.insert(0, card4)
     # hand.insert(0, card5)
 
-    hand = cards_deck.get_hand()
-    evaluated_hand, numeral_dict, suit_dict = cards_deck.evaluate_hand(hand)
-    sugested_hand = cards_deck.suggest_hand(player, hand, evaluated_hand, numeral_dict, suit_dict)
-
-    print('evaluated_hand debug', evaluated_hand, numeral_dict, suit_dict)
-    print('suggested_hand debug', sugested_hand)
-
-    deck_hash = (''.join([choice(string.ascii_letters + string.digits) for i in range(25)]) + \
-                        ''.join([choice(string.digits) for i in range(10)])).upper()
-
-    starting_nonreduced_cards_deck_ = ""
-    for card in starting_nonreduced_cards_deck:
-        starting_nonreduced_cards_deck_ += str(card) + "|"
-    starting_cards_deck = starting_nonreduced_cards_deck_[:-1]
-
-    player_cards_deck = Decks.objects.create(player=player, bet_amount=player.bet_amount, deck=starting_cards_deck, deck_hash=deck_hash)
-    print('player_cards_deck', player_cards_deck)
-
     #########################################################################
     # XXX temporarily simulating credit
     if(player.credit <= 0):
-        player.credit = 30
+        player.credit = 10
         player.save()
     #########################################################################
+
+
+    if(player.credit >= player.bet_amount):
+
+        hand = cards_deck.get_hand()
+        evaluated_hand, numeral_dict, suit_dict = cards_deck.evaluate_hand(hand)
+        sugested_hand = cards_deck.suggest_hand(player, hand, evaluated_hand, numeral_dict, suit_dict)
+
+        print('evaluated_hand debug', evaluated_hand, numeral_dict, suit_dict)
+        print('suggested_hand debug', sugested_hand)
+
+        deck_hash = (''.join([choice(string.ascii_letters + string.digits) for i in range(25)]) + \
+                            ''.join([choice(string.digits) for i in range(10)])).upper()
+
+        starting_nonreduced_cards_deck_ = ""
+        for card in starting_nonreduced_cards_deck:
+            starting_nonreduced_cards_deck_ += str(card) + "|"
+        starting_cards_deck = starting_nonreduced_cards_deck_[:-1]
+
+        player_cards_deck = Decks.objects.create(player=player, bet_amount=player.bet_amount, deck=starting_cards_deck, deck_hash=deck_hash)
+        print('player_cards_deck', player_cards_deck)
+
+        player.credit -= player.bet_amount
+        player.save()
+
+    else:
+
+        hand = []
+        evaluated_hand = ""
+        sugested_hand = ""
+
 
     winning_decks = Decks.objects.filter(player_wins=True).order_by('-pk')[:100]
 
@@ -80,12 +93,11 @@ def home(request):
         player.swap_bet_amount = 0
         player.save()
 
-    autoplay = 0
-    if(player.autoplay):
-        autoplay = 1
 
-    player.credit -= player.bet_amount
-    player.save()
+    autoplay = "false"
+    if(player.autoplay):
+        autoplay = "true"
+    #autoplay = "true"
 
     response = render(
         request=request,
@@ -236,12 +248,14 @@ def ajax_bet(request):
 
 def ajax_autoplay(request):
 
+    print('autoplay POST', request.POST)
+
     autoplay = request.POST['autoplay']
     player_session_key = request.POST['player_session_key']
 
     player = Players.objects.get(session_key=player_session_key)
 
-    if(autoplay=="on"):
+    if(autoplay=="true"):
         player.autoplay = True
     else:
         player.autoplay = False
@@ -261,6 +275,10 @@ def ajax_draw_cards(request):
 
     player_deck_obj = Decks.objects.filter(player=player).order_by("-pk")[0]
     player_deck = player_deck_obj.deck.split('|')
+
+    if(player_deck_obj.game_finalized):
+        print('*** WARNING ATTEMPT TO ACCESS FINALIZED GAME *** ' * 100)
+        return HttpResponse("Sorry this game was finalized.")
 
     swapped_cards = []
 
@@ -372,6 +390,9 @@ def ajax_draw_cards(request):
         player_deck_obj.winning_hand = final_hand
         player_deck_obj.winning_hand_result = evaluated_hand.replace('-',' ')
         player_deck_obj.save()
+
+    player_deck_obj.game_finalized = True
+    player_deck_obj.save()
 
     response = {
         'credit': player.credit,

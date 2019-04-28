@@ -16,7 +16,11 @@
 <script>
 	var csrf_token = "{{csrf_token}}"
 	var session_key = "{{player_session_key}}"
+<<<<<<< HEAD
   var autoplay_id = false;
+=======
+  var autoplay = {{autoplay}};
+>>>>>>> 464457556f24a7f7202168fac683fd03055fdbbe
 </script>
 <script>
     $( document ).ready(function() {
@@ -50,12 +54,6 @@
             data: {
               player_session_key: session_key,
               bet_amount: bet_amount
-              /*
-                We have a problem.
-                One should be able to change the bet only when the game finishes - after you draw cards.
-                Meaning, when you change the bet, we need to do the Draw first and only then change the bet...
-                Shit...  :-/
-              */
             },
             success: function (response) {
               console.log("data sent");
@@ -71,7 +69,12 @@
     //      $(".type-list .points:last-child").addClass("active");
     //  });
 
+<<<<<<< HEAD
       // function for draw
+=======
+      // function for draw cards
+
+>>>>>>> 464457556f24a7f7202168fac683fd03055fdbbe
       function drawcards(shoudRefresh) {
 
           var hand=new Array()
@@ -96,44 +99,38 @@
               },
               data: {
                 player_session_key: session_key,
-                cardData:hand,
+                cardData: hand,
               },
               success: function (response) {
+
                 var obj = jQuery.parseJSON( response );
+                console.log(obj);
 
                 jQuery('.deal-cards .cards .card-wrap').each(function(index){
-                  console.log(obj);
+
                   if(!jQuery(this).hasClass('held')){
                     var car_to_swich = "static/cards/"+obj.final_hand[index]+".png";
                     jQuery(this).removeClass('flipit');
                     jQuery(this).find('img').attr('src', car_to_swich);
-                    jQuery('.flip-card-inner').on('transitionend webkitTransitionEnd oTransitionEnd', function () {
-                        // lets keep this temporarily disabled until we come up with the way to highlight winning hand...
-                        //jQuery('.card-wrap').removeClass('held');
-                    });
+                    //jQuery('.flip-card-inner').on('transitionend webkitTransitionEnd oTransitionEnd', function () {
+                    //   jQuery('.card-wrap').removeClass('held');
+                    //});
                     jQuery('.credit').html('Credit $'+obj.credit);
                     if(obj.congrats_you_won_flag){
                       jQuery('.deal-cards').addClass('player-win');
                       jQuery('.deal-cards .text-over').html('YOU WIN $' + obj.win_amount);
-
                       $('.type-list .points span').removeClass( "activeLine" );
                       $('.type-list .combination span').removeClass( "activeLine" );
-
                       $('.type-list .points span:nth-child('+ obj.row_selector +')').addClass( "activeLine" );
                       $('.type-list .combination span:nth-child(' + obj.row_selector + ')').addClass( "activeLine" );
-
-                      //xxx on autoplay do the delay and force the page fresh
-                      //sleep(3500).then(() => {
-                      //  location.reload();
-                      //})
                     }
                   }
-                  if(shoudRefresh){
+                })
+                if(shoudRefresh){
                     setTimeout(function(){
                         location.reload();
                     }, 2000);
                   }
-                })
               },
               error: function () {
                 console.log("error!!!");
@@ -143,33 +140,49 @@
       }
       // function end
 
+      $(".deal-action").click(function(event){
+        event.preventDefault();
+        drawcards(false);
+      });
 
-        $(".deal-action").click(function(event){
-          event.preventDefault();
-          drawcards(false);
+
+      // function for autoplay
+
+      if (autoplay == true ) {
+
+        {% comment %}
+        //////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////
+        // this does not belong here, it should be tied on a button
+        //////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////
+        // $.ajax({
+        //         type: "POST",
+        //         url: '/ajax/autoplay/',
+        //         headers: {
+        //             'X-CSRFToken': csrf_token
+        //         },
+        //         data: {
+        //           player_session_key: session_key,
+        //           autoplay: true,
+        //         }
+        //     });
+        //////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////
+        {% endcomment %}
+
+        $('.flip-card-inner').on('transitionend webkitTransitionEnd oTransitionEnd', function () {
+          setTimeout(function(){
+              drawcards(true);
+            }, 2000);
         });
 
-
-        // function for autoplay
-
-        if (autoplay_id == true ) {
-          $.ajax({
-              type: "POST",
-              url: '/ajax/autoplay',
-              headers: {
-                  'X-CSRFToken': csrf_token
-              },
-              data: {
-                player_session_key: session_key,
-                autoplayind: true,
-              }
-          });
-          $('.flip-card-inner').on('transitionend webkitTransitionEnd oTransitionEnd', function () {
-            setTimeout(function(){
-                drawcards(true);
-              }, 2000);
-          });
-        }
+      }
 
 
       {% if evaluated_hand == "Nothing." %}
@@ -346,6 +359,7 @@
 
       <div class="inser-coin {% if credit == 0 %}show-inser{% endif %}">PLAY 5 CREDITS</div>
       <div class="text-over">YOU WIN $5!!!</div>
+
       <div class="win-extras">
         <img class="left" src="static/images/win-graphics-1.png" />
         <img class="right" src="static/images/win-graphics-2.png" />
