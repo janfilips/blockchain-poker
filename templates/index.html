@@ -16,11 +16,8 @@
 <script>
 	var csrf_token = "{{csrf_token}}"
 	var session_key = "{{player_session_key}}"
-<<<<<<< HEAD
-  var autoplay_id = false;
-=======
+  var autoplay_id = true;
   var autoplay = {{autoplay}};
->>>>>>> 464457556f24a7f7202168fac683fd03055fdbbe
 </script>
 <script>
     $( document ).ready(function() {
@@ -69,14 +66,7 @@
     //      $(".type-list .points:last-child").addClass("active");
     //  });
 
-<<<<<<< HEAD
-      // function for draw
-=======
-      // function for draw cards
-
->>>>>>> 464457556f24a7f7202168fac683fd03055fdbbe
       function drawcards(shoudRefresh) {
-
           var hand=new Array()
           $(".cards .card-wrap").each(function(i){
             hand[i]=null
@@ -150,7 +140,6 @@
 
       if (autoplay == true ) {
 
-        {% comment %}
         //////////////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////////
@@ -158,25 +147,24 @@
         //////////////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////////
-        // $.ajax({
-        //         type: "POST",
-        //         url: '/ajax/autoplay/',
-        //         headers: {
-        //             'X-CSRFToken': csrf_token
-        //         },
-        //         data: {
-        //           player_session_key: session_key,
-        //           autoplay: true,
-        //         }
-        //     });
+        $.ajax({
+                type: "POST",
+                url: '/ajax/autoplay/',
+                headers: {
+                    'X-CSRFToken': csrf_token
+                },
+                data: {
+                  player_session_key: session_key,
+                  autoplay: true,
+                }
+            });
         //////////////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////////
-        {% endcomment %}
 
-        $('.flip-card-inner').on('transitionend webkitTransitionEnd oTransitionEnd', function () {
+        $('.flip-card-inner:last').on('transitionend webkitTransitionEnd oTransitionEnd', function () {
           setTimeout(function(){
               drawcards(true);
             }, 2000);
@@ -233,6 +221,23 @@
       setTimeout(function(){
         $('.preselect').addClass('held');
       }, 1300);
+
+      $(".autoplay").click(function(){
+          $.ajax({
+                type: "POST",
+                url: '/ajax/autoplay/',
+                headers: {
+                    'X-CSRFToken': csrf_token
+                },
+                data: {
+                  player_session_key: session_key,
+                  autoplay: !autoplay,
+                },
+                success:function(response){
+                  location.reload();
+                }
+            });
+      })
 
     });
   </script>
