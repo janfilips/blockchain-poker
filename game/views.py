@@ -97,7 +97,7 @@ def home(request):
     autoplay = "false"
     if(player.autoplay):
         autoplay = "true"
-    #autoplay = "true"
+    autoplay = "true"
 
     response = render(
         request=request,
