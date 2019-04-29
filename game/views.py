@@ -276,6 +276,7 @@ def ajax_draw_cards(request):
     player_deck = player_deck_obj.deck.split('|')
 
     if(player_deck_obj.game_finalized):
+        # XXX toto log this type of activity
         print('*** WARNING ATTEMPT TO ACCESS FINALIZED GAME *** ' * 100)
         return HttpResponse("Sorry this game was finalized.")
 
