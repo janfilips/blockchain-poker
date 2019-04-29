@@ -60,7 +60,8 @@
             }
         });
       });
-      //bet max
+    
+    //bet max
     //  $(".bet-max").click(function(event){
     //      $(".type-list .points").removeClass("active");
     //      $(".type-list .points:last-child").addClass("active");
@@ -127,8 +128,8 @@
               }
           });
 
-      }
-      // function end
+      } // draw function end
+
 
       $(".deal-action").click(function(event){
         event.preventDefault();
@@ -136,17 +137,10 @@
       });
 
 
-      // function for autoplay
+      // autoplay function
 
       if (autoplay == true ) {
 
-        //////////////////////////////////////////////////////////////
-        //////////////////////////////////////////////////////////////
-        //////////////////////////////////////////////////////////////
-        // this does not belong here, it should be tied on a button
-        //////////////////////////////////////////////////////////////
-        //////////////////////////////////////////////////////////////
-        //////////////////////////////////////////////////////////////
         $.ajax({
                 type: "POST",
                 url: '/ajax/autoplay/',
@@ -158,11 +152,6 @@
                   autoplay: true,
                 }
             });
-        //////////////////////////////////////////////////////////////
-        //////////////////////////////////////////////////////////////
-        //////////////////////////////////////////////////////////////
-        //////////////////////////////////////////////////////////////
-        //////////////////////////////////////////////////////////////
 
         $('.flip-card-inner:last').on('transitionend webkitTransitionEnd oTransitionEnd', function () {
           setTimeout(function(){
