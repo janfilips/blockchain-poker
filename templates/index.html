@@ -141,18 +141,6 @@
 
       if (autoplay == true ) {
 
-        $.ajax({
-                type: "POST",
-                url: '/ajax/autoplay/',
-                headers: {
-                    'X-CSRFToken': csrf_token
-                },
-                data: {
-                  player_session_key: session_key,
-                  autoplay: true,
-                }
-            });
-
         $('.flip-card-inner:last').on('transitionend webkitTransitionEnd oTransitionEnd', function () {
           setTimeout(function(){
               drawcards(true);
@@ -223,6 +211,14 @@
                   autoplay: !autoplay,
                 },
                 success:function(response){
+                  //////////////////////////////////////////////////////////////
+                  /// XXX BUG this needs to be tested
+                  /// basically we need to avoid the problem with when you swich off autoplay you loose your hand (a bet)
+                  //////////////////////////////////////////////////////////////
+                  
+                  if (autoplay == true ) {
+                    drawcards(true);
+                  }
                   location.reload();
                 }
             });
