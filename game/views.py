@@ -278,7 +278,7 @@ def ajax_draw_cards(request):
     if(player_deck_obj.game_finalized):
         # XXX toto log this type of activity
         print('*** WARNING ATTEMPT TO ACCESS FINALIZED GAME *** ' * 100)
-        return HttpResponse("Sorry this game was finalized.")
+        return HttpResponse("Sorry this game was already finalized.")
 
     swapped_cards = []
 
