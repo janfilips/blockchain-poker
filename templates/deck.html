@@ -44,6 +44,9 @@
         <b>Swapped Cards</b>
         <br/>
         <br/>
+        {% if not swapped_cards %}
+          None
+        {% endif %}
         {% for card in swapped_cards %}
           <img src="/static/cards/{{card}}.png" height="100">
         {% endfor %}
