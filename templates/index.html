@@ -60,7 +60,7 @@
             }
         });
       });
-    
+
     //bet max
     //  $(".bet-max").click(function(event){
     //      $(".type-list .points").removeClass("active");
@@ -146,7 +146,10 @@
               drawcards(true);
             }, 2000);
         });
-
+        $('.autoplay').addClass('onPlay').html('Autoplay On');
+      }
+      else {
+        $('.autoplay').removeClass('onPlay').html('Autoplay Off');
       }
 
 
@@ -327,6 +330,14 @@
 
 
     <div class="deal-cards {% comment %}player-win{% endcomment %}">
+
+        <div class="cards cards-back"><!-- cards back -->
+          <div class="back-wrap"><img src="static/cards/card-back.png" /></div>
+          <div class="back-wrap"><img src="static/cards/card-back.png" /></div>
+          <div class="back-wrap"><img src="static/cards/card-back.png" /></div>
+          <div class="back-wrap"><img src="static/cards/card-back.png" /></div>
+          <div class="back-wrap"><img src="static/cards/card-back.png" /></div>
+        </div>
 
         <section class="cards"><!-- cards -->
 

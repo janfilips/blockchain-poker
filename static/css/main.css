@@ -309,6 +309,9 @@ body {
   right: -20rem;
   top: 5rem;
 }
+.onPlay {
+    animation: blink-btn 1s steps(5, start) infinite;
+}
 @keyframes blink-animation {
   to {
     visibility: hidden;
@@ -379,7 +382,7 @@ body {
   margin: 0 1rem;
 }
 .btn-action.autoplay {
-  width: 13.8rem;
+  width: 18.8rem;
 }
 .btn-action:hover {
   box-shadow: none;
@@ -660,6 +663,26 @@ body {
 }
 .bay-card:not(:last-child) {
   margin-right: 2%;
+}
+.cards-back {
+  display: none;
+}
+.cards-back.show-backs {
+  display: block;
+}
+.cards-back .back-wrap {
+  float: left;
+  width: 20%;
+  padding-top: 3.3rem;
+  position: relative;
+  box-sizing: border-box;
+  height: 26.5rem;
+  text-align: center;
+}
+.cards-back .back-wrap img {
+  display: inline-block;
+  max-width: 16.8rem;
+  margin-top: 0;
 }
 
 /*-- deck page --*/
