@@ -331,31 +331,38 @@
 
     <div class="deal-cards {% comment %}player-win{% endcomment %}">
 
-        <div class="cards cards-back"><!-- cards back -->
-          <div class="back-wrap"><img src="static/cards/card-back.png" /></div>
-          <div class="back-wrap"><img src="static/cards/card-back.png" /></div>
-          <div class="back-wrap"><img src="static/cards/card-back.png" /></div>
-          <div class="back-wrap"><img src="static/cards/card-back.png" /></div>
-          <div class="back-wrap"><img src="static/cards/card-back.png" /></div>
-        </div>
+      {% if credit == 0 %}
 
-        <section class="cards"><!-- cards -->
-
-          {% for card in hand %}
-            <div class="card-wrap {% if card in sugested_hand %} preselect {% endif %}"> <!-- on the second listing put simply "held" here not preselect, the preselect is there only for the initial shuffle so that the "held" cards won't show up prior the cards being revieled -->
-              <div class="indicator">Held</div>
-              <div class="flip-card-inner">
-                <div class="flip-card-front">
-                  <img src="static/cards/card-back.png" />
-                </div>
-                <div class="flip-card-back">
-                  <img src="static/cards/{{card}}.png" />
-                </div>
-              </div>
+            <div class="cards cards-back show-backs"><!-- cards back -->
+              <div class="back-wrap"><img src="static/cards/card-back.png" /></div>
+              <div class="back-wrap"><img src="static/cards/card-back.png" /></div>
+              <div class="back-wrap"><img src="static/cards/card-back.png" /></div>
+              <div class="back-wrap"><img src="static/cards/card-back.png" /></div>
+              <div class="back-wrap"><img src="static/cards/card-back.png" /></div>
             </div>
-          {% endfor %}
 
-        </section><!-- cards END -->
+      {% else %}
+
+            <section class="cards"><!-- cards -->
+
+              {% for card in hand %}
+                <div class="card-wrap {% if card in sugested_hand %} preselect {% endif %}"> <!-- on the second listing put simply "held" here not preselect, the preselect is there only for the initial shuffle so that the "held" cards won't show up prior the cards being revieled -->
+                  <div class="indicator">Held</div>
+                  <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                      <img src="static/cards/card-back.png" />
+                    </div>
+                    <div class="flip-card-back">
+                      <img src="static/cards/{{card}}.png" />
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+
+            </section><!-- cards END -->
+
+      {% endif %}
+      
 
       <div class="inser-coin {% if credit == 0 %}show-inser{% endif %}">PLAY 5 CREDITS</div>
       <div class="text-over">YOU WIN $5!!!</div>
