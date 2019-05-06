@@ -32,10 +32,6 @@ def home(request):
     player, created = Players.objects.get_or_create(session_key=player_session_key)
     print('player', player, 'is_new', created)
 
-    hand = []
-    cards_deck = deck()
-    starting_nonreduced_cards_deck = cards_deck.copy()
-
     # Note: this would be an example how to work with cards individually
     # card1 = card('2','S')
     # card2 = card('Q','S')
@@ -50,13 +46,54 @@ def home(request):
 
     #########################################################################
     # XXX temporarily simulating credit
-    if(player.credit <= 0):
-        player.credit = 10
-        player.save()
+    # if(player.credit <= 0):
+    #     player.credit = 10
+    #     player.save()
     #########################################################################
-    player.credit = 0
+    player.credit = 10
     player.save()
 
+
+    winning_decks = Decks.objects.filter(player_wins=True).order_by('-pk')[:100]
+
+    if(player.swap_bet_amount):
+        player.bet_amount = player.swap_bet_amount
+        player.swap_bet_amount = 0
+        player.save()
+
+
+    autoplay = "false"
+    if(player.autoplay):
+        autoplay = "true"
+
+    response = render(
+        request=request,
+        template_name='index.html',
+        context={
+            'player_session_key': player_session_key,
+            'autoplay': autoplay,
+            'hand': [],
+            'credit': player.credit,
+            'bet_amount': player.bet_amount,
+            'mini_bonus': player.mini_bonus,
+            'winning_decks': winning_decks,
+            },
+    )
+    response.set_cookie(key="player_session_key",value=player_session_key)
+
+    return response
+
+
+def ajax_deal_cards(request):
+
+    player_session_key = request.POST['player_session_key']
+    player = Players.objects.get(session_key=player_session_key)
+
+    print('player', player)
+
+    hand = []
+    cards_deck = deck()
+    starting_nonreduced_cards_deck = cards_deck.copy()
 
     if(player.credit >= player.bet_amount):
 
@@ -64,8 +101,8 @@ def home(request):
         evaluated_hand, numeral_dict, suit_dict = cards_deck.evaluate_hand(hand)
         sugested_hand = cards_deck.suggest_hand(player, hand, evaluated_hand, numeral_dict, suit_dict)
 
-        print('evaluated_hand debug', evaluated_hand, numeral_dict, suit_dict)
-        print('suggested_hand debug', sugested_hand)
+        # print('evaluated_hand debug', evaluated_hand, numeral_dict, suit_dict)
+        # print('suggested_hand debug', sugested_hand)
 
         deck_hash = (''.join([choice(string.ascii_letters + string.digits) for i in range(25)]) + \
                             ''.join([choice(string.digits) for i in range(10)])).upper()
@@ -88,31 +125,13 @@ def home(request):
         sugested_hand = ""
 
 
-    winning_decks = Decks.objects.filter(player_wins=True).order_by('-pk')[:100]
-
-    if(player.swap_bet_amount):
-        player.bet_amount = player.swap_bet_amount
-        player.swap_bet_amount = 0
-        player.save()
-
-
-    autoplay = "false"
-    if(player.autoplay):
-        autoplay = "true"
-
     response = render(
         request=request,
-        template_name='index.html',
+        template_name='credit.html',
         context={
-            'player_session_key': player_session_key,
-            'autoplay': autoplay,
             'hand': hand,
             'evaluated_hand': evaluated_hand,
             'sugested_hand': sugested_hand,
-            'credit': player.credit,
-            'bet_amount': player.bet_amount,
-            'mini_bonus': player.mini_bonus,
-            'winning_decks': winning_decks,
             },
     )
     response.set_cookie(key="player_session_key",value=player_session_key)

@@ -334,7 +334,7 @@
 
     <div class="deal-cards {% comment %}player-win{% endcomment %}">
 
-      {% if credit == 0 %}
+      {% if credit == 0 or not hand %}
 
             <div class="cards cards-back show-backs"><!-- cards back -->
               <div class="back-wrap"><img src="static/cards/card-back.png" /></div>
