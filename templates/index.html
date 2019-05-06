@@ -32,6 +32,9 @@
         console.log('reload');
         location.reload();
       });
+      $('.draw-first-action').click(function() {
+        app.first_draw();
+      });
 
       $('.card-wrap').click(function() {
         $(this).toggleClass('held');
@@ -409,8 +412,12 @@
         {% if credit == 0 %}
         <a class="btn-action" href="/credit">+ Credit</a>
         {% else %}
-        <a class="btn-action deal-action" href="#">Draw</a>
-        <a class="btn-action draw-action" href="#">Deal</a>
+            {% if not hand %}
+            <a class="btn-action draw-first-action" href="#">Deal</a>
+            {% else %}
+            <a class="btn-action deal-action" href="#">Draw</a>
+            <a class="btn-action draw-action" href="#">Deal</a>
+            {% endif %}
         {% endif %}
       </div>
     </div><!-- actions END -->

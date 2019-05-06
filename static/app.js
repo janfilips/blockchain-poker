@@ -17,7 +17,6 @@ var app = function() {
     return {
         inited: false,
         init:function(){
-            console.log(this.inited);
             if(this.inited === false){
                 this.inited = true;
                 setInterval(app._load_megaloolah, 3000);
@@ -49,6 +48,25 @@ var app = function() {
             //       console.log("megaloolah error!!!");
             //     }
             // });
+        },
+        first_draw:() => {
+            $.ajax({
+                type: "POST",
+                url: '/ajax/deal/cards/',
+                headers: {
+                    'X-CSRFToken': csrf_token
+                },
+                data: {
+                  player_session_key: session_key,
+                },
+                success: (r) => {
+                  console.log(r);
+                  // $('header.main-head .mega>span:nth(1)').text('$' + formatMoney(r.mega)));
+                  // $('header.main-head .major>span:nth(1)').text('$' + formatMoney(r.major));
+                  // $('header.main-head .minor>span:nth(1)').text('$' + formatMoney(r.minor));
+                  // $('header.main-head .mini>span:nth(1)').text('$' + formatMoney(r.mini));
+                }
+            });
         },
         held_all: () => {
             $('.card-wrap').removeClass('held');
