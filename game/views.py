@@ -125,18 +125,14 @@ def ajax_deal_cards(request):
         sugested_hand = ""
 
 
-    response = render(
-        request=request,
-        template_name='credit.html',
-        context={
+    response = {
             'hand': hand,
             'evaluated_hand': evaluated_hand,
             'sugested_hand': sugested_hand,
-            },
-    )
-    response.set_cookie(key="player_session_key",value=player_session_key)
+    }
 
-    return response
+    return HttpResponse(json.dumps(response).replace('"','"'))
+
 
 
 def about(request):
