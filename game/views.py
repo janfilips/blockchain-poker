@@ -54,6 +54,8 @@ def home(request):
         player.credit = 10
         player.save()
     #########################################################################
+    player.credit = 0
+    player.save()
 
 
     if(player.credit >= player.bet_amount):
