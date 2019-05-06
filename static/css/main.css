@@ -433,6 +433,10 @@ body {
   box-shadow: none;
   background: #CAAE0D;
 }
+.btn-action.disabled {
+  box-shadow: none;
+  background: #B1B1B1;
+}
 
 /*-- footer --*/
 .footer {

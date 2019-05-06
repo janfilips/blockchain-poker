@@ -12,12 +12,14 @@
   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
   crossorigin="anonymous">
 </script>
+<script type="text/javascript" src="/static/app.js"></script>
 
 <script>
 	var csrf_token = "{{csrf_token}}"
 	var session_key = "{{player_session_key}}"
   var autoplay_id = true;
   var autoplay = {{autoplay}};
+  var user_credit = {{credit|floatformat:0}};
 </script>
 <script>
     $( document ).ready(function() {
@@ -153,6 +155,7 @@
       }
 
 
+      var rowselector = 0;
       {% if evaluated_hand == "Nothing." %}
         var rowselector = 0;
       {% endif %}
@@ -269,7 +272,7 @@
         <span>Two pair</span>
         <span>Jacks or better</span>
       </div><!-- combinations END -->
-      <div class="points point-1 {% if bet_amount == 1 %}active{% endif %}"><!-- points -->
+      <div data-base="1" class="points point-1 {% if bet_amount == 1 %}active{% endif %}"><!-- points -->
         <span>$250</span>
         <span>$50</span>
         <span>$25</span>
@@ -280,7 +283,7 @@
         <span>$2</span>
         <span>$1</span>
       </div><!-- points END -->
-      <div class="points point-2 {% if bet_amount == 2 %}active{% endif %}"><!-- points -->
+      <div data-base="2" class="points point-2 {% if bet_amount == 2 %}active{% endif %}"><!-- points -->
         <span>$500</span>
         <span>$100</span>
         <span>$50</span>
@@ -291,7 +294,7 @@
         <span>$4</span>
         <span>$2</span>
       </div><!-- points END -->
-      <div class="points point-3 {% if bet_amount == 3 %}active{% endif %}"><!-- points -->
+      <div data-base="3" class="points point-3 {% if bet_amount == 3 %}active{% endif %}"><!-- points -->
         <span>$750</span>
         <span>$150</span>
         <span>$75</span>
@@ -302,7 +305,7 @@
         <span>$6</span>
         <span>$3</span>
       </div><!-- points END -->
-      <div class="points point-4 {% if bet_amount == 5 %}active{% endif %}"><!-- points -->
+      <div data-base="5" class="points point-4 {% if bet_amount == 5 %}active{% endif %}"><!-- points -->
         <span>$1500</span>
         <span>$250</span>
         <span>$125</span>
@@ -313,7 +316,7 @@
         <span>$10</span>
         <span>$5</span>
       </div><!-- points END -->
-      <div class="points point-5 {% if bet_amount == 10 %}active{% endif %}"><!-- points -->
+      <div data-base="10" class="points point-5 {% if bet_amount == 10 %}active{% endif %}"><!-- points -->
         <span>$5000</span>
         <span>$500</span>
         <span>$250</span>
@@ -362,7 +365,7 @@
             </section><!-- cards END -->
 
       {% endif %}
-      
+
 
       <div class="inser-coin {% if credit == 0 %}show-inser{% endif %}">PLAY 5 CREDITS</div>
       <div class="text-over">YOU WIN $5!!!</div>
@@ -400,11 +403,15 @@
         <a class="btn-action" href="#">cashout</a>
         <a class="btn-action active" href="#">sound</a>
         <a class="btn-action" href="/about">about</a>
-        <a class="coin btn-action" href="/credit  "><span>${{bet_amount}}</span></a>
-        <a class="btn-action" href="#">Cancel</a>
-        <a class="btn-action bet-max" href="#">Bet max</a>
+        <a class="coin btn-action" href="/credit"><span>${{bet_amount}}</span></a>
+        <a class="btn-action" href="javascript:app.held_all()">Cancel</a>
+        <a class="btn-action bet-max" href="javascript:app.bet_max()">Bet max</a>
+        {% if credit == 0 %}
+        <a class="btn-action" href="/credit">+ Credit</a>
+        {% else %}
         <a class="btn-action deal-action" href="#">Draw</a>
         <a class="btn-action draw-action" href="#">Deal</a>
+        {% endif %}
       </div>
     </div><!-- actions END -->
 
