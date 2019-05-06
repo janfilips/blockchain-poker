@@ -125,13 +125,27 @@ def ajax_deal_cards(request):
         sugested_hand = ""
 
 
+    if(hand):
+        decoupled_hand = []
+        for card in hand:
+            decoupled_hand.append(str(card))
+        hand = decoupled_hand
+
+    if(sugested_hand):
+        decoupled_hand = []
+        for card in sugested_hand:
+            decoupled_hand.append(str(card))
+        sugested_hand = decoupled_hand
+
     response = {
             'hand': hand,
             'evaluated_hand': evaluated_hand,
             'sugested_hand': sugested_hand,
     }
 
-    return HttpResponse(json.dumps(response).replace('"','"'))
+    print('response', response)
+
+    return HttpResponse(json.dumps(response))
 
 
 
@@ -420,4 +434,4 @@ def ajax_draw_cards(request):
         'row_selector': row_selector,
     }
 
-    return HttpResponse(json.dumps(response).replace('"','"'))
+    return HttpResponse(json.dumps(response))
