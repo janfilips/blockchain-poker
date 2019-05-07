@@ -23,7 +23,7 @@ from game.models import Players, Decks, Jackpot
 from random import randint, choice
 
 
-
+COOKIE_EXPIRY_TIME =  datetime.now() + timedelta(days=365)
 
 
 def tmp_about_desired_look(request):
@@ -113,7 +113,7 @@ def home(request):
             'winning_decks': winning_decks,
             },
     )
-    response.set_cookie(key="player_session_key",value=player_session_key)
+    response.set_cookie(key="player_session_key",value=player_session_key, expires=COOKIE_EXPIRY_TIME)
 
     return response
 
@@ -157,7 +157,7 @@ def tos(request):
             'player_session_key': player_session_key,
             },
     )
-    response.set_cookie(key="player_session_key",value=player_session_key)
+    response.set_cookie(key="player_session_key",value=player_session_key, expires=COOKIE_EXPIRY_TIME)
 
     return response
 
@@ -193,7 +193,7 @@ def reveal_deck(request, deck_hash):
             'player_session_key': player_session_key,
             },
     )
-    response.set_cookie(key="player_session_key",value=player_session_key)
+    response.set_cookie(key="player_session_key",value=player_session_key, expires=COOKIE_EXPIRY_TIME)
 
     return response
 
@@ -216,7 +216,7 @@ def credit(request):
             'player_session_key': player_session_key,
             },
     )
-    response.set_cookie(key="player_session_key",value=player_session_key)
+    response.set_cookie(key="player_session_key",value=player_session_key, expires=COOKIE_EXPIRY_TIME)
 
     return response
 
