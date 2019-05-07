@@ -20,7 +20,7 @@ var app = function() {
             if (this.inited === false) {
                 this.inited = true;
                 this._load_megaloolah();
-                setInterval(app._load_megaloolah, 3000);
+                setInterval(app._load_megaloolah, 30000);
             }
         },
         evaluated_hand_text: (a) => {
@@ -76,11 +76,6 @@ var app = function() {
             return o;
         },
         _load_megaloolah: () => {
-            // $('header.main-head .mega>span:nth(1)').text('$' + formatMoney(Math.random() * 1000000 + 10));
-            // $('header.main-head .major>span:nth(1)').text('$' + formatMoney(Math.random() * 100000 + 10));
-            // $('header.main-head .minor>span:nth(1)').text('$' + formatMoney(Math.random() * 50000 + 10));
-            // $('header.main-head .mini>span:nth(1)').text('$' + formatMoney(Math.random() * 10000 + 10));
-
             $.ajax({
                 type: "POST",
                 url: '/ajax/jackpot/stats/',
@@ -88,16 +83,13 @@ var app = function() {
                     'X-CSRFToken': csrf_token
                 },
                 data: {
-                  player_session_key: session_key,
+                    player_session_key: session_key
                 },
                 success: (r) => {
-                  $('header.main-head .mega>span:nth(1)').text('$' + formatMoney(r.super));
-                  $('header.main-head .major>span:nth(1)').text('$' + formatMoney(r.mega));
-                  $('header.main-head .minor>span:nth(1)').text('$' + formatMoney(r.major));
-                  $('header.main-head .mini>span:nth(1)').text('$' + formatMoney(r.minor));
-                },
-                error:  () => {
-                  console.log("megaloolah error!!!");
+                    $('header.main-head .mega>span:nth(1)').text('$' + formatMoney(r.super));
+                    $('header.main-head .major>span:nth(1)').text('$' + formatMoney(r.mega));
+                    $('header.main-head .minor>span:nth(1)').text('$' + formatMoney(r.major));
+                    $('header.main-head .mini>span:nth(1)').text('$' + formatMoney(r.minor));
                 }
             });
         },
@@ -159,6 +151,19 @@ var app = function() {
             } else {
                 $('.points.point-1').click();
             }
+        },
+        change_bet: (a) => {
+            $.ajax({
+                type: "POST",
+                url: '/ajax/change/bet/',
+                headers: {
+                    'X-CSRFToken': csrf_token
+                },
+                data: {
+                    player_session_key: session_key,
+                    bet_amount: a
+                }
+            });
         }
     }
 }();

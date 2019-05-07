@@ -45,23 +45,7 @@
         var bet_amount = $(this).find('span:last-child').html();
             bet_amount = bet_amount.split('$');
             bet_amount = bet_amount[1];
-        $.ajax({
-            type: "POST",
-            url: '/ajax/change/bet/',
-            headers: {
-                'X-CSRFToken': csrf_token
-            },
-            data: {
-              player_session_key: session_key,
-              bet_amount: bet_amount
-            },
-            success: function (response) {
-              console.log("data sent");
-            },
-            error: function () {
-              console.log("error!!!");
-            }
-        });
+        app.change_bet(bet_amount);
       });
 
       function drawcards(shoudRefresh) {
@@ -221,19 +205,19 @@
     <header class="main-head"><!-- main had -->
       <div class="mega">
         <span>super</span>
-        <span>$213,037.50</span>
+        <span></span>
       </div>
       <div class="major">
         <span>mega</span>
-        <span>$11,813.50</span>
+        <span></span>
       </div>
       <div class="minor">
         <span>major</span>
-        <span>$11.50</span>
+        <span></span>
       </div>
       <div class="mini">
         <span>minor</span>
-        <span>$7.60</span>
+        <span></span>
       </div>
     </header><!-- main had END-->
 
