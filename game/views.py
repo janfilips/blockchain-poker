@@ -72,16 +72,6 @@ def home(request):
     # hand.insert(0, card4)
     # hand.insert(0, card5)
 
-    #########################################################################
-    # XXX temporarily simulating credit
-    # if(player.credit <= 0):
-    #     player.credit = 10
-    #     player.save()
-    #########################################################################
-    # player.credit = 10
-    # player.save()
-
-
     winning_decks = Decks.objects.filter(player_wins=True).order_by('-pk')[:100]
 
     if(player.swap_bet_amount):
@@ -237,9 +227,6 @@ def ajax_deal_cards(request):
         hand = cards_deck.get_hand()
         evaluated_hand, numeral_dict, suit_dict = cards_deck.evaluate_hand(hand)
         sugested_hand = cards_deck.suggest_hand(player, hand, evaluated_hand, numeral_dict, suit_dict)
-
-        # print('evaluated_hand debug', evaluated_hand, numeral_dict, suit_dict)
-        # print('suggested_hand debug', sugested_hand)
 
         deck_hash = (''.join([choice(string.ascii_letters + string.digits) for i in range(25)]) + \
                             ''.join([choice(string.digits) for i in range(10)])).upper()
@@ -436,7 +423,6 @@ def ajax_draw_cards(request):
 
     # print('win amount', win_amount)
     # print('player credit', player.credit)
-
 
     congrats_you_won_flag = False
 
