@@ -22,6 +22,29 @@ from utils.evalcards import card, deck
 from game.models import Players, Decks, Jackpot
 from random import randint, choice
 
+
+
+
+
+def tmp_about_desired_look(request):
+
+    response = render(
+        request=request,
+        template_name='tmp_about_desired_look.html',
+    )
+
+    return response
+
+def tmp_add_credit(request):
+
+    player_session_key = request.COOKIES["player_session_key"]
+    player, created = Players.objects.get_or_create(session_key=player_session_key)
+    player.credi
+
+    return HttpResponse("working on this currently")
+
+
+
 def home(request):
 
     try:
@@ -144,16 +167,6 @@ def about(request):
             },
     )
     response.set_cookie(key="player_session_key",value=player_session_key)
-
-    return response
-
-
-def tmp_about_desired_look(request):
-
-    response = render(
-        request=request,
-        template_name='tmp_about_desired_look.html',
-    )
 
     return response
 
