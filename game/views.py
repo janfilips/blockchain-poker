@@ -128,6 +128,10 @@ def home(request):
         player.save()
 
 
+    if(player.credit <= 0):
+        player.autoplay = False
+        player.save() 
+        
     autoplay = "false"
     if(player.autoplay):
         autoplay = "true"
