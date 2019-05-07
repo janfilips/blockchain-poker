@@ -19,6 +19,7 @@ var app = function() {
         init: function() {
             if (this.inited === false) {
                 this.inited = true;
+                this._load_megaloolah();
                 setInterval(app._load_megaloolah, 3000);
             }
         },
@@ -75,31 +76,30 @@ var app = function() {
             return o;
         },
         _load_megaloolah: () => {
-            $('header.main-head .mega>span:nth(1)').text('$' + formatMoney(Math.random() * 1000000 + 10));
-            $('header.main-head .major>span:nth(1)').text('$' + formatMoney(Math.random() * 100000 + 10));
-            $('header.main-head .minor>span:nth(1)').text('$' + formatMoney(Math.random() * 50000 + 10));
-            $('header.main-head .mini>span:nth(1)').text('$' + formatMoney(Math.random() * 10000 + 10));
+            // $('header.main-head .mega>span:nth(1)').text('$' + formatMoney(Math.random() * 1000000 + 10));
+            // $('header.main-head .major>span:nth(1)').text('$' + formatMoney(Math.random() * 100000 + 10));
+            // $('header.main-head .minor>span:nth(1)').text('$' + formatMoney(Math.random() * 50000 + 10));
+            // $('header.main-head .mini>span:nth(1)').text('$' + formatMoney(Math.random() * 10000 + 10));
 
-            // $.ajax({
-            //     type: "POST",
-            //     url: '/ajax/get/megaloolah/',
-            //     headers: {
-            //         'X-CSRFToken': csrf_token
-            //     },
-            //     data: {
-            //       player_session_key: session_key,
-            //     },
-            //     success: (r) => {
-            //       console.log(r);
-            //       $('header.main-head .mega>span:nth(1)').text('$' + formatMoney(r.mega)));
-            //       $('header.main-head .major>span:nth(1)').text('$' + formatMoney(r.major));
-            //       $('header.main-head .minor>span:nth(1)').text('$' + formatMoney(r.minor));
-            //       $('header.main-head .mini>span:nth(1)').text('$' + formatMoney(r.mini));
-            //     },
-            //     error:  () => {
-            //       console.log("megaloolah error!!!");
-            //     }
-            // });
+            $.ajax({
+                type: "POST",
+                url: '/ajax/jackpot/stats/',
+                headers: {
+                    'X-CSRFToken': csrf_token
+                },
+                data: {
+                  player_session_key: session_key,
+                },
+                success: (r) => {
+                  $('header.main-head .mega>span:nth(1)').text('$' + formatMoney(r.super));
+                  $('header.main-head .major>span:nth(1)').text('$' + formatMoney(r.mega));
+                  $('header.main-head .minor>span:nth(1)').text('$' + formatMoney(r.major));
+                  $('header.main-head .mini>span:nth(1)').text('$' + formatMoney(r.minor));
+                },
+                error:  () => {
+                  console.log("megaloolah error!!!");
+                }
+            });
         },
         first_draw: () => {
             $('a.draw-first-action').replaceWith('<a class="btn-action deal-action" href="#">Draw</a><a class="btn-action draw-action" href="#">Deal</a>');
