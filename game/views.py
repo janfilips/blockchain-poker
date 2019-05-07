@@ -39,7 +39,7 @@ def tmp_add_credit(request):
 
     player_session_key = request.COOKIES["player_session_key"]
     player, created = Players.objects.get_or_create(session_key=player_session_key)
-    player.credit += 10
+    player.credit += 5
     player.save()
 
     return HttpResponseRedirect("/")
