@@ -441,6 +441,10 @@ def ajax_draw_cards(request):
     player_deck_obj.game_finalized = True
     player_deck_obj.save()
 
+    if(congrats_you_won_flag):
+        congrats_you_won_flag = "true"
+    else:
+        congrats_you_won_flag = "false"
 
     response = render(
         request=request,
