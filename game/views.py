@@ -451,7 +451,7 @@ def ajax_draw_cards(request):
         template_name='ajax_cards.html',
         context={
             'credit': player.credit,
-            'final_hand': final_hand,
+            'final_hand': str(final_hand).replace("'",'"'),
             'evaluated_hand': evaluated_hand,
             'congrats_you_won_flag': congrats_you_won_flag,
             'win_amount': win_amount,
