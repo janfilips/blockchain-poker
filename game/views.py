@@ -40,6 +40,8 @@ def home(request):
 
 
     hand = []
+    evaluated_hand = None
+    suggested_hand = None
     # Note: this would be an example how to work with cards individually
     # card1 = card('7','S')
     # card2 = card('7','D')
@@ -108,6 +110,8 @@ def home(request):
             'player_session_key': player_session_key,
             'autoplay': autoplay,
             'hand': hand,
+            'evaluated_hand': evaluated_hand,
+            'sugested_hand': sugested_hand,
             'credit': player.credit,
             'bet_amount': player.bet_amount,
             'mini_bonus': player.mini_bonus,
