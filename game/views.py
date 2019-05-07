@@ -56,6 +56,9 @@ def home(request):
 
     if(last_draw):
 
+        # XXX BUG checkni ze ma dostatocny kredit......
+        # XXX prepnutie stavky ked mas kredit 7 a stavka 10.....
+
         cards_deck = deck()
         starting_nonreduced_cards_deck = cards_deck.copy()
 
