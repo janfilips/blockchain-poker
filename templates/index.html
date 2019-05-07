@@ -72,9 +72,7 @@
               },
               success: function (response) {
 
-                console.log(response);
-                var obj = jQuery.parseJSON( response );
-                console.log(obj);
+                obj = response;
 
                 $('.deal-cards').addClass('game-done');
                 var date = new Date();
