@@ -739,6 +739,32 @@ body {
   color: #0134B4;
   padding-bottom: 1rem;
 }
+.action-container {
+  overflow: hidden;
+  padding-bottom: 1rem;
+}
+.custom-btn {
+  display: inline-block;
+  float: left;
+  margin-right: 2rem;
+  margin-top: 1rem;
+  background: #FF1F41;
+  text-shadow: 3px 3px 0 rgba(0,0,0,0.3);
+  -webkit-text-stroke: 1px #F3D040;
+  border: solid 3px #F3D040;
+  box-shadow: 3px 3px 0 rgba(0,0,0,0.7);
+  padding: 1rem 2rem;
+  font-family: 'Bungee', cursive;
+  font-size: 2rem;
+  text-decoration: none;
+}
+.custom-btn:hover {
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
+  box-shadow: 1px 1px 0 rgba(0,0,0,0.7);
+}
+.special-btn {
+  font-size: 3rem;
+}
 
 
 /*-- credit page --*/
@@ -765,11 +791,26 @@ body {
   color: #0134B4;
   padding-bottom: 1rem;
 }
-
-
-
-
-
+.languages-wrap {
+  text-align: right;
+  margin-bottom: 1rem;
+}
+.languages-wrap a {
+  display: inline-block;
+  margin-left: 1rem;
+  width: 3rem;
+  height: 3rem;
+  box-sizing: border-box;
+  opacity: 0.7;
+  border-radius: 50%;
+}
+.languages-wrap a img {
+  display: block;
+}
+.languages-wrap a.active-language {
+  opacity: 1;
+  border: solid 2px #fff;
+}
 
 /*-- flip card  --*/
 .card-wrap {
@@ -808,4 +849,10 @@ body {
   color: white;
   transform: rotateY(180deg);
   z-index: 1;
+}
+
+@media only screen and (max-width: 1200px) {
+  .lists .card-list, .lists .hand-th {
+    display: none;
+  }
 }
