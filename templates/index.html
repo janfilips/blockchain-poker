@@ -13,6 +13,7 @@
   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
   crossorigin="anonymous">
 </script>
+<script type="text/javascript" src="/static/plugins/jquery.cookie-1.4.1.min.js"></script>
 <script type="text/javascript" src="/static/app.js"></script>
 
 <script>
@@ -40,28 +41,7 @@
 
       // function for table
       $('.type-list .points').click(function() {
-        $('.type-list .points').removeClass('active');
-        $(this).toggleClass('active');
-        var bet_amount = $(this).find('span:last-child').html();
-            bet_amount = bet_amount.split('$');
-            bet_amount = bet_amount[1];
-        $.ajax({
-            type: "POST",
-            url: '/ajax/change/bet/',
-            headers: {
-                'X-CSRFToken': csrf_token
-            },
-            data: {
-              player_session_key: session_key,
-              bet_amount: bet_amount
-            },
-            success: function (response) {
-              console.log("data sent");
-            },
-            error: function () {
-              console.log("error!!!");
-            }
-        });
+         app.change_bet($(this).attr('data-base'));
       });
 
       function drawcards(shoudRefresh) {
@@ -75,6 +55,7 @@
               hand[i]=(pth.split(".")[0])
             }
           });
+
 
           jQuery(".deal-action").next('.draw-action').show();
           jQuery(".deal-action").hide();
@@ -95,6 +76,9 @@
                 var obj = jQuery.parseJSON( response );
                 console.log(obj);
 
+                $('.deal-cards').addClass('game-done');
+                $.cookie('game_already_played', '1');
+
                 jQuery('.deal-cards .cards .card-wrap').each(function(index){
 
                   if(!jQuery(this).hasClass('held')){
@@ -105,6 +89,7 @@
                     //   jQuery('.card-wrap').removeClass('held');
                     //});
                     jQuery('.credit').html('Credit $'+obj.credit);
+
                     if(obj.congrats_you_won_flag){
                       $('.stats-line .bet-amaunt').remove();
                       $('.stats-line .win').after('<div class="bet-amaunt">' + app.evaluated_hand_text(obj.evaluated_hand) + '</div>');
@@ -222,19 +207,19 @@
     <header class="main-head"><!-- main had -->
       <div class="mega">
         <span>super</span>
-        <span>$213,037.50</span>
+        <span></span>
       </div>
       <div class="major">
         <span>mega</span>
-        <span>$11,813.50</span>
+        <span></span>
       </div>
       <div class="minor">
         <span>major</span>
-        <span>$11.50</span>
+        <span></span>
       </div>
       <div class="mini">
         <span>minor</span>
-        <span>$7.60</span>
+        <span></span>
       </div>
     </header><!-- main had END-->
 
