@@ -465,7 +465,7 @@ def ajax_jackpot_stats(request):
     super_jackpot = randint(1000000,2000000)
     mega_jackpot = randint(200000,500000)
     major_jackpot = randint(100000,200000)
-    minor_jackpot = randint(10000,20000)
+    minor_jackpot = randint(4000,9999)
 
     response = {
         'super': super_jackpot,
