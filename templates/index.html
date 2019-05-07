@@ -155,11 +155,9 @@
             }, 200*i);
       });
 
-      if (autoplay == true ) {
-          setTimeout(function(){
-            $('.preselect').addClass('held');
-          }, 1300);
-      }
+      setTimeout(function(){
+        $('.preselect').addClass('held');
+      }, 1300);
 
       $(".autoplay,.auto-stop-action").click(function(){
           $.ajax({

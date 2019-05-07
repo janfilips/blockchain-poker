@@ -141,11 +141,9 @@ var app = function() {
                             cardflip.toggleClass('flipit', !cardflip.hasClass('flipit'));
                         }, 200 * i);
                     });
-                    if (autoplay == true ) {
-                        setTimeout(function() {
-                            $('.preselect').addClass('held');
-                        }, 1800);
-                    }
+                    setTimeout(function() {
+                        $('.preselect').addClass('held');
+                    }, 1800);
 
                     $('.stats-line .bet-amaunt').remove();
                     $('.stats-line .win').after('<div class="bet-amaunt">' + app.evaluated_hand_text(o.evaluated_hand) + '</div>');
