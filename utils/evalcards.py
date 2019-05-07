@@ -113,8 +113,6 @@ class deck(set):
                         if(i in str(card)):
                             sugested_hand.append(card)
 
-        # XXX TODO check if there is a chance for straight
-
         if not sugested_hand:
             for i in suit_dict:
                 if(suit_dict[i]==4):
