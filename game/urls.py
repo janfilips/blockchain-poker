@@ -25,7 +25,9 @@ urlpatterns = [
     url(r'^ajax/draw/cards/$', ajax_draw_cards, name='ajax_draw_cards'),
     url(r'^ajax/autoplay/$', ajax_autoplay, name='autoplay'),
     url(r'^ajax/jackpot/stats/$', ajax_jackpot_stats, name='ajax_jackpot_stats'),
+
     # temp stuff - DELETE THIS SHIT
-    url(r'^temp/add/credit/$', tmp_add_credit, name='tmp_add_credit'),
+    url(r'^temp/add/credit/(?P<credit>[\w\-\.]+)/$', tmp_add_credit, name='tmp_add_credit'),
     url(r'^tmp/about/desired/look$', tmp_about_desired_look, name='tmp_about_desired_look'),
+
 ]
