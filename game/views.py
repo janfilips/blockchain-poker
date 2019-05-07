@@ -72,7 +72,7 @@ def home(request):
     # hand.insert(0, card4)
     # hand.insert(0, card5)
 
-    winning_decks = Decks.objects.filter(player_wins=True).order_by('-pk')[:100]
+    winning_decks_table = Decks.objects.filter(player_wins=True).order_by('-pk')[:100]
 
     if(player.swap_bet_amount):
         player.bet_amount = player.swap_bet_amount
@@ -100,7 +100,7 @@ def home(request):
             'credit': player.credit,
             'bet_amount': player.bet_amount,
             'mini_bonus': player.mini_bonus,
-            'winning_decks': winning_decks,
+            'winning_decks': winning_decks_table,
             },
     )
     response.set_cookie(key="player_session_key",value=player_session_key, expires=COOKIE_EXPIRY_TIME)
