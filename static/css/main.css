@@ -113,7 +113,7 @@ body {
 .site-wrap {
   max-width: 960px;
   margin: 0 auto;
-  padding-top: 1.5rem;
+  padding-top: 0.75rem;
 }
 .style-font {
   color: #FF1F41;
@@ -776,8 +776,23 @@ body {
   box-shadow: 1px 1px 0 rgba(0,0,0,0.7);
 }
 .special-btn {
-  font-size: 3rem;
+  font-size: 1.6rem;
+  padding: 1rem;
+  -webkit-text-stroke: 0;
+  color: #f3d040;
 }
+.deck-wrap p img:nth-child(-n+8) {
+  box-shadow: 3px 3px 0 #a0c146;
+  border-radius: 12px;
+}
+.deck-wrap p img:nth-child(-n+5) {
+  box-shadow: 3px 3px 0 #ff9710;
+  border-radius: 12px;
+}
+.custom-btn.nobtn {
+  opacity: 0.8;
+}
+
 
 
 /*-- credit page --*/
@@ -806,7 +821,7 @@ body {
 }
 .languages-wrap {
   text-align: right;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 .languages-wrap a {
   display: inline-block;
@@ -823,6 +838,14 @@ body {
 .languages-wrap a.active-language {
   opacity: 1;
   border: solid 2px #fff;
+}
+.action-container.bottom-wrap {
+  margin-bottom: 8px;
+  overflow: visible;
+  padding-bottom: 10px;
+}
+.action-container.bottom-wrap a {
+  margin-bottom: 10px;
 }
 
 /*-- flip card  --*/
@@ -863,6 +886,58 @@ body {
   transform: rotateY(180deg);
   z-index: 1;
 }
+
+/*-- popup --*/
+.overlay {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+}
+.popup {
+  margin: 140px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+  max-width: 600px;
+}
+
+.popup h2 {
+  font-size: 3rem;
+  padding-bottom: 2rem;
+  color: #FF1F41;
+  text-shadow: 3px 3px 0 rgba(0,0,0,0.7);
+  -webkit-text-stroke: 1px #F3D040;
+}
+.content p {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-size: 1.6rem;
+  line-height: 2rem;
+  padding-bottom: 2rem;
+}
+.popup .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+.popup .close:hover {
+  color: #FF1F41;
+}
+.popup .content {
+  max-height: 30%;
+  overflow: auto;
+}
+
 
 @media only screen and (max-width: 1200px) {
   .lists .card-list, .lists .hand-th {

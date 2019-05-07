@@ -22,7 +22,7 @@
       <br/>
       <br/>
     </header>
-    <section>
+    <section class="deck-wrap">
 
       <p>
 
@@ -89,32 +89,32 @@
       <b>Provably Fair In Technical Terms</b>
       <br/>
       <p>
-          We guarantee that every Jacks or Better game you play with us is completely fair. You will be dealt a 
-          completely random deck of cards every game, and provably demonstrate that we have in no way 
+          We guarantee that every Jacks or Better game you play with us is completely fair. You will be dealt a
+          completely random deck of cards every game, and provably demonstrate that we have in no way
           manipulated the shuffle.
       </p>
       <p>
-          Instead of just taking our word for it, we make available all of the information you need to verify that 
+          Instead of just taking our word for it, we make available all of the information you need to verify that
           our game is fair.
         </p>
         <p>
-          The reason that we can guarantee this is that your web browser supplies a random number that we 
-          must incorporate into the random number generator in a provably consistent way. Our server 
-          shuffles the deck, and your computer then gives us a random number that we must use 
-          to repeatedly cut the deck. Since our servers do not know what random number your computer will 
+          The reason that we can guarantee this is that your web browser supplies a random number that we
+          must incorporate into the random number generator in a provably consistent way. Our server
+          shuffles the deck, and your computer then gives us a random number that we must use
+          to repeatedly cut the deck. Since our servers do not know what random number your computer will
           send, we have no way of knowing how the shuffle will look in the end.
         </p>
         <p>
             This is how the deck shuffling mechanism works in technical terms.
             Before the game is started, a random seed number is first chosen by our server.
-            We then create an SHA-256 hash of this server seed and send it to your web browser. This hash 
-            serves as a sort of encryption of the original seed number chosen by the server. From this hash 
-            you cannot identify the seed number chosen, but you can later use it to verify that we did not 
+            We then create an SHA-256 hash of this server seed and send it to your web browser. This hash
+            serves as a sort of encryption of the original seed number chosen by the server. From this hash
+            you cannot identify the seed number chosen, but you can later use it to verify that we did not
             change the seed number afterwards.
         </p>
         <p>
-          Your web browser then sends our server a random seed number. Your web browser just selects any 
-          random number, although technically there is nothing preventing the client sending any number they 
+          Your web browser then sends our server a random seed number. Your web browser just selects any
+          random number, although technically there is nothing preventing the client sending any number they
           want. The point is that there is no way of knowing what this random number will be.
         </p>
         <p>
