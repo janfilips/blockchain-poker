@@ -23,7 +23,7 @@ from game.models import Players, Decks, Jackpot
 from random import randint, choice
 
 
-
+COOKIE_EXPIRY_TIME =  datetime.now() + timedelta(days=365)
 
 
 def tmp_about_desired_look(request):
@@ -39,10 +39,10 @@ def tmp_add_credit(request):
 
     player_session_key = request.COOKIES["player_session_key"]
     player, created = Players.objects.get_or_create(session_key=player_session_key)
-    player.credit += 10
+    player.credit += 5
     player.save()
 
-    return HttpResponse(player.credit)
+    return HttpResponseRedirect("/")
 
 
 
@@ -55,14 +55,6 @@ def home(request):
 
     player, created = Players.objects.get_or_create(session_key=player_session_key)
     print('player', player, 'is_new', created)
-
-
-    # try:
-    #     last_draw = request.COOKIES["last_draw"]
-    # except:
-    #     last_draw = None
-
-    last_draw = None
 
 
     hand = []
@@ -79,36 +71,6 @@ def home(request):
     # hand.insert(0, card3)
     # hand.insert(0, card4)
     # hand.insert(0, card5)
-
-    if(last_draw):
-
-        # XXX BUG checkni ze ma dostatocny kredit......
-        # XXX prepnutie stavky ked mas kredit 7 a stavka 10.....
-
-        cards_deck = deck()
-        starting_nonreduced_cards_deck = cards_deck.copy()
-
-        hand = cards_deck.get_hand()
-        evaluated_hand, numeral_dict, suit_dict = cards_deck.evaluate_hand(hand)
-        sugested_hand = cards_deck.suggest_hand(player, hand, evaluated_hand, numeral_dict, suit_dict)
-
-        # print('evaluated_hand debug', evaluated_hand, numeral_dict, suit_dict)
-        # print('suggested_hand debug', sugested_hand)
-
-        deck_hash = (''.join([choice(string.ascii_letters + string.digits) for i in range(25)]) + \
-                            ''.join([choice(string.digits) for i in range(10)])).upper()
-
-        starting_nonreduced_cards_deck_ = ""
-        for card in starting_nonreduced_cards_deck:
-            starting_nonreduced_cards_deck_ += str(card) + "|"
-        starting_cards_deck = starting_nonreduced_cards_deck_[:-1]
-
-        player_cards_deck = Decks.objects.create(player=player, bet_amount=player.bet_amount, deck=starting_cards_deck, deck_hash=deck_hash)
-        print('player_cards_deck', player_cards_deck)
-
-        player.credit -= player.bet_amount
-        player.save()
-
 
     #########################################################################
     # XXX temporarily simulating credit
@@ -131,7 +93,7 @@ def home(request):
     if(player.credit <= 0):
         player.autoplay = False
         player.save() 
-        
+
     autoplay = "false"
     if(player.autoplay):
         autoplay = "true"
@@ -151,7 +113,7 @@ def home(request):
             'winning_decks': winning_decks,
             },
     )
-    response.set_cookie(key="player_session_key",value=player_session_key)
+    response.set_cookie(key="player_session_key",value=player_session_key, expires=COOKIE_EXPIRY_TIME)
 
     return response
 
@@ -195,7 +157,7 @@ def tos(request):
             'player_session_key': player_session_key,
             },
     )
-    response.set_cookie(key="player_session_key",value=player_session_key)
+    response.set_cookie(key="player_session_key",value=player_session_key, expires=COOKIE_EXPIRY_TIME)
 
     return response
 
@@ -231,7 +193,7 @@ def reveal_deck(request, deck_hash):
             'player_session_key': player_session_key,
             },
     )
-    response.set_cookie(key="player_session_key",value=player_session_key)
+    response.set_cookie(key="player_session_key",value=player_session_key, expires=COOKIE_EXPIRY_TIME)
 
     return response
 
@@ -254,7 +216,7 @@ def credit(request):
             'player_session_key': player_session_key,
             },
     )
-    response.set_cookie(key="player_session_key",value=player_session_key)
+    response.set_cookie(key="player_session_key",value=player_session_key, expires=COOKIE_EXPIRY_TIME)
 
     return response
 
@@ -499,25 +461,16 @@ def ajax_draw_cards(request):
     player_deck_obj.game_finalized = True
     player_deck_obj.save()
 
-    if(congrats_you_won_flag):
-        congrats_you_won_flag = "true"
-    else:
-        congrats_you_won_flag = "false"
-
-    response = render(
-        request=request,
-        template_name='ajax_cards.html',
-        context={
+    response = {
             'credit': player.credit,
-            'final_hand': str(final_hand).replace("'",'"'),
+            'final_hand': final_hand,
             'evaluated_hand': evaluated_hand,
             'congrats_you_won_flag': congrats_you_won_flag,
             'win_amount': win_amount,
             'row_selector': row_selector,
-            },
-    )
-    response.set_cookie(key="last_draw", value=datetime.now(), max_age=300)
-    return response
+    }
+    return JsonResponse(response)
+
 
 
 def ajax_jackpot_stats(request):
