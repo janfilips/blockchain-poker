@@ -33,10 +33,12 @@ def home(request):
     print('player', player, 'is_new', created)
 
 
-    try:
-        last_draw = request.COOKIES["last_draw"]
-    except:
-        last_draw = None
+    # try:
+    #     last_draw = request.COOKIES["last_draw"]
+    # except:
+    #     last_draw = None
+
+    last_draw = None
 
 
     hand = []
@@ -87,8 +89,8 @@ def home(request):
     #     player.credit = 10
     #     player.save()
     #########################################################################
-    player.credit = 10
-    player.save()
+    # player.credit = 10
+    # player.save()
 
 
     winning_decks = Decks.objects.filter(player_wins=True).order_by('-pk')[:100]
@@ -294,7 +296,7 @@ def ajax_deal_cards(request):
             'evaluated_hand': evaluated_hand,
             'sugested_hand': sugested_hand,
     }
-    
+
     return HttpResponse(json.dumps(response))
 
 
@@ -509,7 +511,7 @@ def ajax_jackpot_stats(request):
         'super': super_jackpot,
         'mega': mega_jackpot,
         'major': major_jackpot,
-        'minor': minor_jackpot,        
-    }    
+        'minor': minor_jackpot,
+    }
 
     return JsonResponse(response)

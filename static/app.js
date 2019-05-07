@@ -21,6 +21,9 @@ var app = function() {
                 this.inited = true;
                 this._load_megaloolah();
                 setInterval(app._load_megaloolah, 30000);
+                if($.cookie('game_already_played')){
+                    this.first_draw();
+                }
             }
         },
         evaluated_hand_text: (a) => {
@@ -95,6 +98,20 @@ var app = function() {
         },
         first_draw: () => {
             $('a.draw-first-action').replaceWith('<a class="btn-action deal-action" href="#">Draw</a><a class="btn-action draw-action" href="#">Deal</a>');
+            let b = parseInt($('.points.active').attr('data-base'));
+            if(b > user_credit){
+                app.bet_max(app._ajax_deal_cards);
+            }
+            else{
+                app._ajax_deal_cards();
+            }
+
+        },
+        _ajax_deal_cards: () => {
+            // odpocitame virtualne kredit
+            var b = parseInt($('.points.active').attr('data-base'));
+            $('.credit').html('Credit $' + (user_credit - b));
+
             $.ajax({
                 type: "POST",
                 url: '/ajax/deal/cards/',
@@ -139,31 +156,54 @@ var app = function() {
         held_all: () => {
             $('.card-wrap').removeClass('held');
         },
-        bet_max: () => {
+        bet_max: (c) => {
             if (user_credit >= 10) {
-                $('.points.point-5').click();
+                app.change_bet(10, c);
             } else if (user_credit >= 5) {
-                $('.points.point-4').click();
+                app.change_bet(5, c);
             } else if (user_credit >= 3) {
-                $('.points.point-3').click();
+                app.change_bet(3, c);
             } else if (user_credit >= 2) {
-                $('.points.point-2').click();
+                app.change_bet(2, c);
             } else {
-                $('.points.point-1').click();
+                app.change_bet(1, c);
             }
         },
-        change_bet: (a) => {
-            $.ajax({
-                type: "POST",
-                url: '/ajax/change/bet/',
-                headers: {
-                    'X-CSRFToken': csrf_token
-                },
-                data: {
-                    player_session_key: session_key,
-                    bet_amount: a
+        change_bet: (a, c) => {
+            var can_change = false;
+            if($('.show-backs').length == 1 || $('.game-done').length == 1){
+                can_change = true;
+            }
+            if(can_change){
+                b = a;
+                if(a == 5){
+                    b = 4;
+                } else if(a == 10){
+                    b = 5;
                 }
-            });
+                $('.type-list .points').removeClass('active');
+                $('.points.point-' + b).addClass('active');
+                $('.stats-line .win').text('BET $' + a);
+                $('.coin.btn-action>span').text('$' + a);
+
+                $.ajax({
+                    type: "POST",
+                    url: '/ajax/change/bet/',
+                    headers: {
+                        'X-CSRFToken': csrf_token
+                    },
+                    data: {
+                        player_session_key: session_key,
+                        bet_amount: a
+                    },
+                    success: function(){
+                        "function" == typeof c && c();
+                    }
+                });
+            }
+            else{
+                console.log('change bet is not allowed');
+            }
         }
     }
 }();

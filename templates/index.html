@@ -13,6 +13,7 @@
   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
   crossorigin="anonymous">
 </script>
+<script type="text/javascript" src="/static/plugins/jquery.cookie-1.4.1.min.js"></script>
 <script type="text/javascript" src="/static/app.js"></script>
 
 <script>
@@ -40,12 +41,7 @@
 
       // function for table
       $('.type-list .points').click(function() {
-        $('.type-list .points').removeClass('active');
-        $(this).toggleClass('active');
-        var bet_amount = $(this).find('span:last-child').html();
-            bet_amount = bet_amount.split('$');
-            bet_amount = bet_amount[1];
-        app.change_bet(bet_amount);
+         app.change_bet($(this).attr('data-base'));
       });
 
       function drawcards(shoudRefresh) {
@@ -59,6 +55,7 @@
               hand[i]=(pth.split(".")[0])
             }
           });
+
 
           jQuery(".deal-action").next('.draw-action').show();
           jQuery(".deal-action").hide();
@@ -79,6 +76,9 @@
                 var obj = jQuery.parseJSON( response );
                 console.log(obj);
 
+                $('.deal-cards').addClass('game-done');
+                $.cookie('game_already_played', '1');
+
                 jQuery('.deal-cards .cards .card-wrap').each(function(index){
 
                   if(!jQuery(this).hasClass('held')){
@@ -89,6 +89,7 @@
                     //   jQuery('.card-wrap').removeClass('held');
                     //});
                     jQuery('.credit').html('Credit $'+obj.credit);
+
                     if(obj.congrats_you_won_flag){
                       $('.stats-line .bet-amaunt').remove();
                       $('.stats-line .win').after('<div class="bet-amaunt">' + app.evaluated_hand_text(obj.evaluated_hand) + '</div>');
