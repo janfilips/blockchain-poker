@@ -6,7 +6,7 @@ import string
 import json
 import ast
 
-from datetime import timedelta
+from datetime import datetime, timedelta
 
 from django.http import JsonResponse, HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
@@ -32,7 +32,16 @@ def home(request):
     player, created = Players.objects.get_or_create(session_key=player_session_key)
     print('player', player, 'is_new', created)
 
+
+    try:
+        last_draw = request.COOKIES["last_draw"]
+    except:
+        last_draw = None
+
+
     hand = []
+    evaluated_hand = None
+    suggested_hand = None
     # Note: this would be an example how to work with cards individually
     # card1 = card('7','S')
     # card2 = card('7','D')
@@ -44,6 +53,33 @@ def home(request):
     # hand.insert(0, card3)
     # hand.insert(0, card4)
     # hand.insert(0, card5)
+
+    if(last_draw):
+
+        cards_deck = deck()
+        starting_nonreduced_cards_deck = cards_deck.copy()
+
+        hand = cards_deck.get_hand()
+        evaluated_hand, numeral_dict, suit_dict = cards_deck.evaluate_hand(hand)
+        sugested_hand = cards_deck.suggest_hand(player, hand, evaluated_hand, numeral_dict, suit_dict)
+
+        # print('evaluated_hand debug', evaluated_hand, numeral_dict, suit_dict)
+        # print('suggested_hand debug', sugested_hand)
+
+        deck_hash = (''.join([choice(string.ascii_letters + string.digits) for i in range(25)]) + \
+                            ''.join([choice(string.digits) for i in range(10)])).upper()
+
+        starting_nonreduced_cards_deck_ = ""
+        for card in starting_nonreduced_cards_deck:
+            starting_nonreduced_cards_deck_ += str(card) + "|"
+        starting_cards_deck = starting_nonreduced_cards_deck_[:-1]
+
+        player_cards_deck = Decks.objects.create(player=player, bet_amount=player.bet_amount, deck=starting_cards_deck, deck_hash=deck_hash)
+        print('player_cards_deck', player_cards_deck)
+
+        player.credit -= player.bet_amount
+        player.save()
+
 
     #########################################################################
     # XXX temporarily simulating credit
@@ -74,6 +110,8 @@ def home(request):
             'player_session_key': player_session_key,
             'autoplay': autoplay,
             'hand': hand,
+            'evaluated_hand': evaluated_hand,
+            'sugested_hand': sugested_hand,
             'credit': player.credit,
             'bet_amount': player.bet_amount,
             'mini_bonus': player.mini_bonus,
@@ -83,71 +121,6 @@ def home(request):
     response.set_cookie(key="player_session_key",value=player_session_key)
 
     return response
-
-
-def ajax_deal_cards(request):
-
-    player_session_key = request.POST['player_session_key']
-    player = Players.objects.get(session_key=player_session_key)
-
-    print('player', player)
-
-    hand = []
-    cards_deck = deck()
-    starting_nonreduced_cards_deck = cards_deck.copy()
-
-    if(player.credit >= player.bet_amount):
-
-        hand = cards_deck.get_hand()
-        evaluated_hand, numeral_dict, suit_dict = cards_deck.evaluate_hand(hand)
-        sugested_hand = cards_deck.suggest_hand(player, hand, evaluated_hand, numeral_dict, suit_dict)
-
-        # print('evaluated_hand debug', evaluated_hand, numeral_dict, suit_dict)
-        # print('suggested_hand debug', sugested_hand)
-
-        deck_hash = (''.join([choice(string.ascii_letters + string.digits) for i in range(25)]) + \
-                            ''.join([choice(string.digits) for i in range(10)])).upper()
-
-        starting_nonreduced_cards_deck_ = ""
-        for card in starting_nonreduced_cards_deck:
-            starting_nonreduced_cards_deck_ += str(card) + "|"
-        starting_cards_deck = starting_nonreduced_cards_deck_[:-1]
-
-        player_cards_deck = Decks.objects.create(player=player, bet_amount=player.bet_amount, deck=starting_cards_deck, deck_hash=deck_hash)
-        print('player_cards_deck', player_cards_deck)
-
-        player.credit -= player.bet_amount
-        player.save()
-
-    else:
-
-        hand = []
-        evaluated_hand = ""
-        sugested_hand = ""
-
-
-    if(hand):
-        decoupled_hand = []
-        for card in hand:
-            decoupled_hand.append(str(card))
-        hand = decoupled_hand
-
-    if(sugested_hand):
-        decoupled_hand = []
-        for card in sugested_hand:
-            decoupled_hand.append(str(card))
-        sugested_hand = decoupled_hand
-
-    response = {
-            'hand': hand,
-            'evaluated_hand': evaluated_hand,
-            'sugested_hand': sugested_hand,
-    }
-
-    print('response', response)
-
-    return HttpResponse(json.dumps(response))
-
 
 
 def about(request):
@@ -261,6 +234,68 @@ def credit(request):
     response.set_cookie(key="player_session_key",value=player_session_key)
 
     return response
+
+
+def ajax_deal_cards(request):
+
+    player_session_key = request.POST['player_session_key']
+    player = Players.objects.get(session_key=player_session_key)
+
+    print('player', player)
+
+    hand = []
+    cards_deck = deck()
+    starting_nonreduced_cards_deck = cards_deck.copy()
+
+    if(player.credit >= player.bet_amount):
+
+        hand = cards_deck.get_hand()
+        evaluated_hand, numeral_dict, suit_dict = cards_deck.evaluate_hand(hand)
+        sugested_hand = cards_deck.suggest_hand(player, hand, evaluated_hand, numeral_dict, suit_dict)
+
+        # print('evaluated_hand debug', evaluated_hand, numeral_dict, suit_dict)
+        # print('suggested_hand debug', sugested_hand)
+
+        deck_hash = (''.join([choice(string.ascii_letters + string.digits) for i in range(25)]) + \
+                            ''.join([choice(string.digits) for i in range(10)])).upper()
+
+        starting_nonreduced_cards_deck_ = ""
+        for card in starting_nonreduced_cards_deck:
+            starting_nonreduced_cards_deck_ += str(card) + "|"
+        starting_cards_deck = starting_nonreduced_cards_deck_[:-1]
+
+        player_cards_deck = Decks.objects.create(player=player, bet_amount=player.bet_amount, deck=starting_cards_deck, deck_hash=deck_hash)
+        print('player_cards_deck', player_cards_deck)
+
+        player.credit -= player.bet_amount
+        player.save()
+
+    else:
+
+        hand = []
+        evaluated_hand = ""
+        sugested_hand = ""
+
+
+    if(hand):
+        decoupled_hand = []
+        for card in hand:
+            decoupled_hand.append(str(card))
+        hand = decoupled_hand
+
+    if(sugested_hand):
+        decoupled_hand = []
+        for card in sugested_hand:
+            decoupled_hand.append(str(card))
+        sugested_hand = decoupled_hand
+
+    response = {
+            'hand': hand,
+            'evaluated_hand': evaluated_hand,
+            'sugested_hand': sugested_hand,
+    }
+    
+    return HttpResponse(json.dumps(response))
 
 
 def ajax_bet(request):
@@ -414,8 +449,8 @@ def ajax_draw_cards(request):
     player.credit = player.credit + win_amount
     player.save()
 
-    print('win amount', win_amount)
-    print('player credit', player.credit)
+    # print('win amount', win_amount)
+    # print('player credit', player.credit)
 
 
     congrats_you_won_flag = False
@@ -458,8 +493,7 @@ def ajax_draw_cards(request):
             'row_selector': row_selector,
             },
     )
-    import datetime
-    response.set_cookie(key="last_draw", value=datetime.datetime.now(), max_age=300)
+    response.set_cookie(key="last_draw", value=datetime.now(), max_age=300)
     return response
 
 
