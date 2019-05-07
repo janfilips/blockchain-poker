@@ -41,7 +41,7 @@ def home(request):
 
     hand = []
     evaluated_hand = None
-    suggested_hand = None
+    sugested_hand = None
     # Note: this would be an example how to work with cards individually
     # card1 = card('7','S')
     # card2 = card('7','D')
