@@ -35,11 +35,11 @@ def tmp_about_desired_look(request):
 
     return response
 
-def tmp_add_credit(request):
+def tmp_add_credit(request, credit):
 
     player_session_key = request.COOKIES["player_session_key"]
     player, created = Players.objects.get_or_create(session_key=player_session_key)
-    player.credit += 5
+    player.credit += int(credit)
     player.save()
 
     return HttpResponseRedirect("/")
