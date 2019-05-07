@@ -195,6 +195,19 @@ body {
   background: #F9FC27;
   color: #000;
 }
+.btn-action.auto-stop-action {
+  display: none;
+}
+.btn-action.auto-stop-action.show {
+  display: block;
+}
+.btn-action.auto-stop-action.show+a {
+  display: none !important;
+}
+.btn-action.auto-stop-action.show+a+a {
+  display: none !important;
+}
+
 
 
 /*-- combinations --*/
@@ -222,7 +235,7 @@ body {
   padding-top: 3.3rem;
   position: relative;
   box-sizing: border-box;
-  /* opacity: 0.9; // nechapem preco*/ 
+  /* opacity: 0.9; // nechapem preco*/
   height: 26.5rem;
 }
 .card-wrap img {

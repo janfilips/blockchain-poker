@@ -17,10 +17,10 @@
 
 <script>
 	var csrf_token = "{{csrf_token}}"
-	var session_key = "{{player_session_key}}"
-  var autoplay_id = true;
-  var autoplay = {{autoplay}};
-  var user_credit = {{credit|floatformat:0}};
+    var session_key = "{{player_session_key}}"
+    var autoplay_id = true;
+    var autoplay = {{autoplay}};
+    var user_credit = {{credit|floatformat:0}};
 </script>
 <script>
     $( document ).ready(function() {
@@ -140,53 +140,23 @@
       // autoplay function
 
       if (autoplay == true ) {
-
-        $('.flip-card-inner:last').on('transitionend webkitTransitionEnd oTransitionEnd', function () {
+          if($('.btn-action.draw-first-action').length == 1){
+              $('.btn-action.draw-first-action').click();
+          }
+        $('body').on('transitionend webkitTransitionEnd oTransitionEnd', '.flip-card-inner:last', function () {
           setTimeout(function(){
               drawcards(true);
-            }, 2000);
+          }, 2000);
         });
         $('.autoplay').addClass('onPlay').html('Autoplay Is On');
+        $('.btn-action.auto-stop-action').addClass('show');
       }
       else {
         $('.autoplay').removeClass('onPlay').html('Autoplay');
+        $('.btn-action.auto-stop-action').removeClass('show');
       }
 
-
-      var rowselector = 0;
-      {% if evaluated_hand == "Nothing." %}
-        var rowselector = 0;
-      {% endif %}
-      {% if evaluated_hand == "One-pair." %}
-        var rowselector = 0;
-      {% endif %}
-      {% if evaluated_hand == "Royal-flush." %}
-        var rowselector = 1;
-      {% endif %}
-      {% if evaluated_hand == "Straight-flush." %}
-        var rowselector = 2;
-      {% endif %}
-      {% if evaluated_hand == "Four-of-a-kind." %}
-        var rowselector = 3;
-      {% endif %}
-      {% if evaluated_hand == "Full-house." %}
-        var rowselector = 4;
-      {% endif %}
-      {% if evaluated_hand == "Flush." %}
-        var rowselector = 5;
-      {% endif %}
-      {% if evaluated_hand == "Straight." %}
-        var rowselector = 6;
-      {% endif %}
-      {% if evaluated_hand == "Three-of-a-kind." %}
-        var rowselector = 7;
-      {% endif %}
-      {% if evaluated_hand == "Two-pair." %}
-        var rowselector = 8;
-      {% endif %}
-      {% if evaluated_hand == "Jacks-or-better." %}
-        var rowselector = 9;
-      {% endif %}
+      var rowselector = app.row_selector('{{evaluated_hand}}');
 
       $('.type-list .points span:nth-child(' + rowselector + ')').addClass( "activeLine" );
       $('.type-list .combination span:nth-child(' + rowselector + ')').addClass( "activeLine" );
@@ -203,7 +173,7 @@
         $('.preselect').addClass('held');
       }, 1300);
 
-      $(".autoplay").click(function(){
+      $(".autoplay,.auto-stop-action").click(function(){
           $.ajax({
                 type: "POST",
                 url: '/ajax/autoplay/',
@@ -215,14 +185,15 @@
                   autoplay: !autoplay,
                 },
                 success:function(response){
-                  ///////////////////////////////////////////////////////////////////////////////////////////////////////
-                  /// XXX BUG this needs to be tested
-                  /// basically we need to avoid the problem with when you swich off autoplay you loose your hand (a bet)
-                  ///////////////////////////////////////////////////////////////////////////////////////////////////////
                   if (autoplay == true ) {
-                    drawcards(true);
+                      $('.autoplay').removeClass('onPlay').html('Autoplay');
+                      autoplay = false;
+                      $('.btn-action.auto-stop-action').removeClass('show');
+                      // drawcards(true);
                   }
-                  location.reload();
+                  else{
+                      location.reload();
+                  }
                 }
             });
       })
@@ -416,10 +387,12 @@
         <a class="btn-action" href="/credit">+ Credit</a>
         {% else %}
             {% if not hand %}
-            <a class="btn-action draw-first-action" href="#">Deal</a>
+                <a class="btn-action auto-stop-action" href="#">Stop</a>
+                <a class="btn-action draw-first-action" href="#">Deal</a>
             {% else %}
-            <a class="btn-action deal-action" href="#">Draw</a>
-            <a class="btn-action draw-action" href="#">Deal</a>
+                <a class="btn-action auto-stop-action" href="#">Stop</a>
+                <a class="btn-action deal-action" href="#">Draw</a>
+                <a class="btn-action draw-action" href="#">Deal</a>
             {% endif %}
         {% endif %}
       </div>
