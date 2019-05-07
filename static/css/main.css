@@ -222,7 +222,7 @@ body {
   padding-top: 3.3rem;
   position: relative;
   box-sizing: border-box;
-  opacity: 0.9;
+  /* opacity: 0.9; // nechapem preco*/ 
   height: 26.5rem;
 }
 .card-wrap img {

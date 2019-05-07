@@ -28,15 +28,12 @@
         return new Promise(resolve => setTimeout(resolve, milliseconds))
       }
 
-      $('.draw-action').click(function() {
-        console.log('reload');
-        location.reload();
-      });
+      $('body').on('click', '.draw-action', () => location.reload());
       $('.draw-first-action').click(function() {
         app.first_draw();
       });
 
-      $('.card-wrap').click(function() {
+      $('body').on('click', '.card-wrap', function() {
         $(this).toggleClass('held');
       });
 
@@ -65,12 +62,6 @@
             }
         });
       });
-
-    //bet max
-    //  $(".bet-max").click(function(event){
-    //      $(".type-list .points").removeClass("active");
-    //      $(".type-list .points:last-child").addClass("active");
-    //  });
 
       function drawcards(shoudRefresh) {
           var hand=new Array()
@@ -113,8 +104,11 @@
                     //});
                     jQuery('.credit').html('Credit $'+obj.credit);
                     if(obj.congrats_you_won_flag){
-                      jQuery('.deal-cards').addClass('player-win');
-                      jQuery('.deal-cards .text-over').html('YOU WIN $' + obj.win_amount);
+                      $('.stats-line .bet-amaunt').remove();
+                      $('.stats-line .win').after('<div class="bet-amaunt">' + app.evaluated_hand_text(obj.evaluated_hand) + '</div>');
+
+                      $('.deal-cards').addClass('player-win');
+                      $('.deal-cards .text-over').html('YOU WIN $' + obj.win_amount);
                       $('.type-list .points span').removeClass( "activeLine" );
                       $('.type-list .combination span').removeClass( "activeLine" );
                       $('.type-list .points span:nth-child('+ obj.row_selector +')').addClass( "activeLine" );
@@ -136,7 +130,7 @@
       } // draw function end
 
 
-      $(".deal-action").click(function(event){
+      $('body').on('click', ".deal-action", function(event){
         event.preventDefault();
         drawcards(false);
       });
