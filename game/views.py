@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 from utils.evalcards import card, deck
 
 from game.models import Players, Decks, Jackpot
-from random import choice
+from random import randint, choice
 
 def home(request):
 
@@ -434,4 +434,24 @@ def ajax_draw_cards(request):
         'row_selector': row_selector,
     }
 
+    #response.set_cookie(key="last_draw", value=datetime.datetime.now(), max_age=300)
+
     return HttpResponse(json.dumps(response))
+
+
+def ajax_jackpot_stats(request):
+
+    # XXX TODO this needs to be fed / pulled form the DB
+    super_jackpot = randint(1000000,2000000)
+    mega_jackpot = randint(200000,500000)
+    major_jackpot = randint(100000,200000)
+    minor_jackpot = randint(10000,20000)
+
+    response = {
+        'super': super_jackpot,
+        'mega': mega_jackpot,
+        'major': major_jackpot,
+        'minor': minor_jackpot,        
+    }    
+
+    return JsonResponse(response)
