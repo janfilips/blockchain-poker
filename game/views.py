@@ -38,8 +38,6 @@ def home(request):
     except:
         last_draw = None
 
-    print('last_draw '*100)
-    print(last_draw)
 
     hand = []
     # Note: this would be an example how to work with cards individually
