@@ -32,9 +32,10 @@ def home(request):
     player, created = Players.objects.get_or_create(session_key=player_session_key)
     print('player', player, 'is_new', created)
 
+    hand = []
     # Note: this would be an example how to work with cards individually
-    # card1 = card('2','S')
-    # card2 = card('Q','S')
+    # card1 = card('7','S')
+    # card2 = card('7','D')
     # card3 = card('J','S')
     # card4 = card('K','S')
     # card5 = card('A','D')
@@ -72,7 +73,7 @@ def home(request):
         context={
             'player_session_key': player_session_key,
             'autoplay': autoplay,
-            'hand': [],
+            'hand': hand,
             'credit': player.credit,
             'bet_amount': player.bet_amount,
             'mini_bonus': player.mini_bonus,
@@ -440,19 +441,22 @@ def ajax_draw_cards(request):
     player_deck_obj.game_finalized = True
     player_deck_obj.save()
 
-    response = {
-        'credit': player.credit,
-        'final_hand': final_hand,
-        'evaluated_hand': evaluated_hand,
-        'congrats_you_won_flag': congrats_you_won_flag,
-        'win_amount': win_amount,
-        'row_selector': row_selector,
-    }
 
-    # XXX TODO nejak nastavit exp cookie
-    #response.set_cookie(key="last_draw", value=datetime.datetime.now(), max_age=300)
-
-    return HttpResponse(json.dumps(response))
+    response = render(
+        request=request,
+        template_name='ajax_cards.html',
+        context={
+            'credit': player.credit,
+            'final_hand': final_hand,
+            'evaluated_hand': evaluated_hand,
+            'congrats_you_won_flag': congrats_you_won_flag,
+            'win_amount': win_amount,
+            'row_selector': row_selector,
+            },
+    )
+    import datetime
+    response.set_cookie(key="last_draw", value=datetime.datetime.now(), max_age=300)
+    return response
 
 
 def ajax_jackpot_stats(request):
