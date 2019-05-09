@@ -26,6 +26,7 @@ class Decks(models.Model):
     winning_hand_result = models.CharField(max_length=64)
     swapped_cards = models.CharField(max_length=64,blank=True)
     swapped_cards_count = models.IntegerField(default=0)
+    drawn_cards = models.CharField(max_length=64,blank=True)
     shuffled_at = models.DateTimeField(auto_now=True)
     game_finalized = models.BooleanField(default=False)
 

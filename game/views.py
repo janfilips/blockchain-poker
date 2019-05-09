@@ -336,6 +336,7 @@ def ajax_draw_cards(request):
         return HttpResponse("Sorry this game was already finalized.")
 
     swapped_cards = []
+    drawn_cards = []
 
     final_hand_ = []
     for i in range(0,5):
@@ -343,10 +344,12 @@ def ajax_draw_cards(request):
             final_hand_.append(player_deck[i])
         if(hold_cards[i]==""):
             final_hand_.append(player_deck[i+5])
+            drawn_cards.append(player_deck[i+5])
             swapped_cards.append(player_deck[i])
 
     player_deck_obj.swapped_cards = swapped_cards
     player_deck_obj.swapped_cards_count = len(swapped_cards)
+    player_deck_obj.drawn_cards = drawn_cards
     player_deck_obj.save()
 
     final_hand = []
