@@ -269,8 +269,27 @@ def ajax_deal_cards(request):
 
     if(player.credit >= player.bet_amount):
 
-        hand = cards_deck.get_hand()
-        evaluated_hand, numeral_dict, suit_dict = cards_deck.evaluate_hand(hand)
+
+        while True:
+
+            hand = cards_deck.get_hand()
+            evaluated_hand, numeral_dict, suit_dict = cards_deck.evaluate_hand(hand)
+
+            if(evaluated_hand == "Nothing."):
+                break
+
+            if(randint(0,4) == 0 and evaluated_hand == "One-pair."):
+                break
+
+            if(randint(0,5) == 0 and evaluated_hand == "Jacks-or-better."):
+                break
+
+            if(randint(0,6) == 0 and evaluated_hand == "Two-pair."):
+                break
+
+
+        print('hand', hand, 'evaluated_hand', evaluated_hand)
+
         sugested_hand = cards_deck.suggest_hand(player, hand, evaluated_hand, numeral_dict, suit_dict)
 
         deck_hash = (''.join([choice(string.ascii_letters + string.digits) for i in range(25)]) + \
@@ -281,8 +300,8 @@ def ajax_deal_cards(request):
             cards_deck_ += str(card) + "|"
         cards_deck = cards_deck_[:-1]
 
+
         player_cards_deck = Decks.objects.create(player=player, bet_amount=player.bet_amount, deck=cards_deck, deck_hash=deck_hash)
-        print('player_cards_deck', player_cards_deck)
 
         player.credit -= player.bet_amount
         player.save()
