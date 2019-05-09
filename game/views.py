@@ -171,6 +171,7 @@ def reveal_deck(request, deck_hash):
         starting_hand.append(cards_deck_split[i])
 
     swapped_cards = ast.literal_eval(cards_deck.swapped_cards)
+    drawn_cards = ast.literal_eval(cards_deck.drawn_cards)
 
     response = render(
         request=request,
@@ -179,6 +180,7 @@ def reveal_deck(request, deck_hash):
             'deck_hash': deck_hash,
             'starting_hand': starting_hand,
             'swapped_cards': swapped_cards,
+            'drawn_cards': drawn_cards,
             'cards_deck': cards_deck,
             'cards_deck_split': cards_deck_split,
             'player_session_key': player_session_key,
