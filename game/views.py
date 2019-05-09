@@ -196,6 +196,54 @@ def credit(request):
     return response
 
 
+def ajax_bet(request):
+
+    bet_amount = request.POST['bet_amount']
+    player_session_key = request.POST['player_session_key']
+
+    player = Players.objects.get(session_key=player_session_key)
+
+    deck = Decks.objects.filter(player=player).order_by("-pk")
+
+    if(deck):
+
+        deck = deck[0]
+        if(deck.game_finalized):
+            player.bet_amount = int(bet_amount)
+        else:
+            player.swap_bet_amount = int(bet_amount)
+        player.save()
+
+    if(not deck):
+
+        player.bet_amount = int(bet_amount)
+        player.save()
+
+
+    print('player', player, 'changed bet_amount', bet_amount)
+
+    return HttpResponse(bet_amount)
+
+
+def ajax_autoplay(request):
+
+    print('autoplay POST', request.POST)
+
+    autoplay = request.POST['autoplay']
+    player_session_key = request.POST['player_session_key']
+
+    player = Players.objects.get(session_key=player_session_key)
+
+    if(autoplay=="true"):
+        player.autoplay = True
+    else:
+        player.autoplay = False
+
+    player.save()
+
+    return HttpResponse(player.autoplay)
+
+
 def ajax_deal_cards(request):
 
     player_session_key = request.POST['player_session_key']
@@ -266,54 +314,6 @@ def ajax_deal_cards(request):
     }
 
     return HttpResponse(json.dumps(response))
-
-
-def ajax_bet(request):
-
-    bet_amount = request.POST['bet_amount']
-    player_session_key = request.POST['player_session_key']
-
-    player = Players.objects.get(session_key=player_session_key)
-
-    deck = Decks.objects.filter(player=player).order_by("-pk")
-
-    if(deck):
-
-        deck = deck[0]
-        if(deck.game_finalized):
-            player.bet_amount = int(bet_amount)
-        else:
-            player.swap_bet_amount = int(bet_amount)
-        player.save()
-
-    if(not deck):
-
-        player.bet_amount = int(bet_amount)
-        player.save()
-
-
-    print('player', player, 'changed bet_amount', bet_amount)
-
-    return HttpResponse(bet_amount)
-
-
-def ajax_autoplay(request):
-
-    print('autoplay POST', request.POST)
-
-    autoplay = request.POST['autoplay']
-    player_session_key = request.POST['player_session_key']
-
-    player = Players.objects.get(session_key=player_session_key)
-
-    if(autoplay=="true"):
-        player.autoplay = True
-    else:
-        player.autoplay = False
-
-    player.save()
-
-    return HttpResponse(player.autoplay)
 
 
 def ajax_draw_cards(request):
