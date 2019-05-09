@@ -58,21 +58,6 @@ def home(request):
     print('player', player, 'is_new', created)
 
 
-    hand = []
-    evaluated_hand = None
-    sugested_hand = None
-    # Note: this would be an example how to work with cards individually
-    # card1 = card('7','S')
-    # card2 = card('7','D')
-    # card3 = card('J','S')
-    # card4 = card('K','S')
-    # card5 = card('A','D')
-    # hand.insert(0, card1)
-    # hand.insert(0, card2)
-    # hand.insert(0, card3)
-    # hand.insert(0, card4)
-    # hand.insert(0, card5)
-
     winning_decks_table = Decks.objects.filter(player_wins=True).order_by('-pk')[:100]
 
     if(player.swap_bet_amount):
@@ -95,9 +80,6 @@ def home(request):
         context={
             'player_session_key': player_session_key,
             'autoplay': autoplay,
-            'hand': hand,
-            'evaluated_hand': evaluated_hand,
-            'sugested_hand': sugested_hand,
             'credit': player.credit,
             'bet_amount': player.bet_amount,
             'mini_bonus': player.mini_bonus,
@@ -220,6 +202,19 @@ def ajax_deal_cards(request):
     player = Players.objects.get(session_key=player_session_key)
 
     print('player', player)
+
+    # hand = []
+    # Note: this would be an example how to work with cards individually
+    # card1 = card('7','S')
+    # card2 = card('7','D')
+    # card3 = card('J','S')
+    # card4 = card('K','S')
+    # card5 = card('A','D')
+    # hand.insert(0, card1)
+    # hand.insert(0, card2)
+    # hand.insert(0, card3)
+    # hand.insert(0, card4)
+    # hand.insert(0, card5)
 
     hand = []
     cards_deck = deck()
