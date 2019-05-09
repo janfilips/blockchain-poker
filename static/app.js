@@ -145,6 +145,7 @@ var app = function() {
         },
         sound_play: (s) => {
             if (app.sounds) {
+                console.log('play:' + s, event);
                 var promise = document.getElementById(s).play();
                 if (promise !== undefined) {
                     promise.then(_ => {

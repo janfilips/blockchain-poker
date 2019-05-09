@@ -16,6 +16,7 @@
 <script type="text/javascript" src="/static/plugins/jquery.cookie-1.4.1.min.js"></script>
 <script type="text/javascript" src="/static/plugins/jquery.animateNumber.min.js"></script>
 <script type="text/javascript" src="/static/app.js"></script>
+<meta name="viewport" content="width=830, user-scalable=yes">
 
 <script>
 	var csrf_token = "{{csrf_token}}"
@@ -80,6 +81,10 @@
                 date.setTime(date.getTime() + (5 * 60 * 1000));
                 $.cookie('game_already_played', '1', {expires: date});
 
+                if(obj.congrats_you_won_flag){
+                  app.sound_play('media-win');
+                }
+
                 jQuery('.deal-cards .cards .card-wrap').each(function(index){
 
                   if(!jQuery(this).hasClass('held')){
@@ -92,7 +97,6 @@
                     jQuery('.credit').html('Credit $'+obj.credit);
 
                     if(obj.congrats_you_won_flag){
-                      app.sound_play('media-win');
                       $('.stats-line .bet-amaunt').remove();
                       $('.stats-line .win').after('<div class="bet-amaunt">' + app.evaluated_hand_text(obj.evaluated_hand) + '</div>');
 
@@ -150,14 +154,16 @@
       $('.type-list .combination span:nth-child(' + rowselector + ')').addClass( "activeLine" );
 
 
-      $('.card-wrap').each(function(i){
-      var cardflip = $(this);
-        setTimeout(function() {
-                cardflip.toggleClass('flipit', !cardflip.hasClass('flipit'));
-            }, 130*i);
-      });
-      app.sound_play('media-deal-five');
-
+      if($('.card-wrap').length > 0){
+        $('.card-wrap').each(function(i){
+        var cardflip = $(this);
+          setTimeout(function() {
+            cardflip.toggleClass('flipit', !cardflip.hasClass('flipit'));
+          }, 130*i);
+        });
+        app.sound_play('media-deal-five');
+      }
+      
       setTimeout(function(){
         $('.preselect').addClass('held');
       }, 1300);
