@@ -264,15 +264,20 @@ def ajax_deal_cards(request):
     # hand.insert(0, card4)
     # hand.insert(0, card5)
 
-    hand = []
-    cards_deck = deck()
-
+    
     if(player.credit >= player.bet_amount):
-
 
         while True:
 
-            hand = cards_deck.get_hand()
+            cards_deck = deck()
+            hand = []
+            counter = 1
+            for card in cards_deck:
+                hand.append(card)
+                if(counter==5):
+                    break
+                counter+=1
+
             evaluated_hand, numeral_dict, suit_dict = cards_deck.evaluate_hand(hand)
 
             if(evaluated_hand == "Nothing."):
@@ -290,14 +295,13 @@ def ajax_deal_cards(request):
             print('**** player received a winning hand', evaluated_hand, ', shuffling cards again..')
 
 
-        print('hand', hand, 'evaluated_hand', evaluated_hand)
-
         sugested_hand = cards_deck.suggest_hand(player, hand, evaluated_hand, numeral_dict, suit_dict)
 
         deck_hash = (''.join([choice(string.ascii_letters + string.digits) for i in range(25)]) + \
                             ''.join([choice(string.digits) for i in range(10)])).upper()
 
         cards_deck_ = ""
+        cards_deck = cards_deck.copy()
         for card in cards_deck:
             cards_deck_ += str(card) + "|"
         cards_deck = cards_deck_[:-1]
@@ -332,7 +336,6 @@ def ajax_deal_cards(request):
             'evaluated_hand': evaluated_hand,
             'sugested_hand': sugested_hand,
     }
-
     return HttpResponse(json.dumps(response))
 
 
@@ -476,6 +479,8 @@ def ajax_draw_cards(request):
             'win_amount': win_amount,
             'row_selector': row_selector,
     }
+    print('*'*100)
+    print(response)
     return JsonResponse(response)
 
 

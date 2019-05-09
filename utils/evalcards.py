@@ -22,10 +22,6 @@ class deck(set):
         for numeral, suit in itertools.product(NUMERAL_LIST, SUIT_LIST):
             self.add(card(numeral, suit))
 
-    def get_card(self):
-        a_card = random.sample(self, 1)[0]
-        return a_card
-
     def get_deck(self):
         return self
 
@@ -196,13 +192,6 @@ class deck(set):
         player.save()
 
         return sugested_hand
-
-
-    def get_hand(self, number_of_cards=5):
-
-        number_of_cards = 5
-        cards_list = [self.get_card() for x in range(number_of_cards)]
-        return cards_list
 
 
 if __name__ == '__main__':
