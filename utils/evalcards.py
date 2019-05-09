@@ -140,58 +140,58 @@ class deck(set):
         if(evaluated_hand == "Royal-flush."):
             mini_bonus = round(random.uniform(1.2,1.55),2)
             player.mini_bonus += mini_bonus
-            print('mini-bonus royal-flush', mini_bonus)
+            #print('mini-bonus royal-flush', mini_bonus)
 
         if(evaluated_hand == "Straight-flush."):
             mini_bonus = round(random.uniform(1.02,1.11),2)
             player.mini_bonus += mini_bonus
-            print('mini-bonus straight-flush', mini_bonus)
+            #print('mini-bonus straight-flush', mini_bonus)
 
         if(evaluated_hand == "Four-of-a-kind."):
             mini_bonus = round(random.uniform(0.62,0.69),2)
             player.mini_bonus += mini_bonus
-            print('mini-bonus four-of-a-kind', mini_bonus)
+            #print('mini-bonus four-of-a-kind', mini_bonus)
 
         if(evaluated_hand == "Full-house."):
             mini_bonus = round(random.uniform(0.36,0.39),2)
             player.mini_bonus += mini_bonus
-            print('mini-bonus fullhouse', mini_bonus)
+            #print('mini-bonus fullhouse', mini_bonus)
 
         if(evaluated_hand == "Flush."):
             mini_bonus = round(random.uniform(0.29,0.33),2)
             player.mini_bonus += mini_bonus
-            print('mini-bonus straight', mini_bonus)
+            #print('mini-bonus straight', mini_bonus)
 
         if(evaluated_hand == "Straight."):
             mini_bonus = round(random.uniform(0.20,0.25),2)
             player.mini_bonus += mini_bonus
-            print('mini-bonus straight', mini_bonus)
+            #print('mini-bonus straight', mini_bonus)
 
         if(evaluated_hand == "Three-of-a-kind."):
             mini_bonus = round(random.uniform(0.11,0.14),2)
             player.mini_bonus += mini_bonus
-            print('mini-bonus three-of-a-kind', mini_bonus)
+            #print('mini-bonus three-of-a-kind', mini_bonus)
 
         if(evaluated_hand == "Two-pair."):
             mini_bonus = round(random.uniform(0.07,0.09),2)
             player.mini_bonus += mini_bonus
-            print('mini-bonus two-pair', mini_bonus)
+            #print('mini-bonus two-pair', mini_bonus)
 
         if(evaluated_hand == "Jacks-or-better."):
             mini_bonus = round(random.uniform(0.02,0.05),2)
             player.mini_bonus += mini_bonus
-            print('mini-bonus jacks-or-better', mini_bonus)
+            #print('mini-bonus jacks-or-better', mini_bonus)
 
         if(evaluated_hand == "One-pair."):
             mini_bonus = round(random.uniform(0.01,0.03),2)
             player.mini_bonus += mini_bonus
-            print('mini-bonus one-pair', mini_bonus)
+            #print('mini-bonus one-pair', mini_bonus)
 
         if(evaluated_hand == "Nothing."):
             if(len(sugested_hand)==3):
                 mini_bonus = 0.02
                 player.mini_bonus += mini_bonus
-                print('mini-bonus nothing 3 cards', mini_bonus)
+                #print('mini-bonus nothing 3 cards', mini_bonus)
 
         player.save()
 
