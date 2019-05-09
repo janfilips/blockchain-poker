@@ -266,7 +266,6 @@ def ajax_deal_cards(request):
 
     hand = []
     cards_deck = deck()
-    starting_nonreduced_cards_deck = cards_deck.copy()
 
     if(player.credit >= player.bet_amount):
 
@@ -277,12 +276,12 @@ def ajax_deal_cards(request):
         deck_hash = (''.join([choice(string.ascii_letters + string.digits) for i in range(25)]) + \
                             ''.join([choice(string.digits) for i in range(10)])).upper()
 
-        starting_nonreduced_cards_deck_ = ""
-        for card in starting_nonreduced_cards_deck:
-            starting_nonreduced_cards_deck_ += str(card) + "|"
-        starting_cards_deck = starting_nonreduced_cards_deck_[:-1]
+        cards_deck_ = ""
+        for card in cards_deck:
+            cards_deck_ += str(card) + "|"
+        cards_deck = cards_deck_[:-1]
 
-        player_cards_deck = Decks.objects.create(player=player, bet_amount=player.bet_amount, deck=starting_cards_deck, deck_hash=deck_hash)
+        player_cards_deck = Decks.objects.create(player=player, bet_amount=player.bet_amount, deck=cards_deck, deck_hash=deck_hash)
         print('player_cards_deck', player_cards_deck)
 
         player.credit -= player.bet_amount
