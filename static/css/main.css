@@ -590,6 +590,9 @@ body {
   line-height: 1.8rem;
   padding-bottom: 2rem;
 }
+.about-page p a {
+  color: #0134B4;
+}
 .about-page h1 {
   font-size: 3rem;
   padding-bottom: 2rem;
@@ -784,11 +787,11 @@ body {
   -webkit-text-stroke: 0;
   color: #f3d040;
 }
-.deck-wrap p img:nth-child(-n+8) {
+.deck-wrap .highlight-orange {
   box-shadow: 3px 3px 0 #a0c146;
   border-radius: 12px;
 }
-.deck-wrap p img:nth-child(-n+5) {
+.deck-wrap .highlight-green {
   box-shadow: 3px 3px 0 #ff9710;
   border-radius: 12px;
 }
@@ -848,7 +851,12 @@ body {
   padding-bottom: 10px;
 }
 .action-container.bottom-wrap a {
-  margin-bottom: 10px;
+  margin-bottom: 30px;
+}
+.credit-page .action-container {
+  margin-bottom: -60px;
+  padding-bottom: 75px;
+  overflow: visible;
 }
 
 /*-- flip card  --*/
