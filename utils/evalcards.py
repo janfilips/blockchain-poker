@@ -204,10 +204,9 @@ class deck(set):
         cards_list = [self.get_card() for x in range(number_of_cards)]
         return cards_list
 
-import time
+
 if __name__ == '__main__':
     for i in range(1000000):
         hand = deck().get_hand()
         evaluated_hand = deck().evaluate_hand(hand)
         print(hand, evaluated_hand[0])
-        time.sleep(0.5)
