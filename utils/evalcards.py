@@ -23,7 +23,7 @@ class deck(set):
             self.add(card(numeral, suit))
 
     def get_card(self):
-        a_card = self.pop()
+        a_card = random.sample(self, 1)[0]
         return a_card
 
     def get_deck(self):
@@ -204,9 +204,10 @@ class deck(set):
         cards_list = [self.get_card() for x in range(number_of_cards)]
         return cards_list
 
-
+import time
 if __name__ == '__main__':
     for i in range(1000000):
         hand = deck().get_hand()
         evaluated_hand = deck().evaluate_hand(hand)
         print(hand, evaluated_hand[0])
+        time.sleep(0.5)
