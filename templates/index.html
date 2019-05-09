@@ -92,6 +92,7 @@
                     jQuery('.credit').html('Credit $'+obj.credit);
 
                     if(obj.congrats_you_won_flag){
+                      app.sound_play('media-win');
                       $('.stats-line .bet-amaunt').remove();
                       $('.stats-line .win').after('<div class="bet-amaunt">' + app.evaluated_hand_text(obj.evaluated_hand) + '</div>');
 
@@ -153,8 +154,9 @@
       var cardflip = $(this);
         setTimeout(function() {
                 cardflip.toggleClass('flipit', !cardflip.hasClass('flipit'));
-            }, 200*i);
+            }, 130*i);
       });
+      app.sound_play('media-deal-five');
 
       setTimeout(function(){
         $('.preselect').addClass('held');
@@ -386,7 +388,7 @@
     <div class="actions"><!-- actions -->
       <div class="perspective-in">
         <a class="btn-action" href="#">cashout</a>
-        <a class="btn-action active" href="#">sound</a>
+        <a class="btn-action btn-sound" href="#">sound</a>
         <a class="btn-action" href="/about">about</a>
         <a class="coin btn-action" href="/credit"><span>${{bet_amount}}</span></a>
         <a class="btn-action" href="javascript:app.held_all()">Cancel</a>
@@ -456,5 +458,11 @@
       </table>
     </div><!-- table beets END -->
   </section>
+  <audio id="media-deal-five">
+    <source src="/static/media/deal_five.wav" type="audio/x-wav">
+  </audio>
+  <audio id="media-win">
+    <source src="/static/media/slot_machine_win_22.wav" type="audio/x-wav">
+  </audio>
 </body>
 </html>

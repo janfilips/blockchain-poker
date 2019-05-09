@@ -16,11 +16,30 @@ function formatMoney(n, c, d, t) {
 var app = function() {
     return {
         inited: false,
+        sounds: null,
         init: function() {
             if (this.inited === false) {
                 this.inited = true;
                 this._load_megaloolah();
                 setInterval(app._load_megaloolah, 10000);
+                if ($.cookie('game_sound_enabled')) {
+                    this.sounds = $.cookie('game_sound_enabled') == '1';
+                    if (this.sounds === false) {
+                        $('.btn-sound').addClass('active');
+                    }
+                } else {
+                    $.cookie('game_sound_enabled', '1', {
+                        expires: 7
+                    });
+                    this.sounds = true;
+                }
+                $('.btn-sound').click(() => {
+                    $.cookie('game_sound_enabled', (app.sounds ? '0' : '1'), {
+                        expires: 7
+                    });
+                    app.sounds = !app.sounds;
+                    $('.btn-sound').toggleClass('active');
+                });
                 if ($.cookie('game_already_played')) {
                     this.first_draw();
                 }
@@ -124,6 +143,19 @@ var app = function() {
             }
 
         },
+        sound_play: (s) => {
+            if (app.sounds) {
+                var promise = document.getElementById(s).play();
+                if (promise !== undefined) {
+                    promise.then(_ => {
+                        // Autoplay started!
+                    }).catch(error => {
+                        // Autoplay was prevented.
+                        // https://developers.google.com/web/updates/2017/09/autoplay-policy-changes
+                    });
+                }
+            }
+        },
         _ajax_deal_cards: () => {
             // odpocitame virtualne kredit
             var b = parseInt($('.points.active').attr('data-base'));
@@ -156,8 +188,9 @@ var app = function() {
                         var cardflip = $(this);
                         setTimeout(function() {
                             cardflip.toggleClass('flipit', !cardflip.hasClass('flipit'));
-                        }, 200 * i);
+                        }, 130 * i);
                     });
+                    app.sound_play('media-deal-five');
                     setTimeout(function() {
                         $('.preselect').addClass('held');
                     }, 1800);
