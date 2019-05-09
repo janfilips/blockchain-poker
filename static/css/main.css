@@ -148,6 +148,9 @@ body {
 .main-head > div span:last-child {
   float: right;
 }
+.main-head > div span:last-child::before {
+    content:"$";
+}
 .main-head .major {
   color: #FDF524;
 }

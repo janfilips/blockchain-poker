@@ -20,8 +20,8 @@ var app = function() {
             if (this.inited === false) {
                 this.inited = true;
                 this._load_megaloolah();
-                setInterval(app._load_megaloolah, 30000);
-                if($.cookie('game_already_played')){
+                setInterval(app._load_megaloolah, 10000);
+                if ($.cookie('game_already_played')) {
                     this.first_draw();
                 }
             }
@@ -78,6 +78,24 @@ var app = function() {
 
             return o;
         },
+        _update_megaloolah: (c, v) => {
+            var nv = parseInt(c.attr('data-value'));
+            c.attr('data-value', v);
+            if (isNaN(nv)) {
+                c.text(formatMoney(v));
+            } else {
+                if (nv > v) {
+                    c.text(formatMoney(v));
+                } else {
+                    c.prop('number', nv).animateNumber({
+                        number: v,
+                        numberStep: function(now, tween) {
+                            $(tween.elem).text(formatMoney(now));
+                        }
+                    }, 2000);
+                }
+            }
+        },
         _load_megaloolah: () => {
             $.ajax({
                 type: "POST",
@@ -89,20 +107,19 @@ var app = function() {
                     player_session_key: session_key
                 },
                 success: (r) => {
-                    $('header.main-head .mega>span:nth(1)').text('$' + formatMoney(r.super));
-                    $('header.main-head .major>span:nth(1)').text('$' + formatMoney(r.mega));
-                    $('header.main-head .minor>span:nth(1)').text('$' + formatMoney(r.major));
-                    $('header.main-head .mini>span:nth(1)').text('$' + formatMoney(r.minor));
+                    app._update_megaloolah($('header.main-head .mega>span:nth(1)'), r.super);
+                    app._update_megaloolah($('header.main-head .major>span:nth(1)'), r.mega);
+                    app._update_megaloolah($('header.main-head .minor>span:nth(1)'), r.major);
+                    app._update_megaloolah($('header.main-head .mini>span:nth(1)'), r.minor);
                 }
             });
         },
         first_draw: () => {
             $('a.draw-first-action').replaceWith('<a class="btn-action deal-action" href="#">Draw</a><a class="btn-action draw-action" href="#">Deal</a>');
             let b = parseInt($('.points.active').attr('data-base'));
-            if(b > user_credit){
+            if (b > user_credit) {
                 app.bet_max(app._ajax_deal_cards);
-            }
-            else{
+            } else {
                 app._ajax_deal_cards();
             }
 
@@ -171,14 +188,14 @@ var app = function() {
         },
         change_bet: (a, c) => {
             var can_change = false;
-            if($('.show-backs').length == 1 || $('.game-done').length == 1){
+            if ($('.show-backs').length == 1 || $('.game-done').length == 1) {
                 can_change = true;
             }
-            if(can_change){
+            if (can_change) {
                 b = a;
-                if(a == 5){
+                if (a == 5) {
                     b = 4;
-                } else if(a == 10){
+                } else if (a == 10) {
                     b = 5;
                 }
                 $('.type-list .points').removeClass('active');
@@ -196,12 +213,11 @@ var app = function() {
                         player_session_key: session_key,
                         bet_amount: a
                     },
-                    success: function(){
+                    success: function() {
                         "function" == typeof c && c();
                     }
                 });
-            }
-            else{
+            } else {
                 console.log('change bet is not allowed');
             }
         }

@@ -5,6 +5,7 @@ import uuid
 import string
 import json
 import ast
+import datetime
 
 from datetime import datetime, timedelta
 
@@ -82,7 +83,7 @@ def home(request):
 
     if(player.credit <= 0):
         player.autoplay = False
-        player.save() 
+        player.save()
 
     autoplay = "false"
     if(player.autoplay):
@@ -462,16 +463,11 @@ def ajax_draw_cards(request):
 def ajax_jackpot_stats(request):
 
     # XXX TODO this needs to be fed / pulled form the DB
-    super_jackpot = randint(1000000,2000000)
-    mega_jackpot = randint(200000,500000)
-    major_jackpot = randint(100000,200000)
-    minor_jackpot = randint(4000,9999)
-
     response = {
-        'super': super_jackpot,
-        'mega': mega_jackpot,
-        'major': major_jackpot,
-        'minor': minor_jackpot,
+        'super': int(datetime.now().timestamp()) - 1555000000 + randint(10000,99999),
+        'mega':  int(datetime.now().timestamp()) - 1557051000 + randint(1000,9999),
+        'major': int(datetime.now().timestamp()) - 1557218000,
+        'minor': int(datetime.now().timestamp()) - 1557369780,
     }
 
     return JsonResponse(response)

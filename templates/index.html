@@ -14,6 +14,7 @@
   crossorigin="anonymous">
 </script>
 <script type="text/javascript" src="/static/plugins/jquery.cookie-1.4.1.min.js"></script>
+<script type="text/javascript" src="/static/plugins/jquery.animateNumber.min.js"></script>
 <script type="text/javascript" src="/static/app.js"></script>
 
 <script>
@@ -172,13 +173,20 @@
                 },
                 success:function(response){
                   if (autoplay == true ) {
+                      // switch off
                       $('.autoplay').removeClass('onPlay').html('Autoplay');
                       autoplay = false;
                       $('.btn-action.auto-stop-action').removeClass('show');
-                      // drawcards(true);
                   }
                   else{
-                      location.reload();
+                      // switch on
+                      if ($('.show-backs').length == 1 || $('.game-done').length == 1) {
+                          location.reload();
+                      }
+                      else{
+                          autoplay = true;
+                          drawcards(true);
+                      }
                   }
                 }
             });
