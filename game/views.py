@@ -267,9 +267,21 @@ def ajax_deal_cards(request):
     
     if(player.credit >= player.bet_amount):
 
+        cards_deck = deck()
+
         while True:
 
-            cards_deck = deck()
+            shuffled_cards = []
+
+            for c in cards_deck:
+                if(randint(0,1)==0):
+                    shuffled_cards.append(c)
+                else:
+                    shuffled_cards.insert(0, c)
+
+            cards_deck = shuffled_cards
+
+
             hand = []
             counter = 1
             for card in cards_deck:
@@ -278,7 +290,7 @@ def ajax_deal_cards(request):
                     break
                 counter+=1
 
-            evaluated_hand, numeral_dict, suit_dict = cards_deck.evaluate_hand(hand)
+            evaluated_hand, numeral_dict, suit_dict = deck().evaluate_hand(hand)
 
             if(evaluated_hand == "Nothing."):
                 break
@@ -292,10 +304,10 @@ def ajax_deal_cards(request):
             if(randint(0,6) == 0 and evaluated_hand == "Two-pair."):
                 break
 
-            print('**** player received a winning hand', evaluated_hand, ', shuffling cards again..', cards_deck)
+            print('****', evaluated_hand, ', shuffling cards again..')
 
 
-        sugested_hand = cards_deck.suggest_hand(player, hand, evaluated_hand, numeral_dict, suit_dict)
+        sugested_hand = deck().suggest_hand(player, hand, evaluated_hand, numeral_dict, suit_dict)
 
         deck_hash = (''.join([choice(string.ascii_letters + string.digits) for i in range(25)]) + \
                             ''.join([choice(string.digits) for i in range(10)])).upper()
@@ -306,6 +318,8 @@ def ajax_deal_cards(request):
             cards_deck_ += str(card) + "|"
         cards_deck = cards_deck_[:-1]
 
+
+        print('deal cards', cards_deck.split('|'))
 
         player_cards_deck = Decks.objects.create(player=player, bet_amount=player.bet_amount, deck=cards_deck, deck_hash=deck_hash)
 
@@ -479,8 +493,6 @@ def ajax_draw_cards(request):
             'win_amount': win_amount,
             'row_selector': row_selector,
     }
-    print('*'*100)
-    print(response)
     return JsonResponse(response)
 
 

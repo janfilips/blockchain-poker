@@ -19,6 +19,7 @@ class card:
 class deck(set):
 
     def __init__(self):
+
         for numeral, suit in itertools.product(NUMERAL_LIST, SUIT_LIST):
             self.add(card(numeral, suit))
 
@@ -195,7 +196,5 @@ class deck(set):
 
 
 if __name__ == '__main__':
-    for i in range(1000000):
-        hand = deck().get_hand()
-        evaluated_hand = deck().evaluate_hand(hand)
-        print(hand, evaluated_hand[0])
+
+    pass
