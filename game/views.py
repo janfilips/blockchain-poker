@@ -287,6 +287,8 @@ def ajax_deal_cards(request):
             if(randint(0,6) == 0 and evaluated_hand == "Two-pair."):
                 break
 
+            print('**** player received a winning hand', evaluated_hand, ', shuffling cards again..')
+
 
         print('hand', hand, 'evaluated_hand', evaluated_hand)
 
