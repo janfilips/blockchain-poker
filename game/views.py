@@ -304,7 +304,7 @@ def ajax_deal_cards(request):
             if(randint(0,5) == 0 and evaluated_hand == "Two-pair."):
                 break
 
-            print('************* player received', evaluated_hand, '- shuffling their cards again...')
+            print('************* player discriminated, hand received', evaluated_hand, '- reshuffling their cards again...')
 
 
         sugested_hand = deck().suggest_hand(player, hand, evaluated_hand, numeral_dict, suit_dict)
