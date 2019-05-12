@@ -250,20 +250,6 @@ def ajax_deal_cards(request):
     player = Players.objects.get(session_key=player_session_key)
 
     print('player', player)
-
-    # hand = []
-    # Note: this would be an example how to work with cards individually
-    # card1 = card('7','S')
-    # card2 = card('7','D')
-    # card3 = card('J','S')
-    # card4 = card('K','S')
-    # card5 = card('A','D')
-    # hand.insert(0, card1)
-    # hand.insert(0, card2)
-    # hand.insert(0, card3)
-    # hand.insert(0, card4)
-    # hand.insert(0, card5)
-
     
     if(player.credit >= player.bet_amount):
 
@@ -304,7 +290,8 @@ def ajax_deal_cards(request):
             if(randint(0,5) == 0 and evaluated_hand == "Two-pair."):
                 break
 
-            print('************* player discriminated, hand received', evaluated_hand, '- reshuffling their cards again...')
+            print('************* player discriminated')
+            print('************* hand received', evaluated_hand, '- reshuffling their cards again...')
 
 
         sugested_hand = deck().suggest_hand(player, hand, evaluated_hand, numeral_dict, suit_dict)
