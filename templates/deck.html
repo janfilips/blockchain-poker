@@ -27,7 +27,14 @@
       <p>
 
         {% for card in cards_deck_split %}
-            <img src="/static/cards/{{card}}.png" height="100">
+            <img 
+            {% if card in starting_hand %}
+             class="highlight-orange"
+            {% endif %}
+            {% if card in drawn_cards %}
+             class="highlight-green"
+            {% endif %}
+            src="/static/cards/{{card}}.png" height="100">
         {% endfor %}
         <br/>
         <br/>
@@ -36,19 +43,32 @@
         <br/>
         <br/>
         {% for card in starting_hand %}
-          <img src="/static/cards/{{card}}.png" height="100">
+          <img 
+            {% if card in swapped_cards %}
+              class="highlight-green"
+            {% else %}
+              class="highlight-red"
+            {% endif %}
+            src="/static/cards/{{card}}.png" height="100">
         {% endfor %}
         <br/>
         <br/>
 
+
         <b>Swapped Cards</b>
         <br/>
         <br/>
-        {% if not swapped_cards %}
-          None
-        {% endif %}
         {% for card in swapped_cards %}
-          <img src="/static/cards/{{card}}.png" height="100">
+          <img class="highlight-green" src="/static/cards/{{card}}.png" height="100">
+        {% endfor %}
+        <br/>
+        <br/>
+
+        <b>Drawn Cards</b>
+        <br/>
+        <br/>
+        {% for card in drawn_cards %}
+          <img class="highlight-orange" src="/static/cards/{{card}}.png" height="100">
         {% endfor %}
         <br/>
         <br/>
@@ -57,7 +77,14 @@
         <br/>
         <br/>
         {% for card in cards_deck.winning_hand_extrapolated|extrapolate_hand %}
-          <img src="/static/cards/{{card}}.png" height="100">
+          <img 
+          {% if card in drawn_cards %}
+          class="highlight-orange"
+          {% endif %}
+          {% if card in starting_hand %}
+          class="highlight-red"
+          {% endif %}
+          src="/static/cards/{{card}}.png" height="100">
         {% endfor %}
         <br/>
         <br/>

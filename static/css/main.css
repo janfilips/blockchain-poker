@@ -787,12 +787,16 @@ body {
   -webkit-text-stroke: 0;
   color: #f3d040;
 }
-.deck-wrap .highlight-orange {
+.deck-wrap .highlight-green {
   box-shadow: 3px 3px 0 #a0c146;
   border-radius: 12px;
 }
-.deck-wrap .highlight-green {
+.deck-wrap .highlight-orange {
   box-shadow: 3px 3px 0 #ff9710;
+  border-radius: 12px;
+}
+.deck-wrap .highlight-red {
+  box-shadow: 3px 3px 0 #B22222;
   border-radius: 12px;
 }
 .custom-btn.nobtn {

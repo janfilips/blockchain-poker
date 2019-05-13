@@ -142,10 +142,10 @@
         $('.autoplay').addClass('onPlay').html('Autoplay Is On');
         $('.btn-action.auto-stop-action').addClass('show');
       }
-      else {
-        $('.autoplay').removeClass('onPlay').html('Autoplay');
-        $('.btn-action.auto-stop-action').removeClass('show');
-      }
+      // else {
+      //   $('.autoplay').removeClass('onPlay').html('Autoplay');
+      //   $('.btn-action.auto-stop-action').removeClass('show');
+      // }
 
       var rowselector = app.row_selector('{{evaluated_hand}}');
 
@@ -168,6 +168,9 @@
       }, 1300);
 
       $(".autoplay,.auto-stop-action").click(function(){
+          if(user_credit == 0){
+              return true;
+          }
           $.ajax({
                 type: "POST",
                 url: '/ajax/autoplay/',
@@ -213,17 +216,40 @@
 
 <body>
 
-  <div id="popup1" class="overlay" style="display:none;">
-  	<div class="popup">
-  		<h2>Title</h2>
-  		<a class="close" href="#">&times;</a>
-  		<div class="content"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis tempus tristique nisi vitae mollis. In hac habitasse platea dictumst. Morbi sit amet varius erat, et sodales orci. In semper sapien id neque tempor varius.</p> </div>
-      <div class="action-container">
-        <a class="custom-btn" href="#">Yes</a>
-        <a class="custom-btn nobtn" href="#">No</a>
-      </div>
+    <div id="popup1" class="overlay" style="display:none;">
+        <div class="popup">
+            <h2>Change is will be ...</h2>
+            <a class="close" href="#">&times;</a>
+            <div class="content">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis tempus tristique nisi vitae mollis. In hac habitasse platea dictumst. Morbi sit amet varius erat, et sodales orci. In semper sapien id neque tempor varius.</p>
+            </div>
+            <div class="action-container">
+                <a class="custom-btn" href="#">Close</a>
+            </div>
+        </div>
     </div>
-  </div>
+    <div id="popup2" class="overlay" style="display:none;">
+        <div class="popup">
+            <h2>Credit is low</h2>
+            <a class="close" href="#">&times;</a>
+            <div class="content">
+                <p>
+                  Your credit is too low to be able to switch the bet.
+                  <br/>
+                  <br/>
+                  Your current credit is ${{credit}}.00
+                  <br/>
+                  <br/>
+                  To add credits simply navigate to the credits section, 
+                  select the amount you'd like to add and click on the confirm button.
+                </p>
+            </div>
+            <div class="action-container">
+                <a class="custom-btn special-btn" href="#">Close</a>
+                <a class="custom-btn" href="/credit">Add credits</a>
+            </div>
+        </div>
+    </div>
 
 
   <div class="site-wrap">
@@ -397,7 +423,7 @@
         <a class="btn-action" href="/about">about</a>
         <a class="coin btn-action" href="/credit"><span>${{bet_amount}}</span></a>
         <a class="btn-action" href="javascript:app.held_all()">Cancel</a>
-        <a class="btn-action bet-max" href="javascript:app.bet_max()">Bet max</a>
+        <a class="btn-action bet-max">Bet max</a>
         {% if credit == 0 %}
         <a class="btn-action" href="/credit">+ Credit</a>
         {% else %}

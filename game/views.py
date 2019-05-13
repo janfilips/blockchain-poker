@@ -60,9 +60,9 @@ def home(request):
 
     winning_decks_table = Decks.objects.filter(player_wins=True).order_by('-pk')[:100]
 
-    if(player.swap_bet_amount):
-        player.bet_amount = player.swap_bet_amount
-        player.swap_bet_amount = 0
+    if(player.future_swap_bet_amount):
+        player.bet_amount = player.future_swap_bet_amount
+        player.future_swap_bet_amount = 0
         player.save()
 
 
@@ -196,7 +196,7 @@ def credit(request):
     return response
 
 
-def ajax_bet(request):
+def ajax_change_bet(request):
 
     bet_amount = request.POST['bet_amount']
     player_session_key = request.POST['player_session_key']
@@ -211,7 +211,7 @@ def ajax_bet(request):
         if(deck.game_finalized):
             player.bet_amount = int(bet_amount)
         else:
-            player.swap_bet_amount = int(bet_amount)
+            player.future_swap_bet_amount = int(bet_amount)
         player.save()
 
     if(not deck):
@@ -250,20 +250,6 @@ def ajax_deal_cards(request):
     player = Players.objects.get(session_key=player_session_key)
 
     print('player', player)
-
-    # hand = []
-    # Note: this would be an example how to work with cards individually
-    # card1 = card('7','S')
-    # card2 = card('7','D')
-    # card3 = card('J','S')
-    # card4 = card('K','S')
-    # card5 = card('A','D')
-    # hand.insert(0, card1)
-    # hand.insert(0, card2)
-    # hand.insert(0, card3)
-    # hand.insert(0, card4)
-    # hand.insert(0, card5)
-
     
     if(player.credit >= player.bet_amount):
 
@@ -295,16 +281,38 @@ def ajax_deal_cards(request):
             if(evaluated_hand == "Nothing."):
                 break
 
-            if(randint(0,4) == 0 and evaluated_hand == "One-pair."):
+
+            if(player.bet_amount==1):
+                DISCRIMINATOR = 1
+
+            if(player.bet_amount==2):
+                DISCRIMINATOR = 2
+
+            if(player.bet_amount==3):
+                DISCRIMINATOR = 2
+
+            if(player.bet_amount==4):
+                DISCRIMINATOR = 3
+
+            if(player.bet_amount==5):
+                DISCRIMINATOR = 3
+
+
+            if(randint(0,DISCRIMINATOR) == 0 and evaluated_hand == "One-pair."):
                 break
 
-            if(randint(0,5) == 0 and evaluated_hand == "Jacks-or-better."):
+            if(randint(0,DISCRIMINATOR+1) == 0 and evaluated_hand == "Jacks-or-better."):
                 break
 
-            if(randint(0,6) == 0 and evaluated_hand == "Two-pair."):
+            if(randint(0,DISCRIMINATOR+2) == 0 and evaluated_hand == "Two-pair."):
                 break
 
-            print('**** player received', evaluated_hand, '- shuffling their cards again...')
+            if(randint(0,DISCRIMINATOR+3) == 0 and evaluated_hand == "Three-of-a-kind."):
+                break
+
+            print('************* DISCRIMINATOR', DISCRIMINATOR)
+            print('************* player discriminated')
+            print('************* hand received', evaluated_hand, '- reshuffling their cards again...')
 
 
         sugested_hand = deck().suggest_hand(player, hand, evaluated_hand, numeral_dict, suit_dict)
@@ -373,13 +381,15 @@ def ajax_draw_cards(request):
     drawn_cards = []
 
     final_hand_ = []
+    count = 5
     for i in range(0,5):
         if(hold_cards[i]):
             final_hand_.append(player_deck[i])
         if(hold_cards[i]==""):
-            final_hand_.append(player_deck[i+5])
-            drawn_cards.append(player_deck[i+5])
+            final_hand_.append(player_deck[count])
+            drawn_cards.append(player_deck[count])
             swapped_cards.append(player_deck[i])
+            count += 1
 
     player_deck_obj.swapped_cards = swapped_cards
     player_deck_obj.swapped_cards_count = len(swapped_cards)

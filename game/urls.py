@@ -7,7 +7,8 @@ from django.urls import path
 from game.views import home, about, tos, credit
 from game.views import reveal_deck
 
-from game.views import ajax_bet, ajax_draw_cards, ajax_autoplay, ajax_deal_cards, ajax_jackpot_stats
+from game.views import ajax_change_bet
+from game.views import ajax_draw_cards, ajax_autoplay, ajax_deal_cards, ajax_jackpot_stats
 
 from game.views import tmp_about_desired_look
 from game.views import tmp_add_credit
@@ -21,7 +22,7 @@ urlpatterns = [
     url(r'^credit$', credit, name='credit'),
     # ajax
     url(r'^ajax/deal/cards/$', ajax_deal_cards, name='ajax_deal_cards'),
-    url(r'^ajax/change/bet/$', ajax_bet, name='ajax_bet'),
+    url(r'^ajax/change/bet/$', ajax_change_bet, name='ajax_change_bet'),
     url(r'^ajax/draw/cards/$', ajax_draw_cards, name='ajax_draw_cards'),
     url(r'^ajax/autoplay/$', ajax_autoplay, name='autoplay'),
     url(r'^ajax/jackpot/stats/$', ajax_jackpot_stats, name='ajax_jackpot_stats'),
