@@ -281,16 +281,33 @@ def ajax_deal_cards(request):
             if(evaluated_hand == "Nothing."):
                 break
 
-            if(randint(0,2) == 0 and evaluated_hand == "One-pair."):
+
+            if(player.bet_amount==1):
+                DISCRIMINATOR = 1
+                
+            if(player.bet_amount==2):
+                DISCRIMINATOR = 2
+
+            if(player.bet_amount==3):
+                DISCRIMINATOR = 2
+
+            if(player.bet_amount==4):
+                DISCRIMINATOR = 3
+
+            if(player.bet_amount==5):
+                DISCRIMINATOR = 3
+
+
+            if(randint(0,DISCRIMINATOR) == 0 and evaluated_hand == "One-pair."):
                 break
 
-            if(randint(0,2) == 0 and evaluated_hand == "Jacks-or-better."):
+            if(randint(0,DISCRIMINATOR) == 0 and evaluated_hand == "Jacks-or-better."):
                 break
 
-            if(randint(0,3) == 0 and evaluated_hand == "Two-pair."):
+            if(randint(0,DISCRIMINATOR+1) == 0 and evaluated_hand == "Two-pair."):
                 break
 
-            if(randint(0,4) == 0 and evaluated_hand == "Three-of-a-kind."):
+            if(randint(0,DISCRIMINATOR+2) == 0 and evaluated_hand == "Three-of-a-kind."):
                 break
 
             print('************* player discriminated')
