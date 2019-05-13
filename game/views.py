@@ -363,13 +363,15 @@ def ajax_draw_cards(request):
     drawn_cards = []
 
     final_hand_ = []
+    count = 5
     for i in range(0,5):
         if(hold_cards[i]):
             final_hand_.append(player_deck[i])
         if(hold_cards[i]==""):
-            final_hand_.append(player_deck[i+5])
-            drawn_cards.append(player_deck[i+5])
-            swapped_cards.append(player_deck[i])
+            final_hand_.append(player_deck[count])
+            drawn_cards.append(player_deck[count])
+            swapped_cards.append(player_deck[count])
+            count += 1
 
     player_deck_obj.swapped_cards = swapped_cards
     player_deck_obj.swapped_cards_count = len(swapped_cards)
