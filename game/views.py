@@ -282,6 +282,8 @@ def ajax_deal_cards(request):
                 break
 
 
+            print('debug here pica', player.bet_amount)
+
             if(player.bet_amount==1):
                 DISCRIMINATOR = 1
 
