@@ -41,7 +41,7 @@ var app = function() {
                     $('.btn-sound').toggleClass('active');
                 });
                 $('.bet-max').click(() => {
-                    app.bet_max(() => {
+                    app.change_bet(10, () => {
                         if ($('.show-backs').length == 1){
                             this.first_draw();
                         }
@@ -233,6 +233,13 @@ var app = function() {
         },
         change_bet: (a, c) => {
             var can_change = false;
+            if(a > user_credit){
+                $('#popup2').show();
+                $('#popup2 a.close, #popup2 .action-container .custom-btn').click(() => {
+                    $('#popup2').hide();
+                });
+                return false;
+            }
             if ($('.show-backs').length == 1 || $('.game-done').length == 1) {
                 can_change = true;
             }
@@ -242,13 +249,6 @@ var app = function() {
                     b = 4;
                 } else if (a == 10) {
                     b = 5;
-                }
-                if(a > user_credit){
-                    $('#popup2').show();
-                    $('#popup2 a.close, #popup2 .action-container .custom-btn').click(() => {
-                        $('#popup2').hide();
-                    });
-                    return false;
                 }
                 $('.type-list .points').removeClass('active');
                 $('.points.point-' + b).addClass('active');
