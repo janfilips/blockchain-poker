@@ -40,6 +40,16 @@ var app = function() {
                     app.sounds = !app.sounds;
                     $('.btn-sound').toggleClass('active');
                 });
+                $('.bet-max').click(() => {
+                    app.bet_max(() => {
+                        if ($('.show-backs').length == 1){
+                            this.first_draw();
+                        }
+                        else if($('.game-done').length == 1){
+                            location.reload();
+                        }
+                    });
+                });
                 if ($.cookie('game_already_played')) {
                     this.first_draw();
                 }
@@ -136,16 +146,17 @@ var app = function() {
         first_draw: () => {
             $('a.draw-first-action').replaceWith('<a class="btn-action deal-action" href="#">Draw</a><a class="btn-action draw-action" href="#">Deal</a>');
             let b = parseInt($('.points.active').attr('data-base'));
-            if (b > user_credit) {
-                app.bet_max(app._ajax_deal_cards);
-            } else {
-                app._ajax_deal_cards();
+            if(user_credit > 0){
+                if (b > user_credit) {
+                    app.bet_max(app._ajax_deal_cards);
+                } else {
+                    app._ajax_deal_cards();
+                }
             }
 
         },
         sound_play: (s) => {
             if (app.sounds) {
-                console.log('play:' + s, event);
                 var promise = document.getElementById(s).play();
                 if (promise !== undefined) {
                     promise.then(_ => {
@@ -252,7 +263,10 @@ var app = function() {
                     }
                 });
             } else {
-                console.log('change bet is not allowed');
+                $('#popup1').show();
+                $('#popup1 a.close, #popup1 .action-container .custom-btn').click(() => {
+                    $('#popup1').hide();
+                });
             }
         }
     }
