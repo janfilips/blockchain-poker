@@ -310,6 +310,9 @@ def ajax_deal_cards(request):
             if(randint(0,DISCRIMINATOR+3) == 0 and evaluated_hand == "Three-of-a-kind."):
                 break
 
+            if(randint(0,DISCRIMINATOR+3) == 0 and evaluated_hand == "Four-of-a-kind."):
+                break
+
             print('************* DISCRIMINATOR', DISCRIMINATOR)
             print('************* player discriminated')
             print('************* hand received', evaluated_hand, '- reshuffling their cards again...')
