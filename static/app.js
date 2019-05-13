@@ -271,7 +271,7 @@ var app = function() {
                     bet_amount: a
                 },
                 success: function() {
-                    change_bet && "function" == typeof c && c();
+                    can_change && "function" == typeof c && c();
                 }
             });
         }
