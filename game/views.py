@@ -60,9 +60,9 @@ def home(request):
 
     winning_decks_table = Decks.objects.filter(player_wins=True).order_by('-pk')[:100]
 
-    if(player.swap_bet_amount):
-        player.bet_amount = player.swap_bet_amount
-        player.swap_bet_amount = 0
+    if(player.future_swap_bet_amount):
+        player.bet_amount = player.future_swap_bet_amount
+        player.future_swap_bet_amount = 0
         player.save()
 
 
@@ -211,7 +211,7 @@ def ajax_change_bet(request):
         if(deck.game_finalized):
             player.bet_amount = int(bet_amount)
         else:
-            player.swap_bet_amount = int(bet_amount)
+            player.future_swap_bet_amount = int(bet_amount)
         player.save()
 
     if(not deck):
