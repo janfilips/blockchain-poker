@@ -282,8 +282,6 @@ def ajax_deal_cards(request):
                 break
 
 
-            print('debug here pica', player.bet_amount)
-
             if(player.bet_amount==1):
                 DISCRIMINATOR = 1
 
@@ -298,6 +296,9 @@ def ajax_deal_cards(request):
 
             if(player.bet_amount==5):
                 DISCRIMINATOR = 3
+
+            if(player.bet_amount==10):
+                DISCRIMINATOR = 4
 
 
             if(randint(0,DISCRIMINATOR) == 0 and evaluated_hand == "One-pair."):
