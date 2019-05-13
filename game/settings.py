@@ -25,6 +25,8 @@ SECRET_KEY = 'zarim86b1h6+8-svv=jh6g7&@)6(&6w(s#isma$usp70&f013l'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+CONTRACT_ADDRESS = ''
+
 ALLOWED_HOSTS = ['*']
 
 
