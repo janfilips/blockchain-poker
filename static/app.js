@@ -243,31 +243,37 @@ var app = function() {
                 } else if (a == 10) {
                     b = 5;
                 }
+                if(a > user_credit){
+                    $('#popup2').show();
+                    $('#popup2 a.close, #popup2 .action-container .custom-btn').click(() => {
+                        $('#popup2').hide();
+                    });
+                    return false;
+                }
                 $('.type-list .points').removeClass('active');
                 $('.points.point-' + b).addClass('active');
                 $('.stats-line .win').text('BET $' + a);
                 $('.coin.btn-action>span').text('$' + a);
-
-                $.ajax({
-                    type: "POST",
-                    url: '/ajax/change/bet/',
-                    headers: {
-                        'X-CSRFToken': csrf_token
-                    },
-                    data: {
-                        player_session_key: session_key,
-                        bet_amount: a
-                    },
-                    success: function() {
-                        "function" == typeof c && c();
-                    }
-                });
             } else {
                 $('#popup1').show();
                 $('#popup1 a.close, #popup1 .action-container .custom-btn').click(() => {
                     $('#popup1').hide();
                 });
             }
+            $.ajax({
+                type: "POST",
+                url: '/ajax/change/bet/',
+                headers: {
+                    'X-CSRFToken': csrf_token
+                },
+                data: {
+                    player_session_key: session_key,
+                    bet_amount: a
+                },
+                success: function() {
+                    change_bet && "function" == typeof c && c();
+                }
+            });
         }
     }
 }();
