@@ -317,6 +317,7 @@ def ajax_deal_cards(request):
                 break
 
             print('************* DISCRIMINATOR', DISCRIMINATOR)
+            print('************* player', player_session_key)
             print('************* player discriminated')
             print('************* hand received', evaluated_hand, '- reshuffling their cards again...')
 
