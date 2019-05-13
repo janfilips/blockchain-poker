@@ -795,6 +795,10 @@ body {
   box-shadow: 3px 3px 0 #ff9710;
   border-radius: 12px;
 }
+.deck-wrap .highlight-red {
+  box-shadow: 3px 3px 0 #B22222;
+  border-radius: 12px;
+}
 .custom-btn.nobtn {
   opacity: 0.8;
 }
