@@ -57,6 +57,20 @@ if __name__ == '__main__':
     player_balance = w3.eth.getBalance(account=account.address)
     print('Player wallet balanace eth-' + str(w3.fromWei(player_balance,'ether')),'ether')
 
+    # initiating ethereum contract
+    contract_instance = w3.eth.contract(
+        address=w3.toChecksumAddress(settings.ETHEREUM_CONTRACT_ADDRESS),
+        abi=settings.ETHEREUM_CONTRACT_ABI,
+    )
+    # setting up gas limit
+    gas_limit = settings.ETHEREUM_GAS_LIMIT
+    gas_price = settings.ETHEREUM_GAS_PRICE
+
+    print('Contract instance initiated.')
+
+    # import sys
+    # sys.exit(0)
+
     while True:
 
         topups = TopUps.objects.filter(was_credited=False)
