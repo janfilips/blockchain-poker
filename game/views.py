@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 
 from utils.evalcards import card, deck
 
-from game.models import Players, Decks, Jackpot
+from game.models import Players, Decks, Jackpot, TopUps
 from random import randint, choice
 
 
@@ -212,6 +212,8 @@ def ajax_buy_credit(request):
     print('payment_id', payment_id)
 
     # XXX TODO working on this currently
+
+    TopUps
 
     return HttpResponse(True)
 

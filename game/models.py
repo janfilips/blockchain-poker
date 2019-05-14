@@ -40,3 +40,4 @@ class TopUps(models.Model):
     eth_wallet = models.CharField(max_length=128)
     credit_amount = models.IntegerField()
     payment_id = models.CharField(max_length=64)
+    is_paid = models.BooleanField(default=False)
