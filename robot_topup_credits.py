@@ -7,6 +7,7 @@ import django
 import datetime
 import random
 import time
+import json
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "game.settings")
 django.setup()
@@ -19,13 +20,42 @@ from web3.providers.rpc import HTTPProvider
 
 w3 = Web3(HTTPProvider(settings.ETHEREUM_PROVIDER))
 
+import logging
+logger = logging.getLogger(__name__)
+
+
 # XXX TODO robot to update price ticker...
 # XXX TODO robot to populate progressive jackpot stats...
 
 if __name__ == '__main__':
 
     print('TOPUP CREDITS ROBOT', __version__)
+
+    if(settings.DEBUG):
+        ETHEREUM_NETWORK = 'Testnet'
+        ROBOT_WALLET = settings.ETHEREUM_TEST_WALLET
+    else:
+        ETHEREUM_NETWORK = 'Mainnet'.upper()
+        ROBOT_WALLET = settings.ETHEREUM_MASTER_WALLET
+
+    print('Ethereum network:', ETHEREUM_NETWORK)
     print('Contract', settings.ETHEREUM_CONTRACT_ADDRESS)
+
+    print('Loading robot wallet...')
+    # load player wallet
+    with open(ROBOT_WALLET) as json_file:
+        wallet_json = json.load(json_file)
+
+    wallet_secret = wallet_json['secret']
+
+    # decrypt account
+    account_key = Account.decrypt(wallet_json, wallet_secret)
+    account = Account.privateKeyToAccount(account_key)
+    w3.eth.defaultAccount = account.address
+    print('Player account succesfully decrypted.')
+    print('Robot wallet', w3.eth.defaultAccount)
+    player_balance = w3.eth.getBalance(account=account.address)
+    print('Player wallet balanace eth-' + str(w3.fromWei(player_balance,'ether')),'ether')
 
     while True:
 

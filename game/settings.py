@@ -32,12 +32,14 @@ DEBUG = True
 #ETHEREUM_PROVIDER_HOST = "mainnet.infura.io"
 #ETHEREUM_PROVIDER = "https://"+ETHEREUM_PROVIDER_HOST+"/v3/48b4ad627f2045c9a4ccb21e50d3cca5"
 #ETHEREUM_WEBSOCKET_PROVIDER = "wss://"+ETHEREUM_PROVIDER_HOST+"/ws"
+#ETHEREUM_MASTER_WALLET = ""
 
 # Ethereum Testnet
 ETHEREUM_CHAINID = 3
 ETHEREUM_PROVIDER_HOST = "ropsten.infura.io"
 ETHEREUM_PROVIDER = "https://"+ETHEREUM_PROVIDER_HOST+"/xSKHv68S1At0vV7kPPXL"
 ETHEREUM_WEBSOCKET_PROVIDER = "wss://"+ETHEREUM_PROVIDER_HOST+"/ws"
+ETHEREUM_TEST_WALLET = "keystore/robot-test-wallet.json"
 
 # Transactions throughput (1 cheapest, 1000 fastest)
 ETHEREUM_GAS_PRICE = w3.toWei(4, 'gwei')
