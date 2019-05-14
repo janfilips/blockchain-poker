@@ -219,6 +219,13 @@ def ajax_buy_credit(request):
         payment_id = payment_id,
     )
 
+    print('buy credit')
+    print('player', player)
+    print('eth_wallet', eth_wallet)
+    print('requested_amount_in_dollars', requested_amount_in_dollars)
+    print('paid_in_eth', paid_in_eth)
+    print('payment_id', payment_id)
+
     return HttpResponse(True)
 
 
