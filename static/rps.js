@@ -8,7 +8,6 @@ var rps = function() {
         inited: false,
         _test: false,
         web3js: false,
-        account: null,
         contract: null,
         init: function() {
             if (this.inited === false) {
@@ -23,7 +22,6 @@ var rps = function() {
                         var promise = ethereum.enable();
                         if (promise !== undefined) {
                             promise.then(a => {
-                                rps.account = ethereum.selectedAddress;
                                 rps.contract = rps.web3js.eth.contract(window.contract_abi).at(window.contract_address);
                             }).catch(error => {
                                 console.log(error);
@@ -41,22 +39,32 @@ var rps = function() {
             }
 
         },
+        __tohex: (a) => {
+            try {
+                hex = unescape(encodeURIComponent(a)).split('').map(function(v) {
+                    return v.charCodeAt(0).toString(16)
+                }).join('')
+            } catch (e) {
+                hex = a;
+                console.log('invalid text input: ' + a);
+            }
+            return hex;
+        },
         credit: (a, c) => {
             rps.init();
             const transactionParameters = {
-                nonce: '0x00',
                 gasPrice: '0x21000',
                 to: window.contract_address,
-                from: rps.account, // must match user's active address.
-                value: web3.toWei(a / ethusdprice, 'ether'), // Only required to send ether to the recipient from the initiating external account.
+                from: ethereum.selectedAddress,
+                value: web3.toWei(a / window.ethusdprice, 'ether'), // Only required to send ether to the recipient from the initiating external account.
                 data: rps.contract.buyCredit.getData(Math.ceil(Math.random() * 2147483640 + 1)), // Optional, but used for defining smart contract creation and interaction.
-                chainId: 3 // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
             }
+            console.log('wei: ' + transactionParameters.value);
 
             ethereum.sendAsync({
                 method: 'eth_sendTransaction',
                 params: [transactionParameters],
-                from: rps.account,
+                from: ethereum.selectedAddress,
             }, function(b, c) {
                 if (!b) {
                     $.ajax({
