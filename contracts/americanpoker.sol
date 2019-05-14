@@ -2,6 +2,8 @@ pragma solidity ^0.5.8;
 
 contract AmericanPoker {
 
+    mapping (bytes32 => bool) private paymentIds;
+
     event GameStarted(address _contract);
     event PaymentReceived(address _player, uint _amount);
     event PaymentMade(address _player, address _issuer, uint _amount);
@@ -13,15 +15,24 @@ contract AmericanPoker {
         emit GameStarted(address(this));
     }
 
-    function buyCredit()
+    function buyCredit(bytes32 _paymentId)
         public
         payable
         returns (bool success)
     {
         address payable player = msg.sender;
         uint amount = msg.value;
+        paymentIds[_paymentId] = true;
         emit PaymentReceived(player, amount);
         return true;
+    }
+
+    function verifyPayment(bytes32 _paymentId)
+        public
+        view
+        returns (bool success)
+    {
+        return paymentIds[_paymentId];
     }
 
     function cashOut(address payable _player, uint _amount)
@@ -42,7 +53,6 @@ contract AmericanPoker {
         emit PaymentMade(_player, paymentIssuer, _amount);
         return true;
     }
-
 
     function payRoyalty()
         public
