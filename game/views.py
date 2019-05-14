@@ -215,7 +215,7 @@ def ajax_buy_credit(request):
         player = player,
         eth_wallet = player_ethereum_wallet,
         requested_amount_in_dollars = int(requested_amount_in_dollars),
-        paid_in_eth = paid_in_eth,
+        paid_in_eth = int(paid_in_eth),
         payment_id = payment_id,
     )
 
