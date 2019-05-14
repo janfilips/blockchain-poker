@@ -24,8 +24,6 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-# XXX TODO robot to update price ticker...
-# XXX TODO robot to populate progressive jackpot stats...
 
 if __name__ == '__main__':
 
@@ -63,29 +61,53 @@ if __name__ == '__main__':
         abi=settings.ETHEREUM_CONTRACT_ABI,
     )
     # setting up gas limit
-    gas_limit = settings.ETHEREUM_GAS_LIMIT
-    gas_price = settings.ETHEREUM_GAS_PRICE
+    GAS_LIMIT = settings.ETHEREUM_GAS_LIMIT
+    GAS_PRICE = settings.ETHEREUM_GAS_PRICE
 
     print('Contract instance initiated.')
 
-    # import sys
-    # sys.exit(0)
 
     while True:
 
         topups = TopUps.objects.filter(was_credited=False)
 
-        for topup in topups:
+        if topups:
 
-            print('topup request', topup.pk)
-            print('player', topup.player)
-            print('eth_wallet', topup.eth_wallet)
-            print('requested_amount_in_dollars', topup.requested_amount_in_dollars)
-            print('paid_in_eth', topup.paid_in_eth)
-            print('payment_id', topup.payment_id)
-            print('paid_and_verified', topup.paid_and_verified)
-            print('was_credited', topup.was_credited)
-            print('-'*100)
+            for topup in topups:
+
+                print('topup request', topup.pk)
+                print('player', topup.player)
+                print('eth_wallet', topup.eth_wallet)
+                print('requested_amount_in_dollars', topup.requested_amount_in_dollars)
+                print('paid_in_eth', topup.paid_in_eth)
+                print('payment_id', topup.payment_id)
+                print('paid_and_verified', topup.paid_and_verified)
+                print('was_credited', topup.was_credited)
+                print('-'*100)
+
+                transaction = contract_instance.functions.verifyPayment(topup.payment_id).buildTransaction({'gas':GAS_LIMIT,})
+                # constructing verifyPayment transaction 
+                transaction['gas'] = GAS_LIMIT
+                transaction['gasPrice'] = GAS_PRICE
+                transaction['chainId'] = settings.ETHEREUM_CHAINID
+                transaction['from'] = w3.eth.defaultAccount
+                transaction['nonce'] = w3.eth.getTransactionCount(account=w3.eth.defaultAccount,block_identifier=w3.eth.defaultBlock)
+            
+                signed_transaction = account.signTransaction(transaction)
+                #print('signed_transaction.rawTransaction', signed_transaction.rawTransaction)
+                #print(signed_transaction)
+
+                transaction_sent = w3.eth.sendRawTransaction(signed_transaction.rawTransaction)
+                print('transaction_sent', w3.toHex(transaction_sent))
+
+                # import sys
+                # sys.exit(0)
+
+
+        # XXX TODO robot to update price ticker...
+
+        # XXX TODO robot to populate progressive jackpot stats...
+
 
         print('waiting for the new credits requests on the queue...')
         print('sleeping 1 second..')
