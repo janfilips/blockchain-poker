@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'zarim86b1h6+8-svv=jh6g7&@)6(&6w(s#isma$usp70&f013l'
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+ALLOWED_HOSTS = ['*']
 
 # Ethereum Mainet
 #ETHEREUM_CHAINID = 1
@@ -48,9 +48,6 @@ ETHEREUM_GAS_LIMIT = 1000000
 # Ethereum smart-contract
 ETHEREUM_CONTRACT_ADDRESS = '0xb9a350fb4ba2e5fee78761e3f5ee495e53efb1d0'
 ETHEREUM_CONTRACT_ADDRESS = w3.toChecksumAddress(ETHEREUM_CONTRACT_ADDRESS)
-
-
-ALLOWED_HOSTS = ['*']
 
 
 # Application definition
