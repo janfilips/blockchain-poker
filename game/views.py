@@ -192,6 +192,8 @@ def credit(request):
         context={
             'credit': player.credit,
             'player_session_key': player_session_key,
+            'contract_address': settings.CONTRACT_ADDRESS,
+            'contract_abi': settings.CONTRACT_ABI,
             },
     )
     response.set_cookie(key="player_session_key",value=player_session_key, expires=COOKIE_EXPIRY_TIME)
@@ -253,7 +255,7 @@ def ajax_deal_cards(request):
     player = Players.objects.get(session_key=player_session_key)
 
     print('player', player)
-    
+
     if(player.credit >= player.bet_amount):
 
         cards_deck = deck()

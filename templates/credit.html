@@ -1,65 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8" />
-<title>Jacks or Better - Add Credits</title>
-<script
-  src="https://code.jquery.com/jquery-2.2.4.min.js"
-  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-  crossorigin="anonymous"></script>
-<link rel="stylesheet" href="static/css/main.css" type="text/css" />
+    <meta charset="utf-8" />
+    <title>Jacks or Better - Add Credits</title>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/static/rps.js"></script>
+
+    <link rel="stylesheet" href="static/css/main.css" type="text/css" />
 </head>
 
 <body>
 
-  <div class="site-wrap credit-page">
-    <header>
-      <h1>Add Credits</h1>
-    </header>
+    <script>
+        var csrf_token = "{{csrf_token}}"
+        var session_key = "{{player_session_key}}"
+        var contract_address = "{{contract_address}}";
+        var contract_abi = JSON.parse("{{contract_abi|escapejs}}");
+        var ethusdprice = 200;
+    </script>
+    <div class="site-wrap credit-page">
+        <header>
+            <h1>Add Credits</h1>
+        </header>
 
-    <p>
-        Your current credit: <b>${{credit|floatformat:2}}</b>
-    </p>
+        <p>
+            Your current credit: <b>${{credit|floatformat:2}}</b>
+        </p>
 
-    <section class="cards">
-      <a class="bay-card price1" href="/temp/add/credit/10/">
-        <span class="price">$10</span>
-        <span class="bonus">no bonus</span>
-        <span class="curency">ETH</span>
-      </a>
-      <a class="bay-card price2" href="/temp/add/credit/20/">
-        <span class="price">$20</span>
-        <span class="bonus">$2 bonus for purchase</span>
-        <span class="curency">ETH</span>
-      </a>
-      <a class="bay-card price3" href="/temp/add/credit/50/">
-        <span class="price">$50</span>
-        <span class="bonus">$3 bonus for purchase</span>
-        <span class="curency">ETH</span>
-      </a>
-      <a class="bay-card price4" href="/temp/add/credit/100/">
-        <span class="price">$100</span>
-        <span class="bonus">$10 bonus for purchase</span>
-        <span class="curency">ETH</span>
-      </a>
-    </section>
+        <section class="cards">
+            <a class="bay-card price1" href="/temp/add/credit/10/">
+                <span class="price">$10</span>
+                <span class="bonus">no bonus</span>
+                <span class="curency">ETH</span>
+            </a>
+            <a class="bay-card price2" href="/temp/add/credit/20/">
+                <span class="price">$20</span>
+                <span class="bonus">$2 bonus for purchase</span>
+                <span class="curency">ETH</span>
+            </a>
+            <a class="bay-card price3" href="/temp/add/credit/50/">
+                <span class="price">$50</span>
+                <span class="bonus">$3 bonus for purchase</span>
+                <span class="curency">ETH</span>
+            </a>
+            <a class="bay-card price4" href="javascript:rps.credit(0.0001)">
+                <span class="price">$100</span>
+                <span class="bonus">$10 bonus for purchase</span>
+                <span class="curency">ETH</span>
+            </a>
+        </section>
 
-    <section>
+        <section>
 
-      <p>Adding funds is fast and easy. Due to our 0 confirmation policy, you can begin playing as soon as the transaction is received -- usually less than 10 seconds!</p>
+            <p>Adding funds is fast and easy. Due to our 0 confirmation policy, you can begin playing as soon as the transaction is received -- usually less than 10 seconds!</p>
 
-      <h2>Ethereum</h2>
+            <h2>Ethereum</h2>
 
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt at dui id dignissim. Vestibulum gravida fringilla consectetur. Pellentesque tincidunt erat et sagittis blandit. Aliquam iaculis massa ac massa molestie, vitae ullamcorper lacus vehicula. Cras pulvinar suscipit lacus, eget consectetur est ultricies vitae. Duis justo odio, vehicula vitae luctus hendrerit, facilisis ut mauris. Maecenas scelerisque mi vitae nisi auctor, ut hendrerit ex cursus. Duis diam leo, pellentesque quis ex eget, mattis condimentum augue. Phasellus pharetra eu turpis a semper.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt at dui id dignissim. Vestibulum gravida fringilla consectetur. Pellentesque tincidunt erat et sagittis blandit. Aliquam iaculis massa ac massa molestie, vitae
+                ullamcorper lacus vehicula. Cras pulvinar suscipit lacus, eget consectetur est ultricies vitae. Duis justo odio, vehicula vitae luctus hendrerit, facilisis ut mauris. Maecenas scelerisque mi vitae nisi auctor, ut hendrerit ex cursus.
+                Duis diam leo, pellentesque quis ex eget, mattis condimentum augue. Phasellus pharetra eu turpis a semper.</p>
 
-    </section>
-
-
-    <section class="action-container">
-        <a class="custom-btn special-btn" href="/">Play the game</a>
-        <a class="custom-btn" href="/tos">Terms of service</a>
-    </section>
-</div>
-
+        </section>
+        <section class="action-container">
+            <a class="custom-btn special-btn" href="/">Play the game</a>
+            <a class="custom-btn" href="/tos">Terms of service</a>
+        </section>
+    </div>
 </body>
 </html>
