@@ -213,7 +213,9 @@ def ajax_buy_credit(request):
 
     # XXX TODO working on this currently
 
-    TopUps
+    TopUps.objects.create(
+
+    )
 
     return HttpResponse(True)
 
