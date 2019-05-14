@@ -200,6 +200,14 @@ def credit(request):
 
     return response
 
+def ajax_ticker(request, currency):
+
+    if(currency=="eth"):
+        # XXX TODO pull this from the DB
+        return HttpResponse(199.2)
+
+    return HttpResponse(False)
+
 
 def ajax_buy_credit(request):
 

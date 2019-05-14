@@ -44,3 +44,8 @@ class TopUps(models.Model):
     payment_id = models.CharField(max_length=64)
     paid_and_verified = models.BooleanField(default=False)
     was_credited = models.BooleanField(default=False)
+
+class Ticker(models.Model):
+    currency = models.CharField(max_length=5)
+    price = models.FloatField()
+    updated = models.DateTimeField(auto_now=True)
