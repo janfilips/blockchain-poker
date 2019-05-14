@@ -42,3 +42,4 @@ class TopUps(models.Model):
     credit_amount = models.IntegerField()
     payment_id = models.CharField(max_length=64)
     paid_and_verified = models.BooleanField(default=False)
+    was_credited = models.BooleanField(default=False)

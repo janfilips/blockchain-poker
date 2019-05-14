@@ -206,18 +206,13 @@ def ajax_buy_credit(request):
     credit_amount = request.POST['credit_amount']
     payment_id = request.POST['payment_id']
 
-    print('player_session_key', player_session_key)
-    print('player_ethereum_wallet', player_ethereum_wallet)
-    print('credit_amount', credit_amount)
-    print('payment_id', payment_id)
-
-    # XXX TODO working on this currently
+    player = Players.objects.get(session_key=player_session_key)
 
     TopUps.objects.create(
+        player = player,
         eth_wallet = player_ethereum_wallet,
-    eth_wallet = models.CharField(max_length=128)
-    credit_amount = models.IntegerField()
-    payment_id = models.CharField(max_length=64)
+        credit_amount = int(credit_amount),
+        payment_id = payment_id,
     )
 
     return HttpResponse(True)
