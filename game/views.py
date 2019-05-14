@@ -12,6 +12,7 @@ from datetime import datetime, timedelta
 from django.http import JsonResponse, HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
 
+from django.conf import settings
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "game.settings")
 django.setup()
 
