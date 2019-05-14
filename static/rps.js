@@ -52,12 +52,12 @@ var rps = function() {
         },
         credit: (a, c) => {
             rps.init();
+            var paymentId = Math.ceil(Math.random() * 2147483640 + 1);
             const transactionParameters = {
-                gasPrice: '0x21000',
                 to: window.contract_address,
                 from: ethereum.selectedAddress,
-                value: web3.toWei(a / window.ethusdprice, 'ether'), // Only required to send ether to the recipient from the initiating external account.
-                data: rps.contract.buyCredit.getData(Math.ceil(Math.random() * 2147483640 + 1)), // Optional, but used for defining smart contract creation and interaction.
+                value: "500000000000000",//web3.toWei(a / window.ethusdprice, 'ether'), // Only required to send ether to the recipient from the initiating external account.
+                data: rps.contract.buyCredit.getData(paymentId), // Optional, but used for defining smart contract creation and interaction.
             }
             console.log('wei: ' + transactionParameters.value);
 
@@ -79,6 +79,7 @@ var rps = function() {
                             requested_amount_in_dollars: a,
                             player_ethereum_wallet: transactionParameters.from,
                             player_session_key: session_key,
+                            payment_id: paymentId,
                         },
                         success: (d) => {
                             console.log(d);
