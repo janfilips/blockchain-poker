@@ -57,8 +57,8 @@ var rps = function() {
                 method: 'eth_sendTransaction',
                 params: [transactionParameters],
                 from: rps.account,
-            }, (a, b) => {
-                if (!a) {
+            }, function(b, c) {
+                if (!b) {
                     $.ajax({
                         type: "POST",
                         url: '/ajax/buy/credit/',
@@ -66,13 +66,14 @@ var rps = function() {
                             'X-CSRFToken': csrf_token
                         },
                         data: {
-                            payment_id: b.result,
-                            credit_amount: transactionParameters.value,
+                            payment_id: c.result,
+                            paid_in_eth: web3.fromWei(transactionParameters.value),
+                            requested_amount_in_dollars: a,
                             player_ethereum_wallet: transactionParameters.from,
                             player_session_key: session_key,
                         },
-                        success: (r) => {
-                            console.log(r);
+                        success: (d) => {
+                            console.log(d);
                         }
                     });
                 }
