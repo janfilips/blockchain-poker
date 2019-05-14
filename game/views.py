@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 
 from utils.evalcards import card, deck
 
-from game.models import Players, Decks, Jackpot
+from game.models import Players, Decks, Jackpot, TopUps
 from random import randint, choice
 
 
@@ -199,6 +199,25 @@ def credit(request):
     response.set_cookie(key="player_session_key",value=player_session_key, expires=COOKIE_EXPIRY_TIME)
 
     return response
+
+
+def ajax_buy_credit(request):
+
+    player_session_key = request.POST['player_session_key']
+    player_ethereum_wallet = request.POST['player_ethereum_wallet']
+    credit_amount = request.POST['credit_amount']
+    payment_id = request.POST['payment_id']
+
+    player = Players.objects.get(session_key=player_session_key)
+
+    TopUps.objects.create(
+        player = player,
+        eth_wallet = player_ethereum_wallet,
+        credit_amount = int(credit_amount),
+        payment_id = payment_id,
+    )
+
+    return HttpResponse(True)
 
 
 def ajax_change_bet(request):

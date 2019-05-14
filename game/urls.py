@@ -7,7 +7,7 @@ from django.urls import path
 from game.views import home, about, tos, credit
 from game.views import reveal_deck
 
-from game.views import ajax_change_bet
+from game.views import ajax_change_bet, ajax_buy_credit
 from game.views import ajax_draw_cards, ajax_autoplay, ajax_deal_cards, ajax_jackpot_stats
 
 from game.views import tmp_about_desired_look
@@ -26,9 +26,9 @@ urlpatterns = [
     url(r'^ajax/draw/cards/$', ajax_draw_cards, name='ajax_draw_cards'),
     url(r'^ajax/autoplay/$', ajax_autoplay, name='autoplay'),
     url(r'^ajax/jackpot/stats/$', ajax_jackpot_stats, name='ajax_jackpot_stats'),
+    url(r'^ajax/buy/credit/$', ajax_buy_credit, name='ajax_buy_credit'),
 
     # temp stuff - DELETE THIS SHIT
     url(r'^temp/add/credit/(?P<credit>[\w\-\.]+)/$', tmp_add_credit, name='tmp_add_credit'),
     url(r'^tmp/about/desired/look$', tmp_about_desired_look, name='tmp_about_desired_look'),
-
 ]
