@@ -37,6 +37,7 @@ class Jackpot(models.Model):
     minor_jackpot = models.FloatField(default=0)
 
 class TopUps(models.Model):
+    player = models.ForeignKey(Players, on_delete=models.CASCADE)
     eth_wallet = models.CharField(max_length=128)
     credit_amount = models.IntegerField()
     payment_id = models.CharField(max_length=64)

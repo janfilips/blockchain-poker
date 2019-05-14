@@ -214,7 +214,10 @@ def ajax_buy_credit(request):
     # XXX TODO working on this currently
 
     TopUps.objects.create(
-
+        eth_wallet = player_ethereum_wallet,
+    eth_wallet = models.CharField(max_length=128)
+    credit_amount = models.IntegerField()
+    payment_id = models.CharField(max_length=64)
     )
 
     return HttpResponse(True)
