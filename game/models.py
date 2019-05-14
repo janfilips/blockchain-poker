@@ -40,7 +40,7 @@ class TopUps(models.Model):
     player = models.ForeignKey(Players, on_delete=models.CASCADE)
     eth_wallet = models.CharField(max_length=128)
     requested_amount_in_dollars = models.IntegerField()
-    paid_in_eth = models.IntegerField()
+    paid_in_eth = models.FloatField()
     payment_id = models.CharField(max_length=64)
     paid_and_verified = models.BooleanField(default=False)
     was_credited = models.BooleanField(default=False)

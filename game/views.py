@@ -211,6 +211,8 @@ def ajax_ticker(request, currency):
 
 def ajax_buy_credit(request):
 
+    print('ajax_buy_credit', request.POST)
+
     player_session_key = request.POST['player_session_key']
     player_ethereum_wallet = request.POST['player_ethereum_wallet']
     requested_amount_in_dollars = request.POST['requested_amount_in_dollars']
@@ -223,7 +225,7 @@ def ajax_buy_credit(request):
         player = player,
         eth_wallet = player_ethereum_wallet,
         requested_amount_in_dollars = int(requested_amount_in_dollars),
-        paid_in_eth = int(paid_in_eth),
+        paid_in_eth = float(paid_in_eth),
         payment_id = payment_id,
     )
 
