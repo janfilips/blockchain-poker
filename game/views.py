@@ -199,6 +199,23 @@ def credit(request):
     return response
 
 
+def ajax_buy_credit(request):
+
+    player_session_key = request.POST['player_session_key']
+    player_ethereum_wallet = request.POST['player_ethereum_wallet']
+    credit_amount = request.POST['credit_amount']
+    payment_id = request.POST['payment_id']
+
+    print('player_session_key', player_session_key)
+    print('player_ethereum_wallet', player_ethereum_wallet)
+    print('credit_amount', credit_amount)
+    print('payment_id', payment_id)
+
+    # XXX TODO working on this currently
+
+    return HttpResponse(True)
+
+
 def ajax_change_bet(request):
 
     bet_amount = request.POST['bet_amount']
