@@ -171,7 +171,8 @@ var app = function() {
         _ajax_deal_cards: () => {
             // odpocitame virtualne kredit
             var b = parseInt($('.points.active').attr('data-base'));
-            $('.credit').html('Credit $' + (user_credit - b));
+            user_credit = user_credit - b;
+            $('.credit').html('Credit $' + (user_credit));
 
             $.ajax({
                 type: "POST",
