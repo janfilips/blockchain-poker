@@ -959,3 +959,26 @@ body {
     display: none;
   }
 }
+
+@media only screen and (max-width: 830px) {
+  .main-head > div {
+      font-size: 1.4rem;
+  }
+  .type-list {
+    font-size: 1.5rem;
+  }
+  .perspective-in {
+    padding: 0 1rem;
+  }
+  .perspective-in .btn-action {
+    padding: 1.5rem 0.6rem;
+    width: auto;
+  }
+  .btn-action.coin {
+    width: 12rem;
+    height: 10rem;
+  }
+  body, html {
+    overflow-x: hidden;
+  }
+}
