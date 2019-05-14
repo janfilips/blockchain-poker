@@ -193,8 +193,3 @@ class deck(set):
         player.save()
 
         return sugested_hand
-
-
-if __name__ == '__main__':
-
-    pass
