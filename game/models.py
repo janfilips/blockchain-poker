@@ -4,8 +4,8 @@ from django.conf import settings
 from django.db import models
 
 class Players(models.Model):
-    address = models.CharField(max_length=128, default="")
     session_key = models.CharField(max_length=128)
+    eth_wallet = models.CharField(max_length=128, default="")
     bet_amount = models.IntegerField(default=1)
     future_swap_bet_amount = models.IntegerField(default=0)
     credit = models.IntegerField(default=0)
@@ -35,3 +35,8 @@ class Jackpot(models.Model):
     mega_jackpot = models.FloatField(default=0)
     major_jackpot = models.FloatField(default=0)
     minor_jackpot = models.FloatField(default=0)
+
+class TopUps(models.Model):
+    eth_wallet = models.CharField(max_length=128)
+    credit_amount = models.IntegerField()
+    payment_id = models.CharField(max_length=64)
