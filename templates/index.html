@@ -474,7 +474,7 @@
 
         {% for deck in winning_decks %}
         <tr>
-          <td><a href="/deck/{{deck.deck_hash}}">{{deck.shuffled_at|naturaltime}}</a></td>
+          <td>{{deck.shuffled_at|naturaltime}}</td>
           <td><a href="/deck/{{deck.deck_hash}}">{{deck.player.session_key}}</a></td>
           <td><a href="/deck/{{deck.deck_hash}}">{{deck.deck_hash}}</a></td>
           <td class="card-list">
