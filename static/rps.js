@@ -53,7 +53,7 @@ var rps = function() {
                     // i have got rid off gas from here ... maybe we should put it back?
                     to: window.contract_address,
                     from: ethereum.selectedAddress,
-                    value: "50000000000000", //web3.toWei(a / window.ethusdprice, 'ether'), // Only required to send ether to the recipient from the initiating external account.
+                    value: web3.toHex(web3.toWei(a / window.ethusdprice, 'ether')), // Only required to send ether to the recipient from the initiating external account.
                     data: rps.contract.buyCredit.getData(paymentId), // Optional, but used for defining smart contract creation and interaction.
                 }
                 console.log('wei: ' + transactionParameters.value);
@@ -73,7 +73,7 @@ var rps = function() {
                             data: {
                                 payment_id: paymentId,
                                 tx_id: c.result,
-                                paid_in_eth: web3.fromWei(transactionParameters.value),
+                                paid_in_eth: a / window.ethusdprice,
                                 requested_amount_in_dollars: a,
                                 player_ethereum_wallet: transactionParameters.from,
                                 player_session_key: session_key,
