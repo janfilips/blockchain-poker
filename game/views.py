@@ -220,6 +220,25 @@ def check_payment(request, payment_id):
     return HttpResponse(result)
 
 
+def payment_processing(request):
+
+    try:
+        player_session_key = request.COOKIES["player_session_key"]
+    except:
+        player_session_key = (''.join([choice(string.ascii_letters + string.digits) for i in range(28)]))
+
+    response = render(
+        request=request,
+        template_name='verifying_payment.html',
+        context={
+            'player_session_key': player_session_key,
+            },
+    )
+    response.set_cookie(key="player_session_key",value=player_session_key, expires=COOKIE_EXPIRY_TIME)
+
+    return response
+
+
 def ajax_ticker(request, currency):
 
     if(currency=="eth"):
