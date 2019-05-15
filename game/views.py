@@ -192,8 +192,8 @@ def credit(request):
         context={
             'credit': player.credit,
             'player_session_key': player_session_key,
-            'contract_address': settings.CONTRACT_ADDRESS,
-            'contract_abi': settings.CONTRACT_ABI,
+            'contract_address': settings.ETHEREUM_CONTRACT_ADDRESS,
+            'contract_abi': settings.ETHEREUM_CONTRACT_ABI,
             },
     )
     response.set_cookie(key="player_session_key",value=player_session_key, expires=COOKIE_EXPIRY_TIME)
