@@ -225,7 +225,7 @@ def ajax_buy_credit(request):
     player_session_key = request.POST['player_session_key']
     player_ethereum_wallet = request.POST['player_ethereum_wallet']
     requested_amount_in_dollars = int(request.POST['requested_amount_in_dollars'])
-    paid_in_eth = float(request.POST['paid_in_eth'])
+    paid_in_eth = float(request.POST.get('paid_in_eth'))
     payment_id = request.POST['payment_id']
     tx_id = request.POST['tx_id']
 
@@ -239,15 +239,7 @@ def ajax_buy_credit(request):
         payment_id = payment_id,
         tx_id = tx_id,
     )
-
-    print('buy credit')
-    print('player', player)
-    print('player_ethereum_wallet', player_ethereum_wallet)
-    print('requested_amount_in_dollars', requested_amount_in_dollars)
-    print('paid_in_eth', paid_in_eth)
-    print('payment_id', payment_id)
-    print('tx_id', tx_id)
-
+    
     return HttpResponse(True)
 
 
