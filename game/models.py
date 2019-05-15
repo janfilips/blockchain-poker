@@ -48,6 +48,7 @@ class TopUps(models.Model):
     verified = models.BooleanField(default=False)
     # denied = models.BooleanField(default=False)
     # denied_message = models.CharField(max_length=1024)
+    last_check = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now=True)
 
 class Ticker(models.Model):

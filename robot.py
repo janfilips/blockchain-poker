@@ -89,7 +89,7 @@ if __name__ == '__main__':
 
             for topup in topups:
 
-                topup_delta_seconds = (datetime.datetime.now()-topup.created.replace(tzinfo=None)).total_seconds()
+                topup_delta_seconds = (datetime.datetime.now()-topup.last_check.replace(tzinfo=None)).total_seconds()
 
                 print('topup request', topup.pk)
                 print('eth_wallet', topup.eth_wallet)
@@ -98,14 +98,20 @@ if __name__ == '__main__':
                 print('created', topup.created)
                 print('delta_seconds', topup_delta_seconds)
 
-                if(topup_delta_seconds<10):
-                    print('** topup request not old enough, skipping....')
+                if(topup_delta_seconds<5):
+                    print('** topup request, last checked performed recently, skipping....')
+                    continue
+
+                if(topup.verification_attempts > 10):
+                    print('***** topup request has too many verification requests, skipping....')
                     continue
 
 
                 payment_id = w3.toBytes(hexstr=topup.payment_id)
                 result = contract_instance.functions.verifyPayment(payment_id).call()      
-                print('result', result)
+                topup.last_check = datetime.datetime.now()
+                topup.save()
+
 
                 # XXX TODO check that the amount requested is at least 90% of the eth deposited...
                 #     denied = models.BooleanField(default=False)
@@ -119,6 +125,7 @@ if __name__ == '__main__':
                     topup.player.save()
                     topup.credited = True
                     topup.save()
+                    print('player was succesfuly credited..')
 
 
                 # XXX check that minimum 10 seconds have passed
