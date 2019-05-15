@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 
 from utils.evalcards import card, deck
 
-from game.models import Players, Decks, Jackpot, TopUps
+from game.models import Players, Decks, Jackpot, TopUps, Ticker
 from random import randint, choice
 
 
@@ -242,8 +242,9 @@ def payment_processing(request):
 def ajax_ticker(request, currency):
 
     if(currency=="eth"):
-        # XXX TODO pull this from the DB
-        return HttpResponse(199.2)
+
+        ticker = Ticker.objects.get(currency="ethereum")
+        return HttpResponse(ticker.price)
 
     return HttpResponse(False)
 
