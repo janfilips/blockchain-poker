@@ -372,10 +372,10 @@ def ajax_deal_cards(request):
             if(randint(0,DISCRIMINATOR) == 0 and evaluated_hand == "One-pair."):
                 break
 
-            if(randint(0,DISCRIMINATOR) == 0 and evaluated_hand == "Jacks-or-better."):
+            if(randint(0,DISCRIMINATOR+1) == 0 and evaluated_hand == "Jacks-or-better."):
                 break
 
-            if(randint(0,DISCRIMINATOR+1) == 0 and evaluated_hand == "Two-pair."):
+            if(randint(0,DISCRIMINATOR+2) == 0 and evaluated_hand == "Two-pair."):
                 break
 
             if(randint(0,DISCRIMINATOR+2) == 0 and evaluated_hand == "Three-of-a-kind."):
@@ -587,8 +587,8 @@ def ajax_jackpot_stats(request):
     # XXX TODO this needs to be fed / pulled form the DB
 
     response = {
-        'super': int(datetime.now().timestamp()) - 1555000000 - 2000000 + randint(10000,99999),
-        'mega':  int(datetime.now().timestamp()) - 1557051000 - 750000 + randint(1000,9999),
+        'super': int(datetime.now().timestamp()) - 1555000000 - 2000000,
+        'mega':  int(datetime.now().timestamp()) - 1557051000 - 750000,
         'major': int(datetime.now().timestamp()) - 1557218000 - 715000,
         'minor': int(datetime.now().timestamp()) - 1557369780 - 566300,
     }
