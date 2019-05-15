@@ -82,29 +82,39 @@ if __name__ == '__main__':
 
     while True:
 
-        topups = TopUps.objects.filter(was_credited=False)
+        # XXX filter older than 5 seconds
+        topups = TopUps.objects.filter(credited=False)
 
         if topups:
 
             for topup in topups:
 
                 print('topup request', topup.pk)
-                print('player', topup.player)
                 print('eth_wallet', topup.eth_wallet)
                 print('requested_amount_in_dollars', topup.requested_amount_in_dollars)
-                print('paid_in_eth', topup.paid_in_eth)
                 print('payment_id', topup.payment_id)
-                print('paid_and_verified', topup.paid_and_verified)
-                print('was_credited', topup.was_credited)
-                print('-'*100)
-
+ 
                 payment_id = w3.toBytes(hexstr=topup.payment_id)
                 result = contract_instance.functions.verifyPayment(payment_id).call()      
                 print('result', result)
 
-                import sys
-                sys.exit(0)
 
+                if(result==True):
+
+                    topup.verified = True
+                    topup.save()
+                    topup.player.credit += topup.requested_amount_in_dollars
+                    topup.player.save()
+                    topup.credited = True
+                    topup.save()
+
+
+                # XXX check that minimum 10 seconds have passed
+
+                topup.verification_attempts += 1
+                topup.save()
+
+            print('-'*100)
 
         # XXX TODO robot to update price ticker...
 
