@@ -19,7 +19,23 @@
         var session_key = "{{player_session_key}}"
         var contract_address = "{{contract_address}}";
         var contract_abi = JSON.parse("{{contract_abi|escapejs}}");
-        var ethusdprice = 200;
+        var ethusdprice = 1000;
+
+        $(document).ready(() => {
+            $.ajax({
+                type: "POST",
+                url: '/ajax/ticker/eth/',
+                headers: {
+                    'X-CSRFToken': csrf_token
+                },
+                success: (d) => {
+                    var p = parseFloat(d);
+                    if(p > 0){
+                        window.ethusdprice = p;
+                    }
+                }
+            });
+        });
     </script>
     <div class="site-wrap credit-page">
         <header>
