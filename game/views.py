@@ -589,8 +589,8 @@ def ajax_jackpot_stats(request):
     response = {
         'super': int(datetime.now().timestamp()) - 1555000000 + randint(10000,99999),
         'mega':  int(datetime.now().timestamp()) - 1557051000 + randint(1000,9999),
-        'major': int(datetime.now().timestamp()) - 1557218000,
-        'minor': int(datetime.now().timestamp()) - 1557369780,
+        'major': int(datetime.now().timestamp()) - 1557218000 - 715000,
+        'minor': int(datetime.now().timestamp()) - 1557369780 - 566300,
     }
 
     return JsonResponse(response)
