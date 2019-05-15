@@ -89,11 +89,20 @@ if __name__ == '__main__':
 
             for topup in topups:
 
+                topup_delta_seconds = (datetime.datetime.now()-topup.created.replace(tzinfo=None)).total_seconds()
+
                 print('topup request', topup.pk)
                 print('eth_wallet', topup.eth_wallet)
                 print('requested_amount_in_dollars', topup.requested_amount_in_dollars)
                 print('payment_id', topup.payment_id)
- 
+                print('created', topup.created)
+                print('delta_seconds', topup_delta_seconds)
+
+                if(topup_delta_seconds<10):
+                    print('** topup request not old enough, skipping....')
+                    continue
+
+
                 payment_id = w3.toBytes(hexstr=topup.payment_id)
                 result = contract_instance.functions.verifyPayment(payment_id).call()      
                 print('result', result)
