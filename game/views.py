@@ -209,6 +209,17 @@ def contract(request):
     return HttpResponseRedirect("https://etherscan.io/address/"+settings.ETHEREUM_CONTRACT_ADDRESS)
 
 
+def check_payment(request, payment_id):
+
+    try:
+        payment = TopUps.objects.get(payment_id=payment_id)
+        result = payment.credited
+    except:
+        result = False
+
+    return HttpResponse(result)
+
+
 def ajax_ticker(request, currency):
 
     if(currency=="eth"):

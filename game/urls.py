@@ -7,6 +7,7 @@ from django.urls import path
 from game.views import home, about, tos, credit
 from game.views import reveal_deck
 from game.views import contract
+from game.views import check_payment
 
 from game.views import ajax_change_bet, ajax_buy_credit, ajax_ticker
 from game.views import ajax_draw_cards, ajax_autoplay, ajax_deal_cards, ajax_jackpot_stats
@@ -22,6 +23,8 @@ urlpatterns = [
     url(r'^tos$', tos, name='tos'),
     url(r'^credit$', credit, name='credit'),
     url(r'^contract$', contract, name='contract'),
+    url(r'^payment/(?P<payment_id>[\w\-\.]+)/$', check_payment, name='check_payment'),
+
     # ajax
     url(r'^ajax/deal/cards/$', ajax_deal_cards, name='ajax_deal_cards'),
     url(r'^ajax/change/bet/$', ajax_change_bet, name='ajax_change_bet'),
