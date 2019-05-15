@@ -172,6 +172,8 @@ if __name__ == '__main__':
 
         # XXX TODO robot to populate progressive jackpot stats...
 
+        # XXX TODO remember to consider bonus on crediting users..
+
         print('Waiting for the new credits requests on the queue...')
         print('Sleeping 1 second..')
         time.sleep(1)
