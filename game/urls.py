@@ -13,7 +13,7 @@ from game.views import ajax_change_bet, ajax_buy_credit, ajax_ticker
 from game.views import ajax_draw_cards, ajax_autoplay, ajax_deal_cards, ajax_jackpot_stats
 
 from game.views import tmp_about_desired_look
-from game.views import tmp_add_credit
+
 
 urlpatterns = [
     # common views
