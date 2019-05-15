@@ -99,6 +99,8 @@ if __name__ == '__main__':
                 print('result', result)
 
                 # XXX TODO check that the amount requested is at least 90% of the eth deposited...
+                #     denied = models.BooleanField(default=False)
+                #     denied_message = "attempted hack throgh the JS"
 
                 if(result==True):
 
