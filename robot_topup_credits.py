@@ -100,8 +100,8 @@ if __name__ == '__main__':
                 transaction_sent = w3.eth.sendRawTransaction(signed_transaction.rawTransaction)
                 print('transaction_sent', w3.toHex(transaction_sent))
 
-                # import sys
-                # sys.exit(0)
+                import sys
+                sys.exit(0)
 
 
         # XXX TODO robot to update price ticker...

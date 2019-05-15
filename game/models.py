@@ -42,6 +42,7 @@ class TopUps(models.Model):
     requested_amount_in_dollars = models.IntegerField()
     paid_in_eth = models.FloatField()
     payment_id = models.CharField(max_length=64)
+    tx_id = models.CharField(max_length=128)
     paid_and_verified = models.BooleanField(default=False)
     verification_attempts = models.IntegerField(default=0)
     was_credited = models.BooleanField(default=False)

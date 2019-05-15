@@ -76,7 +76,8 @@ var rps = function() {
                             'X-CSRFToken': csrf_token
                         },
                         data: {
-                            payment_id: c.result,
+                            tx_id: c.result,
+                            payment_id: paymentId,
                             paid_in_eth: web3.fromWei(transactionParameters.value),
                             requested_amount_in_dollars: a,
                             player_ethereum_wallet: transactionParameters.from,
