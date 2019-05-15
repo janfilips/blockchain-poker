@@ -200,6 +200,7 @@ def credit(request):
 
     return response
 
+
 def ajax_ticker(request, currency):
 
     if(currency=="eth"):
