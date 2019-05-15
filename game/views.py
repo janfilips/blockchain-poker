@@ -201,6 +201,14 @@ def credit(request):
     return response
 
 
+def contract(request):
+
+    if(settings.DEBUG):
+        return HttpResponseRedirect("https://ropsten.etherscan.io/address/"+settings.ETHEREUM_CONTRACT_ADDRESS)
+
+    return HttpResponseRedirect("https://etherscan.io/address/"+settings.ETHEREUM_CONTRACT_ADDRESS)
+
+
 def ajax_ticker(request, currency):
 
     if(currency=="eth"):
