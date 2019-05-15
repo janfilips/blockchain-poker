@@ -36,7 +36,7 @@ def tmp_about_desired_look(request):
     )
 
     return response
-    
+
 
 def home(request):
 

@@ -134,11 +134,15 @@ if __name__ == '__main__':
                 print('created', topup.created)
                 print('delta_seconds', topup_delta_seconds)
 
-                expected_paid_amount_minimum = topup.requested_amount_in_dollars / ticker.price / 100 * 90
+                expected_paid_amount_minimum = topup.requested_amount_in_dollars / ticker.price
+                expected_paid_amount_minimum = expected_paid_amount_minimum / 100 * 90
 
                 if(topup.paid_in_eth < expected_paid_amount_minimum):
                     topup.denied = True
                     topup.denied_message = "hackers attempt"
+                    print('attempted hack '*100)
+                    print('expected_paid_amount_minimum', expected_paid_amount_minimum)
+                    print('topup.paid_in_eth', topup.paid_in_eth)
                     topup.save()
 
                 if(topup_delta_seconds<10):
