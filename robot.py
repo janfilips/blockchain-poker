@@ -146,6 +146,20 @@ if __name__ == '__main__':
                     topup.player.save()
                     topup.credited = True
                     topup.save()
+
+                    if(requested_amount_in_dollars==20):
+                        topup.player.credit += 2
+                        topup.player.save()
+
+                    if(requested_amount_in_dollars==50):
+                        topup.player.credit += 3
+                        topup.player.save()
+
+                    if(requested_amount_in_dollars==100):
+                        topup.player.credit += 10
+                        topup.player.save()
+                    
+
                     print('player was succesfuly credited..')
 
 
