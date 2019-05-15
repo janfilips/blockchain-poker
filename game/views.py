@@ -36,17 +36,7 @@ def tmp_about_desired_look(request):
     )
 
     return response
-
-def tmp_add_credit(request, credit):
-
-    player_session_key = request.COOKIES["player_session_key"]
-    player, created = Players.objects.get_or_create(session_key=player_session_key)
-    player.credit += int(credit)
-    player.save()
-
-    return HttpResponseRedirect("/")
-
-
+    
 
 def home(request):
 
@@ -595,6 +585,7 @@ def ajax_draw_cards(request):
 def ajax_jackpot_stats(request):
 
     # XXX TODO this needs to be fed / pulled form the DB
+
     response = {
         'super': int(datetime.now().timestamp()) - 1555000000 + randint(10000,99999),
         'mega':  int(datetime.now().timestamp()) - 1557051000 + randint(1000,9999),

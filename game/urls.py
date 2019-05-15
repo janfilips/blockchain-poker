@@ -36,6 +36,5 @@ urlpatterns = [
     url(r'^ajax/ticker/(?P<currency>[\w\-\.]+)/$', ajax_ticker, name='ajax_ticker'),
 
     # temp stuff - DELETE THIS SHIT
-    url(r'^temp/add/credit/(?P<credit>[\w\-\.]+)/$', tmp_add_credit, name='tmp_add_credit'),
     url(r'^tmp/about/desired/look$', tmp_about_desired_look, name='tmp_about_desired_look'),
 ]
