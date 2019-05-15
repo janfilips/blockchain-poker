@@ -4,6 +4,15 @@ var rps = function() {
         _test: false,
         web3js: false,
         contract: null,
+        b32: (a) => {
+            var __padToBytes32 = (n) => {
+                while (n.length < 64) {
+                    n = "0" + n;
+                }
+                return "0x" + n;
+            }
+            return __padToBytes32(new BN(a).toTwos(256).toString(16));
+        },
         init: function(cb) {
             if (this.inited === false) {
                 this.inited = true;
@@ -39,7 +48,7 @@ var rps = function() {
         },
         credit: (a, c) => {
             rps.init(() => {
-                var paymentId = Math.ceil(Math.random() * 2147483640 + 1);
+                var paymentId = rps.b32(Math.ceil(Math.random() * 2147483640 + 1));
                 const transactionParameters = {
                     // i have got rid off gas from here ... maybe we should put it back?
                     to: window.contract_address,
