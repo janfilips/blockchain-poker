@@ -33,7 +33,7 @@ def update_ticker(currency):
     resp = requests.get(ticker_address)
     price_usd = resp.json()[0]['price_usd']
 
-    ticker = Ticker.objects.get_or_create(currency=currency)
+    ticker, created = Ticker.objects.get_or_create(currency=currency)
     ticker.price = price_usd
     ticker.updated = datetime.datetime.now()
     ticker.save()
@@ -157,16 +157,21 @@ if __name__ == '__main__':
             print('-'*100)
 
 
-        # XXX TODO Updating the currency price ticker....
+        # Updating the currency price ticker....
 
-        print('Updating the price ticker...')
+        ticker = Ticker.objects.get(currency="ethereum")
+        ticker_delta = (datetime.datetime.now()-ticker.updated.replace(tzinfo=None)).total_seconds()
+        print('Updating ticker in',60-ticker_delta,'seconds..')
 
+        if(ticker_delta > 60):
 
+            print('Updating ethereum price ticker...')
+            price_usd = update_ticker("ethereum")
+            print('Current ethereum price is $'+str(price_usd))
 
 
         # XXX TODO robot to populate progressive jackpot stats...
 
-
-        print('waiting for the new credits requests on the queue...')
-        print('sleeping 1 second..')
+        print('Waiting for the new credits requests on the queue...')
+        print('Sleeping 1 second..')
         time.sleep(1)
