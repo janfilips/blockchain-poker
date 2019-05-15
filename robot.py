@@ -102,9 +102,24 @@ if __name__ == '__main__':
 
     while True:
 
+        # Updating the currency price ticker....
+
+        ticker = Ticker.objects.get(currency="ethereum")
+        ticker_delta = (datetime.datetime.now()-ticker.updated.replace(tzinfo=None)).total_seconds()
+        print('Updating ticker in',60-ticker_delta,'seconds..')
+
+        if(ticker_delta > 60):
+
+            print('Updating ethereum price ticker...')
+            price_usd = update_ticker("ethereum")
+            print('Current ethereum price is $'+str(price_usd))
+
+        print('-'*100)
+
+
         # Processing topup requests..
 
-        topups = TopUps.objects.filter(credited=False)
+        topups = TopUps.objects.filter(credited=False,denied=False)
 
         if topups:
 
@@ -119,7 +134,14 @@ if __name__ == '__main__':
                 print('created', topup.created)
                 print('delta_seconds', topup_delta_seconds)
 
-                if(topup_delta_seconds<5):
+                expected_paid_amount_minimum = topup.requested_amount_in_dollars / ticker.price / 100 * 90
+
+                if(topup.paid_in_eth < expected_paid_amount_minimum):
+                    topup.denied = True
+                    topup.denied_message = "hackers attempt"
+                    topup.save()
+
+                if(topup_delta_seconds<10):
                     print('** topup request, last checked performed recently, skipping....')
                     continue
 
@@ -133,10 +155,6 @@ if __name__ == '__main__':
                 topup.last_check = datetime.datetime.now()
                 topup.save()
 
-
-                # XXX TODO check that the amount requested is at least 90% of the eth deposited...
-                #     denied = models.BooleanField(default=False)
-                #     denied_message = "attempted hack throgh the JS"
 
                 if(result==True):
 
@@ -169,19 +187,6 @@ if __name__ == '__main__':
                 topup.save()
 
             print('-'*100)
-
-
-        # Updating the currency price ticker....
-
-        ticker = Ticker.objects.get(currency="ethereum")
-        ticker_delta = (datetime.datetime.now()-ticker.updated.replace(tzinfo=None)).total_seconds()
-        print('Updating ticker in',60-ticker_delta,'seconds..')
-
-        if(ticker_delta > 60):
-
-            print('Updating ethereum price ticker...')
-            price_usd = update_ticker("ethereum")
-            print('Current ethereum price is $'+str(price_usd))
 
 
         # XXX TODO robot to populate progressive jackpot stats...
