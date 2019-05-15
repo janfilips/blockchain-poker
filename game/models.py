@@ -52,6 +52,6 @@ class TopUps(models.Model):
     created = models.DateTimeField(auto_now=True)
 
 class Ticker(models.Model):
-    currency = models.CharField(max_length=5)
-    price = models.FloatField()
+    currency = models.CharField(max_length=10)
+    price = models.FloatField(default=0)
     updated = models.DateTimeField(auto_now=True)

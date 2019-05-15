@@ -8,11 +8,12 @@ import datetime
 import random
 import time
 import json
+import requests
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "game.settings")
 django.setup()
 
-from game.models import Players, TopUps
+from game.models import Players, TopUps, Ticker
 from django.conf import settings
 
 from web3 import Web3, Account
@@ -23,6 +24,21 @@ w3 = Web3(HTTPProvider(settings.ETHEREUM_PROVIDER))
 import logging
 logger = logging.getLogger(__name__)
 
+TICKER_ADDRESS = "https://api.coinmarketcap.com/v1/ticker/"
+
+
+def update_ticker(currency):
+
+    ticker_address = TICKER_ADDRESS + currency + "/"
+    resp = requests.get(ticker_address)
+    price_usd = resp.json()[0]['price_usd']
+
+    ticker = Ticker.objects.get_or_create(currency=currency)
+    ticker.price = price_usd
+    ticker.updated = datetime.datetime.now()
+    ticker.save()
+
+    return price_usd
 
 
 def wait_for_tx_receipt(w3, tx_hash, poll_interval):
@@ -41,6 +57,10 @@ def wait_for_tx_receipt(w3, tx_hash, poll_interval):
 if __name__ == '__main__':
 
     print('TOPUP CREDITS ROBOT', __version__)
+
+    print('Updating price ticker..')
+
+    update_ticker('ethereum')
 
     if(settings.DEBUG):
         ETHEREUM_NETWORK = 'Testnet'
@@ -82,7 +102,8 @@ if __name__ == '__main__':
 
     while True:
 
-        # XXX TODO filter older than 10 seconds
+        # Processing topup requests..
+
         topups = TopUps.objects.filter(credited=False)
 
         if topups:
@@ -135,7 +156,13 @@ if __name__ == '__main__':
 
             print('-'*100)
 
-        # XXX TODO robot to update price ticker...
+
+        # XXX TODO Updating the currency price ticker....
+
+        print('Updating the price ticker...')
+
+
+
 
         # XXX TODO robot to populate progressive jackpot stats...
 
