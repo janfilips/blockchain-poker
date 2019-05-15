@@ -123,7 +123,7 @@ if __name__ == '__main__':
                     print('** topup request, last checked performed recently, skipping....')
                     continue
 
-                if(topup.verification_attempts > 10):
+                if(topup.verification_attempts > 100):
                     print('***** topup request has too many verification requests, skipping....')
                     continue
 
@@ -147,15 +147,15 @@ if __name__ == '__main__':
                     topup.credited = True
                     topup.save()
 
-                    if(requested_amount_in_dollars==20):
+                    if(topup.requested_amount_in_dollars==20):
                         topup.player.credit += 2
                         topup.player.save()
 
-                    if(requested_amount_in_dollars==50):
+                    if(topup.requested_amount_in_dollars==50):
                         topup.player.credit += 3
                         topup.player.save()
 
-                    if(requested_amount_in_dollars==100):
+                    if(topup.requested_amount_in_dollars==100):
                         topup.player.credit += 10
                         topup.player.save()
                     
