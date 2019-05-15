@@ -185,8 +185,6 @@ if __name__ == '__main__':
                     print('player was succesfuly credited..')
 
 
-                # XXX check that minimum 10 seconds have passed
-
                 topup.verification_attempts += 1
                 topup.save()
 
@@ -194,8 +192,6 @@ if __name__ == '__main__':
 
 
         # XXX TODO robot to populate progressive jackpot stats...
-
-        # XXX TODO remember to consider bonus on crediting users..
 
         print('Waiting for the new credits requests on the queue...')
         print('Sleeping 1 second..')
