@@ -82,7 +82,7 @@ if __name__ == '__main__':
 
     while True:
 
-        # XXX filter older than 5 seconds
+        # XXX TODO filter older than 10 seconds
         topups = TopUps.objects.filter(credited=False)
 
         if topups:
