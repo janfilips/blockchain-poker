@@ -98,6 +98,7 @@ if __name__ == '__main__':
                 result = contract_instance.functions.verifyPayment(payment_id).call()      
                 print('result', result)
 
+                # XXX TODO check that the amount requested is at least 90% of the eth deposited...
 
                 if(result==True):
 
