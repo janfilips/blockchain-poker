@@ -97,8 +97,8 @@ if __name__ == '__main__':
                 #print('signed_transaction.rawTransaction', signed_transaction.rawTransaction)
                 #print(signed_transaction)
 
-                transaction_sent = w3.eth.sendRawTransaction(signed_transaction.rawTransaction)
-                print('transaction_sent', w3.toHex(transaction_sent))
+                #transaction_sent = w3.eth.sendRawTransaction(signed_transaction.rawTransaction)
+                #print('transaction_sent', w3.toHex(transaction_sent))
 
                 import sys
                 sys.exit(0)

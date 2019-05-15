@@ -54,8 +54,7 @@ var rps = function() {
             rps.init();
             var paymentId = Math.ceil(Math.random() * 2147483640 + 1);
             const transactionParameters = {
-                // i have got rid off gas from here ... maybe we should put it back
-                // xxx todo pls amend paymentId as we dicussed
+                // i have got rid off gas from here ... maybe we should put it back?
                 to: window.contract_address,
                 from: ethereum.selectedAddress,
                 value: "50000000000000",//web3.toWei(a / window.ethusdprice, 'ether'), // Only required to send ether to the recipient from the initiating external account.
@@ -76,8 +75,8 @@ var rps = function() {
                             'X-CSRFToken': csrf_token
                         },
                         data: {
-                            tx_id: c.result,
                             payment_id: paymentId,
+                            tx_id: c.result,
                             paid_in_eth: web3.fromWei(transactionParameters.value),
                             requested_amount_in_dollars: a,
                             player_ethereum_wallet: transactionParameters.from,

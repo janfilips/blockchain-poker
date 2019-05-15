@@ -224,18 +224,20 @@ def ajax_buy_credit(request):
 
     player_session_key = request.POST['player_session_key']
     player_ethereum_wallet = request.POST['player_ethereum_wallet']
-    requested_amount_in_dollars = request.POST['requested_amount_in_dollars']
-    paid_in_eth = request.POST['paid_in_eth']
+    requested_amount_in_dollars = int(request.POST['requested_amount_in_dollars'])
+    paid_in_eth = float(request.POST['paid_in_eth'])
     payment_id = request.POST['payment_id']
+    tx_id = request.POST['tx_id']
 
     player = Players.objects.get(session_key=player_session_key)
 
     TopUps.objects.create(
         player = player,
         eth_wallet = player_ethereum_wallet,
-        requested_amount_in_dollars = int(requested_amount_in_dollars),
-        paid_in_eth = float(paid_in_eth),
+        requested_amount_in_dollars = requested_amount_in_dollars,
+        paid_in_eth = paid_in_eth,
         payment_id = payment_id,
+        tx_id = tx_id,
     )
 
     print('buy credit')
@@ -244,6 +246,7 @@ def ajax_buy_credit(request):
     print('requested_amount_in_dollars', requested_amount_in_dollars)
     print('paid_in_eth', paid_in_eth)
     print('payment_id', payment_id)
+    print('tx_id', tx_id)
 
     return HttpResponse(True)
 
