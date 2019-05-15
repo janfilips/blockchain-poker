@@ -25,6 +25,19 @@ logger = logging.getLogger(__name__)
 
 
 
+def wait_for_tx_receipt(w3, tx_hash, poll_interval):
+
+    while True:
+        tx_receipt = w3.eth.getTransactionReceipt(tx_hash)
+        if tx_receipt:
+            return tx_receipt
+        print(tx_hash.hex(),'is processing..')
+        time.sleep(poll_interval)
+
+    print('Obtained transaction receipt', tx_receipt)
+    return tx_receipt
+
+
 if __name__ == '__main__':
 
     print('TOPUP CREDITS ROBOT', __version__)
@@ -85,20 +98,35 @@ if __name__ == '__main__':
                 print('was_credited', topup.was_credited)
                 print('-'*100)
 
-                transaction = contract_instance.functions.verifyPayment(topup.payment_id).buildTransaction({'gas':GAS_LIMIT,})
-                # constructing verifyPayment transaction 
-                transaction['gas'] = GAS_LIMIT
-                transaction['gasPrice'] = GAS_PRICE
-                transaction['chainId'] = settings.ETHEREUM_CHAINID
-                transaction['from'] = w3.eth.defaultAccount
-                transaction['nonce'] = w3.eth.getTransactionCount(account=w3.eth.defaultAccount,block_identifier=w3.eth.defaultBlock)
+                # transaction = contract_instance.functions.verifyPayment(str(topup.payment_id)).buildTransaction({'gas':GAS_LIMIT,})
+                # # constructing verifyPayment transaction 
+                # transaction['gas'] = GAS_LIMIT
+                # transaction['gasPrice'] = GAS_PRICE
+                # transaction['chainId'] = settings.ETHEREUM_CHAINID
+                # transaction['from'] = w3.eth.defaultAccount
+                # transaction['nonce'] = w3.eth.getTransactionCount(account=w3.eth.defaultAccount,block_identifier=w3.eth.defaultBlock)
             
-                signed_transaction = account.signTransaction(transaction)
-                #print('signed_transaction.rawTransaction', signed_transaction.rawTransaction)
-                #print(signed_transaction)
+                # signed_transaction = account.signTransaction(transaction)
+                # #print('signed_transaction.rawTransaction', signed_transaction.rawTransaction)
+                # #print(signed_transaction)
 
-                #transaction_sent = w3.eth.sendRawTransaction(signed_transaction.rawTransaction)
-                #print('transaction_sent', w3.toHex(transaction_sent))
+                # transaction_sent = w3.eth.sendRawTransaction(signed_transaction.rawTransaction)
+                # print('transaction_sent', w3.toHex(transaction_sent))
+
+                # topup.verification_attempts += 1
+                # topup.save()
+
+                # transaction_recepipt = wait_for_tx_receipt(w3, transaction_sent, 2)
+                # print('tx_recept.tx_hash', w3.toHex(transaction_recepipt.transactionHash))
+                # print('transaction_status', transaction_recepipt.status)
+
+                # result = transaction_recepipt
+                # print('result', result)
+
+                result = contract_instance.functions.verifyPayment(topup.payment_id).call()      
+                print('result', result)
+
+
 
                 import sys
                 sys.exit(0)

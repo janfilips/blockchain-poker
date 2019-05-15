@@ -44,7 +44,7 @@ ETHEREUM_GAS_PRICE = w3.toWei(3, 'gwei')
 ETHEREUM_GAS_LIMIT = 1000000
 
 # Ethereum smart-contract
-ETHEREUM_CONTRACT_ADDRESS = '0xcc71cbfd5a1b687f6c166d7b988b127bcf1a13d1'
+ETHEREUM_CONTRACT_ADDRESS = '0x91f55ad615c7e17074ffddc667d399219b20ec0b'
 ETHEREUM_CONTRACT_ADDRESS = w3.toChecksumAddress(ETHEREUM_CONTRACT_ADDRESS)
 
 
@@ -155,8 +155,13 @@ ETHEREUM_CONTRACT_ABI = """
 [
 	{
 		"constant": false,
-		"inputs": [],
-		"name": "payRoyalty",
+		"inputs": [
+			{
+				"name": "_paymentId",
+				"type": "bytes32"
+			}
+		],
+		"name": "buyCredit",
 		"outputs": [
 			{
 				"name": "success",
@@ -191,47 +196,9 @@ ETHEREUM_CONTRACT_ABI = """
 		"type": "function"
 	},
 	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "_paymentId",
-				"type": "bytes32"
-			}
-		],
-		"name": "verifyPayment",
-		"outputs": [
-			{
-				"name": "success",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "getContractBalance",
-		"outputs": [
-			{
-				"name": "balance",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
 		"constant": false,
-		"inputs": [
-			{
-				"name": "_paymentId",
-				"type": "bytes32"
-			}
-		],
-		"name": "buyCredit",
+		"inputs": [],
+		"name": "payRoyalty",
 		"outputs": [
 			{
 				"name": "success",
@@ -315,6 +282,39 @@ ETHEREUM_CONTRACT_ABI = """
 		],
 		"name": "UnauthorizedCashoutAttempt",
 		"type": "event"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getContractBalance",
+		"outputs": [
+			{
+				"name": "balance",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_paymentId",
+				"type": "bytes32"
+			}
+		],
+		"name": "verifyPayment",
+		"outputs": [
+			{
+				"name": "success",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
 	}
 ]
 """
