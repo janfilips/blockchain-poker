@@ -231,11 +231,11 @@
     </div>
     <div id="popup2" class="overlay" style="display:none;">
         <div class="popup">
-            <h2>Credit is too low</h2>
+            <h2>Low credit</h2>
             <a class="close" href="#">&times;</a>
             <div class="content">
                 <p>
-                  Your credit is too low to be able to select {% if credit != 0 %} a higher {% else %} the {% endif %} bet.
+                  Your credit is too low to be able to switch the bet.
                   <br/>
                   <br/>
                   To add credits simply navigate to the credits section,
@@ -469,15 +469,15 @@
 
         {% for deck in winning_decks %}
         <tr>
-          <td>{{deck.shuffled_at|naturaltime}}</td>
-          <td>{{deck.player.session_key}}</td>
+          <td><a href="/deck/{{deck.deck_hash}}">{{deck.shuffled_at|naturaltime}}</a></td>
+          <td><a href="/deck/{{deck.deck_hash}}">{{deck.player.session_key}}</a></td>
           <td><a href="/deck/{{deck.deck_hash}}">{{deck.deck_hash}}</a></td>
           <td class="card-list">
             {% for card in deck.winning_hand_extrapolated|extrapolate_hand %}
             <img src="static/cards/{{card}}.png">
             {% endfor %}
           </td>
-          <td>{{deck.winning_hand_result}}</td>
+          <td><a href="/deck/{{deck.deck_hash}}">{{deck.winning_hand_result}}</a></td>
           <td class="bidon">${{deck.win_amount}}.00</td>
           <td>${{deck.bet_amount}}</td>
         </tr>
