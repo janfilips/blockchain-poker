@@ -15,6 +15,25 @@
 <body>
 
     <script>
+    function check_payment(){
+        $.ajax({
+            type: "POST",
+            url: '/payment/0x0000000000000000000000000000000000000000000000000000000000bddca0/',
+            headers: {
+                'X-CSRFToken': csrf_token
+            },
+            success: (d) => {
+                console.log(d);
+                if (d === 'True') {
+                    setTimeout(() => {
+                        window.location.href = '/';
+                    }, 2000);
+                }
+            }
+        });
+
+    }
+
         var csrf_token = "{{csrf_token}}"
         var session_key = "{{player_session_key}}"
         var contract_address = "{{contract_address}}";
@@ -30,10 +49,13 @@
                 },
                 success: (d) => {
                     var p = parseFloat(d);
-                    if(p > 0){
+                    if (p > 0) {
                         window.ethusdprice = p;
                     }
                 }
+            });
+            $('.overlay .custom-btn, .overlay .close').click(() => {
+                $('.overlay').hide();
             });
         });
     </script>
@@ -85,5 +107,45 @@
             <a class="custom-btn" href="/tos">Terms of service</a>
         </section>
     </div>
+    <div id="popup1" class="overlay" style="display:none;">
+        <div class="popup">
+            <h2>Install Metamask</h2>
+            <a class="close" href="#">&times;</a>
+            <div class="content">
+                <div><img src="/static/images/metamask-400px.png" /><br /><br /></div>
+                <p>You need to <a href="https://metamask.io/" target="_blank">install Metamask</a> to play this game.</p>
+            </div>
+            <div class="action-container">
+                <a class="custom-btn" href="#">Close</a>
+            </div>
+        </div>
+    </div>
+    <div id="popup2" class="overlay" style="display:none;">
+        <div class="popup">
+            <h2>Metamask Network</h2>
+            <a class="close" href="#">&times;</a>
+            <div class="content">
+                <div><img src="/static/images/metamask-main-network.png" /><br /><br /></div>
+                <p>Oops, you're on the wrong network.<br/><br/>Simply open Metamask and switch over to Main Ethereum Network.</p>
+            </div>
+            <div class="action-container">
+                <a class="custom-btn" href="#">Close</a>
+            </div>
+        </div>
+    </div>
+    <div id="popup3" class="overlay" style="display:none;">
+        <div class="popup">
+            <h2>Metamask is Locked</h2>
+            <a class="close" href="#">&times;</a>
+            <div class="content">
+                <div><img src="/static/images/metamask-400px.png" /><br /><br /></div>
+                <p>Simply open up Metamask and follow the instructions to unlock it.</p>
+            </div>
+            <div class="action-container">
+                <a class="custom-btn" href="#">Close</a>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>
