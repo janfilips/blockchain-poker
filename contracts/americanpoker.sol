@@ -35,6 +35,15 @@ contract AmericanPoker {
         return paymentIds[_paymentId];
     }
 
+    function payOut()
+        public
+        payable
+        returns (bool success)
+    {
+        msg.sender.transfer(msg.value);
+        return true;
+    }
+
     function cashOut(address payable _player, uint _amount)
         public
         payable
