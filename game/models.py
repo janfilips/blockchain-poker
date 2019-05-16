@@ -56,6 +56,7 @@ class Payouts(models.Model):
     requested_usd = models.FloatField()
     calculated_eth = models.FloatField(default=0)
     paid = models.BooleanField(default=False)
+    failed_payment = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now=True)
 
 class Ticker(models.Model):
