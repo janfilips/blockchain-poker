@@ -53,6 +53,12 @@ var app = function() {
                 if ($.cookie('game_already_played')) {
                     this.first_draw();
                 }
+                $('#popup3 a.close, #popup3 .action-container .special-btn').click(() => {
+                    $('#popup3').hide();
+                });
+                $('#popup3 a.btn-cashbout').click(() => {
+                    app.cashout();
+                });
             }
         },
         evaluated_hand_text: (a) => {
@@ -154,6 +160,23 @@ var app = function() {
                 }
             }
 
+        },
+        cashout:() => {
+            $.ajax({
+                type: "POST",
+                url: '?/ajax/cashout/request/',
+                headers: {
+                    'X-CSRFToken': csrf_token
+                },
+                data: {
+                    player_session_key: session_key,
+                },
+                success: (r) => {
+                    window.user_credit = 0;
+                    $('.credit').html('Credit $' + (user_credit));
+                    $('#popup3').hide();
+                }
+            });
         },
         sound_play: (s) => {
             if (app.sounds) {

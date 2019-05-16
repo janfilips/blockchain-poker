@@ -72,6 +72,7 @@ var rps = function() {
                         from: ethereum.selectedAddress,
                     }, function(b, c) {
                         if (typeof c.result !== 'undefined') {
+                            $.removeCookie('game_already_played');
                             $.ajax({
                                 type: "POST",
                                 url: '/ajax/buy/credit/',

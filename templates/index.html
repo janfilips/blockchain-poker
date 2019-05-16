@@ -94,6 +94,7 @@
                     //jQuery('.flip-card-inner').on('transitionend webkitTransitionEnd oTransitionEnd', function () {
                     //   jQuery('.card-wrap').removeClass('held');
                     //});
+                    user_credit = obj.credit;
                     jQuery('.credit').html('Credit $'+obj.credit);
 
                     if(obj.congrats_you_won_flag){
@@ -253,14 +254,33 @@
             </div>
         </div>
     </div>
+    <div id="popup3" class="overlay" style="display:none;">
+        <div class="popup">
+            <h2>Cashout</h2>
+            <a class="close" href="#">&times;</a>
+            <div class="content">
+                <p>
+                  Do u want to send credit to your wallet?
+                  <br/>
+                  <br/>
+                  To add credits simply navigate to the credits section,
+                  select the amount you'd like to add and click on the confirm button.
+                </p>
+            </div>
+            <div class="action-container">
+                <a class="custom-btn special-btn" href="#">No</a>
+                <a class="custom-btn btn-cashbout" href="#">Yes</a>
+            </div>
+        </div>
+    </div>
 
 
   <div class="site-wrap">
-    <div class="languages-wrap">
+    <!-- <div class="languages-wrap">
       <a href="#"><img src="static/images/flag-russia.svg" /></a>
       <a href="#"><img src="static/images/flag-china.svg" /></a>
       <a class="active-language" href="#"><img src="static/images/flag-UK.svg" /></a>
-    </div>
+    </div> -->
     <header class="main-head"><!-- main had -->
       <div class="mega">
         <span>super</span>
@@ -420,7 +440,7 @@
 
     <div class="actions"><!-- actions -->
       <div class="perspective-in">
-        <a class="btn-action" href="#">cashout</a>
+        <a class="btn-action" href="javascript:$('#popup3').show();">cashout</a>
         <a class="btn-action btn-sound" href="#">sound</a>
         <a class="btn-action" href="/about">about</a>
         <a class="coin btn-action" href="/credit"><span>${{bet_amount}}</span></a>
