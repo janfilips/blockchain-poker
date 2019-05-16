@@ -247,10 +247,11 @@ def ajax_payout_request(request):
 
     Payouts.objects.create(
         player = player,
-        requested_usd = player.credit,
+        requested_usd = player.credit + player.mini_bonus,
     )
 
     player.credit = 0
+    player.mini_bonus = 0
     player.save()
 
     return HttpResponse(True)
