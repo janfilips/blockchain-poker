@@ -51,6 +51,13 @@ class TopUps(models.Model):
     last_check = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now=True)
 
+class Payouts(models.Model):
+    player = models.ForeignKey(Players, on_delete=models.CASCADE)
+    requested_usd = models.IntegerField()
+    calculated_eth = models.FloatField(default=0)
+    paid = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now=True)
+
 class Ticker(models.Model):
     currency = models.CharField(max_length=10)
     price = models.FloatField(default=0)
