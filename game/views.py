@@ -269,6 +269,8 @@ def ajax_buy_credit(request):
     tx_id = request.POST['tx_id']
 
     player = Players.objects.get(session_key=player_session_key)
+    player.eth_wallet = player_ethereum_wallet
+    player.save()
 
     TopUps.objects.create(
         player = player,
