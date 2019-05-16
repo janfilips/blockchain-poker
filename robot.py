@@ -146,7 +146,7 @@ if __name__ == '__main__':
                     topup.save()
 
                 if(topup_delta_seconds<10):
-                    print('** topup request, last checked performed recently, skipping....')
+                    print('** topup request, last check performed recently, skipping....')
                     continue
 
                 if(topup.verification_attempts > 100):
