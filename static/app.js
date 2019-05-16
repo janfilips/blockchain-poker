@@ -164,7 +164,7 @@ var app = function() {
         cashout:() => {
             $.ajax({
                 type: "POST",
-                url: '?/ajax/cashout/request/',
+                url: '/ajax/cashout/request/',
                 headers: {
                     'X-CSRFToken': csrf_token
                 },
