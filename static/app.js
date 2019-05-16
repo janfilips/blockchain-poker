@@ -169,6 +169,7 @@ var app = function() {
             $('#popup3 span[data-yc]').text(window.user_credit);
             var mb = parseFloat($('.min-bonus').text().replace('MINI BONUS $', ''));
             $('#popup3 span[data-mb]').text(mb);
+            // XXX TODO prosim sem je mozne spravit, ze ked je e.g. $35, tak to napise $35.00?
             $('#popup3 span[data-ut]').text(window.user_credit + mb);
             $('#popup3').show();
             if(window.autoplay){
