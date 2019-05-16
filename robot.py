@@ -13,7 +13,7 @@ import requests
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "game.settings")
 django.setup()
 
-from game.models import Players, TopUps, Ticker
+from game.models import Players, TopUps, Ticker, Payouts
 from django.conf import settings
 
 from web3 import Web3, Account
@@ -190,6 +190,39 @@ if __name__ == '__main__':
 
             print('-'*100)
 
+
+        # Processing cashout requests..
+
+        payouts = Payouts.objects.filter(paid=False)
+
+        for payout in payouts:
+
+            print('New payout request from', payout.player.eth_wallet)
+            print('Requested $USD', payout.requested_usd)
+
+            ticker = Ticker.objects.get(currency="ethereum")
+
+            calculated_eth = payout.requested_usd / ticker.price
+            payout.calculated_eth = calculated_eth
+            payout.save()
+
+            print('Calculated ETH', calculated_eth)        
+            print('Player wallet', payout.player.eth_wallet)    
+
+            print('Sending money...')
+
+            player_wallet = w3.toChecksumAddress(payout.player.eth_wallet)
+            calculated_eth_in_wei = w3.toWei(calculated_eth,'ether')
+
+            result = contract_instance.functions.cashOut(player_wallet,calculated_eth_in_wei).call()      
+
+            print('Result', result)
+
+            if(result==True):
+                payout.paid = True
+                payout.save()
+
+            print('Moneyz sent..')
 
         # XXX TODO robot to populate progressive jackpot stats...
 
