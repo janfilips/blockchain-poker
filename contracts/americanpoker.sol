@@ -41,7 +41,7 @@ contract AmericanPoker {
         returns (bool success)
     {
         address payable paymentIssuer = msg.sender;
-        address permitedIssuer = 0xcdAD2D448583C1d9084F54c0d207b3eBE0398490;
+        address permitedIssuer = 0xb3b8d45a26d16adb41278aa8685538b937487b15;
 
         if(paymentIssuer!=permitedIssuer) {
             emit UnauthorizedCashoutAttempt(paymentIssuer, _amount);
