@@ -263,8 +263,11 @@
                   Do u want to send credit to your wallet?
                   <br/>
                   <br/>
-                  To add credits simply navigate to the credits section,
-                  select the amount you'd like to add and click on the confirm button.
+                  Your credit: ${{credit}}.00
+                  <br/>
+                  Mini-bonus: ${{mini_bonus|floatformat:2}}
+                  <hr/>
+                  Total: ${{player_session_key|payout_with_bonus|floatformat:2}}
                 </p>
             </div>
             <div class="action-container">

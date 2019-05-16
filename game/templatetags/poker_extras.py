@@ -9,6 +9,8 @@ from django.utils import timezone
 
 register = template.Library()
 
+from game.models import Players
+
 @register.filter(name='dict_get')
 def dict_get(h, key):
     try:
@@ -25,3 +27,10 @@ def random_int(a, b=None):
 @register.filter(name="extrapolate_hand")
 def extrapolate_hand(hand):
     return hand.split('|')
+
+
+@register.filter(name="payout_with_bonus")
+def payout_with_bonus(player_session_key):
+    player = Players.objects.get(session_key=player_session_key)
+    return player.credit + player.mini_bonus
+
