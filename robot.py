@@ -219,7 +219,7 @@ if __name__ == '__main__':
             calculated_eth_in_wei = w3.toWei(calculated_eth,'ether')
 
             transaction = contract_instance.functions.cashOut(player_wallet,calculated_eth_in_wei).buildTransaction({'gas':GAS_LIMIT,})
-            # constructing rollDice transaction    
+            # constructing cashout transaction    
             transaction['gas'] = GAS_LIMIT
             transaction['gasPrice'] = GAS_PRICE
             transaction['chainId'] = settings.ETHEREUM_CHAINID
@@ -229,7 +229,6 @@ if __name__ == '__main__':
 
             signed_transaction = account.signTransaction(transaction)
             #print('signed_transaction.rawTransaction', signed_transaction.rawTransaction)
-            #print(signed_transaction)
 
             transaction_sent = w3.eth.sendRawTransaction(signed_transaction.rawTransaction)
             print('transaction_sent', w3.toHex(transaction_sent))
