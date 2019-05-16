@@ -155,8 +155,13 @@ ETHEREUM_CONTRACT_ABI = """
 [
 	{
 		"constant": false,
-		"inputs": [],
-		"name": "payRoyalty",
+		"inputs": [
+			{
+				"name": "_paymentId",
+				"type": "bytes32"
+			}
+		],
+		"name": "buyCredit",
 		"outputs": [
 			{
 				"name": "success",
@@ -191,47 +196,9 @@ ETHEREUM_CONTRACT_ABI = """
 		"type": "function"
 	},
 	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "_paymentId",
-				"type": "bytes32"
-			}
-		],
-		"name": "verifyPayment",
-		"outputs": [
-			{
-				"name": "success",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "getContractBalance",
-		"outputs": [
-			{
-				"name": "balance",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
 		"constant": false,
-		"inputs": [
-			{
-				"name": "_paymentId",
-				"type": "bytes32"
-			}
-		],
-		"name": "buyCredit",
+		"inputs": [],
+		"name": "payOut",
 		"outputs": [
 			{
 				"name": "success",
@@ -245,7 +212,7 @@ ETHEREUM_CONTRACT_ABI = """
 	{
 		"constant": false,
 		"inputs": [],
-		"name": "payOut",
+		"name": "payRoyalty",
 		"outputs": [
 			{
 				"name": "success",
@@ -329,6 +296,39 @@ ETHEREUM_CONTRACT_ABI = """
 		],
 		"name": "UnauthorizedCashoutAttempt",
 		"type": "event"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getContractBalance",
+		"outputs": [
+			{
+				"name": "balance",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_paymentId",
+				"type": "bytes32"
+			}
+		],
+		"name": "verifyPayment",
+		"outputs": [
+			{
+				"name": "success",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
 	}
 ]
 """
