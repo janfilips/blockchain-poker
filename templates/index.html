@@ -19,11 +19,12 @@
 <link rel="shortcut icon" href="/static/images/favicon.ico" type="image/favicon">
 
 <script>
-	  var csrf_token = "{{csrf_token}}"
+    var csrf_token = "{{csrf_token}}"
     var session_key = "{{player_session_key}}"
     var autoplay_id = true;
     var autoplay = {{autoplay}};
     var user_credit = {{credit|floatformat:0}};
+    var stop_all = false;
 </script>
 <script>
     $( document ).ready(function() {
@@ -112,7 +113,9 @@
                 })
                 if(shoudRefresh){
                     setTimeout(function(){
-                        location.reload();
+                        if(window.stop_all === false){
+                            location.reload();
+                        }
                     }, 2000);
                   }
               },
@@ -263,11 +266,11 @@
                   Do u want to send credit to your wallet?
                   <br/>
                   <br/>
-                  Your credit: ${{credit}}.00
+                  Your credit: $<span data-yc></span>.00
                   <br/>
-                  Mini-bonus: ${{mini_bonus|floatformat:2}}
+                  Mini-bonus: $<span data-mb></span>
                   <hr/>
-                  Total: ${{player_session_key|payout_with_bonus|floatformat:2}}
+                  Total: $<span data-ut></span>
                 </p>
             </div>
             <div class="action-container">
@@ -443,7 +446,7 @@
 
     <div class="actions"><!-- actions -->
       <div class="perspective-in">
-        <a class="btn-action" href="javascript:$('#popup3').show();">cashout</a>
+        <a class="btn-action" href="javascript:app.cashout()">cashout</a>
         <a class="btn-action btn-sound" href="#">sound</a>
         <a class="btn-action" href="/about">about</a>
         <a class="coin btn-action" href="/credit"><span>${{bet_amount}}</span></a>
