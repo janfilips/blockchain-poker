@@ -35,7 +35,7 @@ urlpatterns = [
     url(r'^ajax/jackpot/stats/$', ajax_jackpot_stats, name='ajax_jackpot_stats'),
     url(r'^ajax/buy/credit/$', ajax_buy_credit, name='ajax_buy_credit'),
     url(r'^ajax/ticker/(?P<currency>[\w\-\.]+)/$', ajax_ticker, name='ajax_ticker'),
-    url(r'^ajax/payout/request/$', ajax_payout_request, name='ajax_payout_request'),
+    url(r'^ajax/cashout/request/$', ajax_payout_request, name='ajax_payout_request'),
 
     # temp stuff - DELETE THIS SHIT
     url(r'^tmp/about/desired/look$', tmp_about_desired_look, name='tmp_about_desired_look'),
