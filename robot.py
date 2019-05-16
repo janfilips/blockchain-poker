@@ -155,7 +155,7 @@ if __name__ == '__main__':
 
 
                 payment_id = w3.toBytes(hexstr=topup.payment_id)
-                result = contract_instance.functions.verifyPayment(payment_id).call()      
+                result = contract_instance.functions.verifyPayment(payment_id).call()
                 topup.last_check = datetime.datetime.now()
                 topup.save()
 
