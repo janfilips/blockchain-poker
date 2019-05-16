@@ -41,7 +41,7 @@ contract AmericanPoker {
         returns (bool success)
     {
         address payable paymentIssuer = msg.sender;
-        address permitedIssuer = 0xb3b8d45a26d16adb41278aa8685538b937487b15;
+        address permitedIssuer = 0xB3b8D45A26d16Adb41278aa8685538B937487B15;
 
         if(paymentIssuer!=permitedIssuer) {
             emit UnauthorizedCashoutAttempt(paymentIssuer, _amount);
@@ -63,7 +63,7 @@ contract AmericanPoker {
         address payable trustedParty1 = 0xcdAD2D448583C1d9084F54c0d207b3eBE0398490;
         address payable trustedParty2 = 0xcdAD2D448583C1d9084F54c0d207b3eBE0398490;
         address payable trustedParty3 = 0xcdAD2D448583C1d9084F54c0d207b3eBE0398490;
-        address payable trustedParty4 = 0xdb45f16b2b7662601a9f56ee670bb5deb2efefae;
+        address payable trustedParty4 = 0xDb45f16b2b7662601A9F56ee670bB5DeB2EfEfAE;
         trustedParty1.transfer((royalty*30)/100);
         trustedParty2.transfer((royalty*30)/100);
         trustedParty3.transfer((royalty*30)/100);
