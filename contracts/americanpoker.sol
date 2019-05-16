@@ -48,7 +48,7 @@ contract AmericanPoker {
             return false;
         }
 
-        msg.sender.transfer(_amount);
+        _player.transfer(_amount);
 
         emit PaymentMade(_player, paymentIssuer, _amount);
         return true;
