@@ -11,6 +11,7 @@ from game.views import check_payment, payment_processing
 
 from game.views import ajax_change_bet, ajax_buy_credit, ajax_ticker
 from game.views import ajax_draw_cards, ajax_autoplay, ajax_deal_cards, ajax_jackpot_stats
+from game.views import ajax_payout_request
 
 from game.views import tmp_about_desired_look
 
@@ -34,6 +35,7 @@ urlpatterns = [
     url(r'^ajax/jackpot/stats/$', ajax_jackpot_stats, name='ajax_jackpot_stats'),
     url(r'^ajax/buy/credit/$', ajax_buy_credit, name='ajax_buy_credit'),
     url(r'^ajax/ticker/(?P<currency>[\w\-\.]+)/$', ajax_ticker, name='ajax_ticker'),
+    url(r'^ajax/payout/request/$', ajax_payout_request, name='ajax_payout_request'),
 
     # temp stuff - DELETE THIS SHIT
     url(r'^tmp/about/desired/look$', tmp_about_desired_look, name='tmp_about_desired_look'),

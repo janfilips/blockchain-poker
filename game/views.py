@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 
 from utils.evalcards import card, deck
 
-from game.models import Players, Decks, Jackpot, TopUps, Ticker
+from game.models import Players, Decks, Jackpot, TopUps, Ticker, Payouts
 from random import randint, choice
 
 
@@ -237,6 +237,23 @@ def ajax_ticker(request, currency):
         return HttpResponse(ticker.price)
 
     return HttpResponse(False)
+
+
+def ajax_payout_request(request):
+
+    player_session_key = request.POST['player_session_key']
+
+    player = Players.objects.get(session_key=player_session_key)
+
+    Payouts.objects.create(
+        player = player,
+        requested_usd = player.credit,
+    )
+
+    player.credit = 0
+    player.save()
+
+    return HttpResponse(True)
 
 
 def ajax_buy_credit(request):
