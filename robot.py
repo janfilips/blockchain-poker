@@ -218,9 +218,6 @@ if __name__ == '__main__':
             player_wallet = w3.toChecksumAddress(payout.player.eth_wallet)
             calculated_eth_in_wei = w3.toWei(calculated_eth,'ether')
 
-            # result = contract_instance.functions.cashOut(player_wallet,calculated_eth_in_wei).call()
-            # print('Result', result)
-
             transaction = contract_instance.functions.cashOut(player_wallet,calculated_eth_in_wei).buildTransaction({'gas':GAS_LIMIT,})
             # constructing rollDice transaction    
             transaction['gas'] = GAS_LIMIT
