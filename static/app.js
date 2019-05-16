@@ -55,9 +55,13 @@ var app = function() {
                 }
                 $('#popup3 a.close, #popup3 .action-container .special-btn').click(() => {
                     $('#popup3').hide();
+                    window.stop_all = false;
+                    if(autoplay){
+                        window.location.reload();
+                    }
                 });
                 $('#popup3 a.btn-cashbout').click(() => {
-                    app.cashout();
+                    app._cashout();
                 });
             }
         },
@@ -162,6 +166,17 @@ var app = function() {
 
         },
         cashout:() => {
+            $('#popup3 span[data-yc]').text(window.user_credit);
+            var mb = parseFloat($('.min-bonus').text().replace('MINI BONUS $', ''));
+            $('#popup3 span[data-mb]').text(mb);
+            $('#popup3 span[data-ut]').text(window.user_credit + mb);
+            $('#popup3').show();
+            if(window.autoplay){
+                $('.btn-action.autoplay').click();
+                window.stop_all = true;
+            }
+        },
+        _cashout:() => {
             $.ajax({
                 type: "POST",
                 url: '/ajax/cashout/request/',
@@ -174,6 +189,7 @@ var app = function() {
                 success: (r) => {
                     window.user_credit = 0;
                     $('.credit').html('Credit $' + (user_credit));
+                    $('.min-bonus').html('MINI BONUS $0.00');
                     $('#popup3').hide();
                 }
             });
