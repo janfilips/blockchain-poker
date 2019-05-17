@@ -55,9 +55,9 @@ var app = function() {
                 }
                 $('#popup3 a.close, #popup3 .action-container .special-btn').click(() => {
                     $('#popup3').hide();
-                    window.stop_all = false;
-                    if(autoplay){
-                        window.location.reload();
+                    if(window.stop_all){
+                        window.stop_all = false;
+                        $('.btn-action.autoplay').click();
                     }
                 });
                 $('#popup3 a.btn-cashbout').click(() => {

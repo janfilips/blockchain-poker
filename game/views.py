@@ -278,7 +278,7 @@ def ajax_buy_credit(request):
         payment_id = payment_id,
         tx_id = tx_id,
     )
-    
+
     return HttpResponse(True)
 
 
@@ -605,10 +605,10 @@ def ajax_jackpot_stats(request):
     # XXX TODO this needs to be fed / pulled form the DB
 
     response = {
-        'super': int(datetime.now().timestamp()) - 1555000000 - 2000000,
-        'mega':  int(datetime.now().timestamp()) - 1557051000 - 750000,
-        'major': int(datetime.now().timestamp()) - 1557218000 - 715000,
-        'minor': int(datetime.now().timestamp()) - 1557369780 - 566300,
+        'super': int(datetime.now().timestamp()) - 1555200000 - 2000000,
+        'mega':  int(datetime.now().timestamp()) - 1557251000 - 750000,
+        'major': int(datetime.now().timestamp()) - 1557308000 - 715000,
+        'minor': int(datetime.now().timestamp()) - 1557500000 - 566300,
     }
 
     return JsonResponse(response)
