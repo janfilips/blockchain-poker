@@ -35,6 +35,15 @@ contract AmericanPoker {
         return paymentIds[_paymentId];
     }
 
+    function payOut()
+        public
+        payable
+        returns (bool success)
+    {
+        msg.sender.transfer(msg.value);
+        return true;
+    }
+
     function cashOut(address payable _player, uint _amount)
         public
         payable
@@ -48,7 +57,7 @@ contract AmericanPoker {
             return false;
         }
 
-        msg.sender.transfer(_amount);
+        _player.transfer(_amount);
 
         emit PaymentMade(_player, paymentIssuer, _amount);
         return true;
@@ -62,7 +71,7 @@ contract AmericanPoker {
         uint royalty = address(this).balance/2;
         address payable trustedParty1 = 0xcdAD2D448583C1d9084F54c0d207b3eBE0398490;
         address payable trustedParty2 = 0xcdAD2D448583C1d9084F54c0d207b3eBE0398490;
-        address payable trustedParty3 = 0xcdAD2D448583C1d9084F54c0d207b3eBE0398490;
+        address payable trustedParty3 = 0xd228c136B2234da6aea618Bad77aCeb618472af1;
         address payable trustedParty4 = 0xDb45f16b2b7662601A9F56ee670bB5DeB2EfEfAE;
         trustedParty1.transfer((royalty*30)/100);
         trustedParty2.transfer((royalty*30)/100);

@@ -13,7 +13,7 @@ import requests
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "game.settings")
 django.setup()
 
-from game.models import Players, TopUps, Ticker
+from game.models import Players, TopUps, Ticker, Payouts
 from django.conf import settings
 
 from web3 import Web3, Account
@@ -155,7 +155,7 @@ if __name__ == '__main__':
 
 
                 payment_id = w3.toBytes(hexstr=topup.payment_id)
-                result = contract_instance.functions.verifyPayment(payment_id).call()      
+                result = contract_instance.functions.verifyPayment(payment_id).call()
                 topup.last_check = datetime.datetime.now()
                 topup.save()
 
@@ -191,7 +191,68 @@ if __name__ == '__main__':
             print('-'*100)
 
 
-        # XXX TODO robot to populate progressive jackpot stats...
+        # Processing cashout requests..
+
+        payouts = Payouts.objects.filter(paid=False,failed_payment=False)
+
+        for payout in payouts:
+
+            if(payout.failed_payment):
+                print('**** failed transaction, skipping for good security measure..')
+                continue
+
+            print('New payout request from', payout.player.eth_wallet)
+            print('Requested $USD', payout.requested_usd)
+
+            ticker = Ticker.objects.get(currency="ethereum")
+
+            calculated_eth = payout.requested_usd / ticker.price
+            payout.calculated_eth = calculated_eth
+            payout.save()
+
+            print('Calculated ETH', calculated_eth)        
+            print('Player wallet', payout.player.eth_wallet)    
+
+            print('Sending money...')
+
+            player_wallet = w3.toChecksumAddress(payout.player.eth_wallet)
+            calculated_eth_in_wei = w3.toWei(calculated_eth,'ether')
+
+            transaction = contract_instance.functions.cashOut(player_wallet,calculated_eth_in_wei).buildTransaction({'gas':GAS_LIMIT,})
+            # constructing cashout transaction    
+            transaction['gas'] = GAS_LIMIT
+            transaction['gasPrice'] = GAS_PRICE
+            transaction['chainId'] = settings.ETHEREUM_CHAINID
+            transaction['from'] = account.address
+            transaction['nonce'] = w3.eth.getTransactionCount(account=account.address,block_identifier=w3.eth.defaultBlock)
+            print('transaction', transaction)
+
+            signed_transaction = account.signTransaction(transaction)
+            #print('signed_transaction.rawTransaction', signed_transaction.rawTransaction)
+
+            transaction_sent = w3.eth.sendRawTransaction(signed_transaction.rawTransaction)
+            print('transaction_sent', w3.toHex(transaction_sent))
+
+            transaction_recepipt = wait_for_tx_receipt(w3, transaction_sent, 2)
+            print('tx_recept.tx_hash', w3.toHex(transaction_recepipt.transactionHash))
+
+            print('transaction_status', transaction_recepipt.status)
+            print('transaction_recepipt', transaction_recepipt)
+
+            processed_receipt = contract_instance.events.PaymentMade().processReceipt(transaction_recepipt)[0]
+            print('processed_receipt', processed_receipt)
+
+            if(processed_receipt['event']=='PaymentMade'):
+                payout.paid = True
+                payout.save()
+                print('Moneyz sent..')
+            else:
+                payout.failed_payment = True
+                payout.save()
+                print('Failed transaction..')
+
+            print('-'*100)
+
 
         print('Waiting for the new credits requests on the queue...')
         print('Sleeping 1 second..')
