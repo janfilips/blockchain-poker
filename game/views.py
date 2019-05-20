@@ -74,6 +74,7 @@ def home(request):
             'credit': player.credit,
             'bet_amount': player.bet_amount,
             'mini_bonus': player.mini_bonus,
+            'bonus_total': player.credit + player.mini_bonus,
             'winning_decks': winning_decks_table,
             'contract_address': settings.ETHEREUM_CONTRACT_ADDRESS,
             'contract_abi': settings.ETHEREUM_CONTRACT_ABI,
