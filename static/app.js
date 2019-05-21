@@ -168,9 +168,17 @@ var app = function() {
         cashout:() => {
             $('#popup3 span[data-yc]').text(window.user_credit);
             var mb = parseFloat($('.min-bonus').text().replace('MINI BONUS $', ''));
-            $('#popup3 span[data-mb]').text(mb);
+            $('#popup3 span[data-mb]').text(formatMoney(mb));
             // XXX TODO prosim sem je mozne spravit, ze ked je e.g. $35, tak to napise $35.00?
-            $('#popup3 span[data-ut]').text(window.user_credit + mb);
+            var total = window.user_credit + mb;
+            if(total > 0){
+                $('#popup3 .btn-cashout').show();
+            }
+            else{
+                $('#popup3 .btn-cashout').hide();
+            }
+            $('#popup3 span[data-ut]').text(formatMoney(total));
+
             $('#popup3').show();
             if(window.autoplay){
                 $('.btn-action.autoplay').click();
@@ -296,10 +304,16 @@ var app = function() {
                 $('.stats-line .win').text('BET $' + a);
                 $('.coin.btn-action>span').text('$' + a);
             } else {
-                $('#popup1').show();
-                $('#popup1 a.close, #popup1 .action-container .custom-btn').click(() => {
-                    $('#popup1').hide();
-                });
+                // if ($.cookie('game_change_bet_info')) {
+                //     // warning already showed & nothing to do here
+                // }
+                // else{
+                //     $.cookie('game_change_bet_info', '1', {expires: 1});
+                    $('#popup1').show();
+                    $('#popup1 a.close, #popup1 .action-container .custom-btn').click(() => {
+                        $('#popup1').hide();
+                    });
+                // }
             }
             $.ajax({
                 type: "POST",
