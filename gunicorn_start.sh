@@ -1,8 +1,8 @@
 #!/bin/bash
 
 NAME="americanpoker.win"
-DJANGODIR=/var/www/production-americanpoker.win
-SOCKFILE=/var/www/production-americanpoker.win/gunicorn.sock
+DJANGODIR=/var/www/ropsten.americanpoker.win
+SOCKFILE=/var/www/ropsten.americanpoker.win/gunicorn.sock
 USER=hello                                        
 GROUP=webapps                                     
 NUM_WORKERS=10                                     
