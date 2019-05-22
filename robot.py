@@ -134,6 +134,7 @@ if __name__ == '__main__':
                 print('payment_id', topup.payment_id)
                 print('created', topup.created)
                 print('delta_seconds', topup_delta_seconds)
+                print('robot wallet', account.address)
                 print('-'*100)
 
                 expected_paid_amount_minimum = topup.requested_amount_in_dollars / ticker.price
