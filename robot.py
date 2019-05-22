@@ -129,6 +129,7 @@ if __name__ == '__main__':
 
                 print('topup request', topup.pk)
                 print('eth_wallet', topup.eth_wallet)
+                print('tx_id', topup.tx_id)
                 print('requested_amount_in_dollars', topup.requested_amount_in_dollars)
                 print('payment_id', topup.payment_id)
                 print('created', topup.created)
