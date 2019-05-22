@@ -488,6 +488,9 @@ def ajax_draw_cards(request):
             swapped_cards.append(player_deck[i])
             count += 1
 
+    # XXX TODO second discriminator goes here
+
+
     player_deck_obj.swapped_cards = swapped_cards
     player_deck_obj.swapped_cards_count = len(swapped_cards)
     player_deck_obj.drawn_cards = drawn_cards
