@@ -372,43 +372,19 @@ def ajax_deal_cards(request):
                 break
 
 
-            if(player.bet_amount==1):
-                DISCRIMINATOR = 3
-
-            if(player.bet_amount==2):
-                DISCRIMINATOR = 3
-
-            if(player.bet_amount==3):
-                DISCRIMINATOR = 3
-
-            if(player.bet_amount==4):
-                DISCRIMINATOR = 4
-
-            if(player.bet_amount==5):
-                DISCRIMINATOR = 4
-
-            if(player.bet_amount==10):
-                DISCRIMINATOR = 4
-
+            DISCRIMINATOR = 5
 
             if(randint(0,DISCRIMINATOR) == 0 and evaluated_hand == "One-pair."):
                 break
 
-            if(randint(0,DISCRIMINATOR+1) == 0 and evaluated_hand == "Jacks-or-better."):
+            if(randint(0,DISCRIMINATOR) == 0 and evaluated_hand == "Jacks-or-better."):
                 break
 
-            if(randint(0,DISCRIMINATOR+2) == 0 and evaluated_hand == "Two-pair."):
+            if(randint(0,DISCRIMINATOR) == 0 and evaluated_hand == "Two-pair."):
                 break
 
-            if(randint(0,DISCRIMINATOR+2) == 0 and evaluated_hand == "Three-of-a-kind."):
-                break
-
-            if(randint(0,DISCRIMINATOR+4) == 0 and evaluated_hand == "Four-of-a-kind."):
-                break
-
-            print('************* DISCRIMINATOR', DISCRIMINATOR)
+            print('************* DISCRIMINATOR discriminated player', player.pk)
             print('************* player', player_session_key)
-            print('************* player discriminated')
             print('************* hand received', evaluated_hand, '- reshuffling their cards again...')
 
 
