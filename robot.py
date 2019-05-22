@@ -154,7 +154,7 @@ if __name__ == '__main__':
                     continue
 
                 if(topup.verification_attempts > 100):
-                    print('***** topup request has too many verification requests, skipping....')
+                    print('***** topup request', topup.pk, 'has too many verification requests, skipping....')
                     continue
 
 
