@@ -372,6 +372,11 @@ def ajax_deal_cards(request):
                 break
 
 
+            # there is no discriminator employed on test-net..
+            if(settings.DEBUG):
+                break
+
+
             DISCRIMINATOR = 5
 
             if(randint(0,DISCRIMINATOR) == 0 and evaluated_hand == "One-pair."):
