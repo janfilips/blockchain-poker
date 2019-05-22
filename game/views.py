@@ -373,7 +373,7 @@ def ajax_deal_cards(request):
 
 
             if(player.bet_amount==1):
-                DISCRIMINATOR = 1
+                DISCRIMINATOR = 2
 
             if(player.bet_amount==2):
                 DISCRIMINATOR = 2
