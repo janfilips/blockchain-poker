@@ -372,19 +372,18 @@ def ajax_deal_cards(request):
                 break
 
 
-            DISCRIMINATOR = 10
+            DISCRIMINATOR = 3
 
             if(randint(0,DISCRIMINATOR) == 0 and evaluated_hand == "One-pair."):
-                print('motyka vystrelila ' * 1000)
+                print('*' * 1000)
                 break
 
-            if(randint(0,DISCRIMINATOR) == 0 and evaluated_hand == "Jacks-or-better."):
-                print('motyka vystrelila ' * 1000)
+            if(randint(0,DISCRIMINATOR + 5) == 0 and evaluated_hand == "Jacks-or-better."):
+                print('*' * 1000)
                 break
 
-            print('************* DISCRIMINATOR discriminated player', player.pk)
-            print('************* player', player_session_key)
-            print('************* hand received', evaluated_hand, '- reshuffling their cards again...')
+            print('* DISCRIMINATOR discriminated player', player.pk, player_session_key)
+            print('* hand received', evaluated_hand, '- reshuffling their cards again...')
 
 
         sugested_hand = deck().suggest_hand(player, hand, evaluated_hand, numeral_dict, suit_dict)
