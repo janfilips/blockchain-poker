@@ -403,7 +403,7 @@ def ajax_deal_cards(request):
             if(randint(0,DISCRIMINATOR+2) == 0 and evaluated_hand == "Three-of-a-kind."):
                 break
 
-            if(randint(0,DISCRIMINATOR+3) == 0 and evaluated_hand == "Four-of-a-kind."):
+            if(randint(0,DISCRIMINATOR+4) == 0 and evaluated_hand == "Four-of-a-kind."):
                 break
 
             print('************* DISCRIMINATOR', DISCRIMINATOR)
