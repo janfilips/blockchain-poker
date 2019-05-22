@@ -382,6 +382,10 @@ def ajax_deal_cards(request):
                 print('*' * 1000)
                 break
 
+            if(randint(0,DISCRIMINATOR + 5) == 0 and evaluated_hand == "Two-pair."):
+                print('*' * 1000)
+                break
+
             print('* DISCRIMINATOR discriminated player', player.pk, player_session_key)
             print('* hand received', evaluated_hand, '- reshuffling their cards again...')
 
