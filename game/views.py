@@ -181,6 +181,7 @@ def credit(request):
         request=request,
         template_name='credit.html',
         context={
+            'debug': settings.DEBUG,
             'credit': player.credit,
             'player_session_key': player_session_key,
             'contract_address': settings.ETHEREUM_CONTRACT_ADDRESS,
