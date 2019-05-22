@@ -372,7 +372,7 @@ def ajax_deal_cards(request):
                 break
 
 
-            DISCRIMINATOR = 5
+            DISCRIMINATOR = 10
 
             if(randint(0,DISCRIMINATOR) == 0 and evaluated_hand == "One-pair."):
                 print('motyka vystrelila ' * 1000)
