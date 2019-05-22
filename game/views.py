@@ -488,13 +488,6 @@ def ajax_draw_cards(request):
             swapped_cards.append(player_deck[i])
             count += 1
 
-    # XXX TODO second discriminator goes here
-
-
-    player_deck_obj.swapped_cards = swapped_cards
-    player_deck_obj.swapped_cards_count = len(swapped_cards)
-    player_deck_obj.drawn_cards = drawn_cards
-    player_deck_obj.save()
 
     final_hand = []
     for c_ in final_hand_:
@@ -516,6 +509,10 @@ def ajax_draw_cards(request):
 
     print('final_hand', final_hand)
 
+    player_deck_obj.swapped_cards = swapped_cards
+    player_deck_obj.swapped_cards_count = len(swapped_cards)
+    player_deck_obj.drawn_cards = drawn_cards
+    player_deck_obj.save()
 
     win_amount = 0
 
