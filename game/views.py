@@ -375,12 +375,15 @@ def ajax_deal_cards(request):
             DISCRIMINATOR = 5
 
             if(randint(0,DISCRIMINATOR) == 0 and evaluated_hand == "One-pair."):
+                print('motyka vystrelila ' * 1000)
                 break
 
             if(randint(0,DISCRIMINATOR) == 0 and evaluated_hand == "Jacks-or-better."):
+                print('motyka vystrelila ' * 1000)
                 break
 
             if(randint(0,DISCRIMINATOR) == 0 and evaluated_hand == "Two-pair."):
+                print('motyka vystrelila ' * 1000)
                 break
 
             print('************* DISCRIMINATOR discriminated player', player.pk)
