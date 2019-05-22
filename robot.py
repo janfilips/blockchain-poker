@@ -133,6 +133,7 @@ if __name__ == '__main__':
                 print('payment_id', topup.payment_id)
                 print('created', topup.created)
                 print('delta_seconds', topup_delta_seconds)
+                print('-'*100)
 
                 expected_paid_amount_minimum = topup.requested_amount_in_dollars / ticker.price
                 expected_paid_amount_minimum = expected_paid_amount_minimum / 100 * 90
