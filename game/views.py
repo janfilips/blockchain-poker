@@ -373,19 +373,19 @@ def ajax_deal_cards(request):
 
 
             if(player.bet_amount==1):
-                DISCRIMINATOR = 2
+                DISCRIMINATOR = 3
 
             if(player.bet_amount==2):
-                DISCRIMINATOR = 2
+                DISCRIMINATOR = 3
 
             if(player.bet_amount==3):
-                DISCRIMINATOR = 2
+                DISCRIMINATOR = 3
 
             if(player.bet_amount==4):
-                DISCRIMINATOR = 3
+                DISCRIMINATOR = 4
 
             if(player.bet_amount==5):
-                DISCRIMINATOR = 3
+                DISCRIMINATOR = 4
 
             if(player.bet_amount==10):
                 DISCRIMINATOR = 4
