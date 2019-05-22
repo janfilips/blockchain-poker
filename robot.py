@@ -134,6 +134,7 @@ if __name__ == '__main__':
                 print('payment_id', topup.payment_id)
                 print('created', topup.created)
                 print('delta_seconds', topup_delta_seconds)
+                print('verification_attempts', topup.verification_attempts)
                 print('robot wallet', account.address)
                 print('-'*100)
 
