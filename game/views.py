@@ -252,6 +252,8 @@ def ajax_payout_request(request):
         requested_usd = player.credit + player.mini_bonus,
     )
 
+    print('****** player', player.pk, 'cashout request', player.credit, 'plus mini-bonus', player.mini_bonus)
+
     player.credit = 0
     player.mini_bonus = 0
     player.save()
@@ -408,7 +410,7 @@ def ajax_deal_cards(request):
 
 
         print('deal cards', cards_deck.split('|'))
-        print('**** player credit', player.credit)
+        print('**** player', player.pk, 'credit', player.credit)
 
         player_cards_deck = Decks.objects.create(player=player, bet_amount=player.bet_amount, deck=cards_deck, deck_hash=deck_hash)
 
