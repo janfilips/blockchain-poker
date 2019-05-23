@@ -15,28 +15,7 @@
 <body>
 
     <script>
-
-    var debug = {{debug}};
-
-    function check_payment(){
-        $.ajax({
-            type: "POST",
-            url: '/payment/0x0000000000000000000000000000000000000000000000000000000000bddca0/',
-            headers: {
-                'X-CSRFToken': csrf_token
-            },
-            success: (d) => {
-                console.log(d);
-                if (d === 'True') {
-                    setTimeout(() => {
-                        window.location.href = '/';
-                    }, 2000);
-                }
-            }
-        });
-
-    }
-
+        var debug = {{debug|lower}};
         var csrf_token = "{{csrf_token}}"
         var session_key = "{{player_session_key}}"
         var contract_address = "{{contract_address}}";
@@ -104,8 +83,8 @@
             <br/>
 
             <p>
-            
-                    One of the best things about the blockchain is that, because it is a decentralized system that exists 
+
+                    One of the best things about the blockchain is that, because it is a decentralized system that exists
                     between all permitted parties, there’s no need to pay intermediaries and it saves you time and conflict.
                     <br/>
                     <br/>
@@ -114,7 +93,7 @@
                     <img src="/static/images/ethereum.png" width=685>
                     {% endcomment %}
 
-                    While the Bitcoin blockchain is used to track ownership of digital currency (bitcoins), 
+                    While the Bitcoin blockchain is used to track ownership of digital currency (bitcoins),
                     the Ethereum blockchain focuses on running the programming code of any decentralized application.
                     <br/>
                     <br/>
@@ -123,7 +102,7 @@
                     <br/>
                     <br/>
 
-                    To top yourself up with credit to play, simply navigate and click on the icons above. 
+                    To top yourself up with credit to play, simply navigate and click on the icons above.
                     <br/>
                     <br/>
 

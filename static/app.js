@@ -63,6 +63,8 @@ var app = function() {
                 $('#popup3 a.btn-cashbout').click(() => {
                     app._cashout();
                 });
+                app.cashout_button_active();
+                setInterval(app.cashout_button_active, 500);
             }
         },
         evaluated_hand_text: (a) => {
@@ -165,17 +167,24 @@ var app = function() {
             }
 
         },
+        cashout_button_active:() => {
+            var mb = parseFloat($('.min-bonus').text().replace('MINI BONUS $', ''));
+            var total = window.user_credit + mb;
+            if(total == 0){
+                $('.btn-act-cashout').addClass('active');
+            }
+            else{
+                $('.btn-act-cashout').removeClass('active');
+            }
+        },
         cashout:() => {
+
             $('#popup3 span[data-yc]').text(window.user_credit);
             var mb = parseFloat($('.min-bonus').text().replace('MINI BONUS $', ''));
             $('#popup3 span[data-mb]').text(formatMoney(mb));
-            // XXX TODO prosim sem je mozne spravit, ze ked je e.g. $35, tak to napise $35.00?
             var total = window.user_credit + mb;
-            if(total > 0){
-                $('#popup3 .btn-cashout').show();
-            }
-            else{
-                $('#popup3 .btn-cashout').hide();
+            if(total == 0){
+                return false;
             }
             $('#popup3 span[data-ut]').text(formatMoney(total));
 
@@ -304,16 +313,29 @@ var app = function() {
                 $('.stats-line .win').text('BET $' + a);
                 $('.coin.btn-action>span').text('$' + a);
             } else {
-                // if ($.cookie('game_change_bet_info')) {
-                //     // warning already showed & nothing to do here
-                // }
-                // else{
-                //     $.cookie('game_change_bet_info', '1', {expires: 1});
+                var cv = $.cookie('game_change_bet_info');
+                var cvn = parseInt(cv);
+                if(isNaN(cvn)){
+                    cvn = 0;
+                }
+                if (cvn > 3) {
+                    b = a;
+                    if (a == 5) {
+                        b = 4;
+                    } else if (a == 10) {
+                        b = 5;
+                    }
+                    $('.type-list .points').removeClass('active');
+                    $('.points.point-' + b).addClass('active');
+                }
+                else{
+                    cvn++;
+                    $.cookie('game_change_bet_info', cvn.toString(), {expires: 1});
                     $('#popup1').show();
                     $('#popup1 a.close, #popup1 .action-container .custom-btn').click(() => {
                         $('#popup1').hide();
                     });
-                // }
+                }
             }
             $.ajax({
                 type: "POST",

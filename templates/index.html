@@ -182,6 +182,7 @@
           if(user_credit == 0){
               return true;
           }
+          window.stop_all = autoplay;
           $.ajax({
                 type: "POST",
                 url: '/ajax/autoplay/',
@@ -270,15 +271,13 @@
                   Your credit: $<span data-yc></span>.00
                   <br/>
                   Mini-bonus: $<span data-mb></span>
-                  <hr/>
+                  <hr style="margin-top:0" />
                   Total: $<span data-ut></span>
                 </p>
             </div>
             <div class="action-container">
                 <a class="custom-btn special-btn" href="#">No</a>
-                {% if bonus_total != 0 %}
                 <a class="custom-btn btn-cashbout" href="#">Yes</a>
-                {% endif %}
             </div>
         </div>
     </div>
@@ -449,7 +448,7 @@
 
     <div class="actions"><!-- actions -->
       <div class="perspective-in">
-        <a class="btn-action" href="javascript:app.cashout()">cashout</a>
+        <a class="btn-action btn-act-cashout" href="javascript:app.cashout()">cashout</a>
         <a class="btn-action btn-sound" href="#">sound</a>
         <a class="btn-action" href="/about">about</a>
         <a class="coin btn-action" href="/credit"><span>${{bet_amount}}</span></a>

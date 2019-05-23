@@ -28,6 +28,7 @@ var rps = function() {
                         if (promise !== undefined) {
                             promise.then(a => {
                                 if (typeof ethereum.selectedAddress === 'undefined') {
+                                    console.log('promise typeof ethereum.selectedAddress === undefined')
                                     $('#popup3').show();
                                 } else {
                                     cb()
@@ -38,6 +39,7 @@ var rps = function() {
                             });
                         }
                     } catch (e) {
+                        console.log(e);
                         $('#popup2').show();
                     }
                 } else {
@@ -45,6 +47,7 @@ var rps = function() {
                 }
             } else {
                 if (typeof ethereum.selectedAddress === 'undefined') {
+                    console.log('else typeof ethereum.selectedAddress === undefined');
                     $('#popup3').show();
                 } else {
                     "function" == typeof cb && cb();
@@ -54,8 +57,7 @@ var rps = function() {
         },
         credit: (a, c) => {
             rps.init(() => {
-                // @todo on production remove OR condition
-                if (rps._test === false || true) {
+                if (rps._test === false || window.debug) {
                     var paymentId = rps.b32(Math.ceil(Math.random() * 2147483640 + 1));
                     const transactionParameters = {
                         // i have got rid off gas from here ... maybe we should put it back?
@@ -64,7 +66,6 @@ var rps = function() {
                         value: web3.toHex(web3.toWei(a / window.ethusdprice, 'ether')), // Only required to send ether to the recipient from the initiating external account.
                         data: rps.contract.buyCredit.getData(paymentId), // Optional, but used for defining smart contract creation and interaction.
                     }
-                    console.log('wei: ' + transactionParameters.value);
 
                     ethereum.sendAsync({
                         method: 'eth_sendTransaction',
@@ -88,7 +89,6 @@ var rps = function() {
                                     player_session_key: session_key,
                                 },
                                 success: (d) => {
-                                    console.log(d);
                                     if (d === 'True') {
                                         window.location.href = '/payment/verifying#' + paymentId;
                                     }
@@ -97,6 +97,7 @@ var rps = function() {
                         }
                     })
                 } else {
+                    console.log('rps._test === false || window.debug');
                     $('#popup2').show();
                 }
             });
