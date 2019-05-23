@@ -27,7 +27,7 @@ var rps = function() {
                         var promise = ethereum.enable();
                         if (promise !== undefined) {
                             promise.then(a => {
-                                if (typeof ethereum.selectedAddress === 'undefined') {
+                                if (!a || a.length == 0) {
                                     console.log('promise typeof ethereum.selectedAddress === undefined')
                                     $('#popup3').show();
                                 } else {
