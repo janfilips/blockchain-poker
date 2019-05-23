@@ -408,6 +408,7 @@ def ajax_deal_cards(request):
 
 
         print('deal cards', cards_deck.split('|'))
+        print('**** player credit', player.credit)
 
         player_cards_deck = Decks.objects.create(player=player, bet_amount=player.bet_amount, deck=cards_deck, deck_hash=deck_hash)
 
