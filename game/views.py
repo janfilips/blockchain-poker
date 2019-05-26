@@ -447,10 +447,11 @@ def ajax_deal_cards(request):
 def ajax_draw_cards(request):
 
     hold_cards = request.POST.getlist('cardData[]')
-    print('hold_cards', hold_cards)
 
     player_session_key = request.POST['player_session_key']
     player = Players.objects.get(session_key=player_session_key)
+
+    print('hold_cards', hold_cards, 'player', player.pk, 'credit', player.credit)
 
     player_deck_obj = Decks.objects.filter(player=player).order_by("-pk")[0]
     player_deck = player_deck_obj.deck.split('|')
