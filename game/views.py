@@ -595,6 +595,9 @@ def ajax_jackpot_stats(request):
 
     # XXX TODO this needs to be fed / pulled form the DB
 
+    print(request)
+    #print('player', player.pk, 'credit', player.credit)
+
     response = {
         'super': int(datetime.now().timestamp()) - 1555200000 - 2200000 - 1000000,
         'mega':  int(datetime.now().timestamp()) - 1557251000 - 902000 - 400000,
