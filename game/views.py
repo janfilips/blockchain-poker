@@ -595,8 +595,9 @@ def ajax_jackpot_stats(request):
 
     # XXX TODO this needs to be fed / pulled form the DB
 
-    print(request)
-    #print('player', player.pk, 'credit', player.credit)
+    player_session_key = request.POST['player_session_key']
+    player = Players.objects.get(session_key=player_session_key)
+    print('player', player.pk, 'credit', player.credit)
 
     response = {
         'super': int(datetime.now().timestamp()) - 1555200000 - 2200000 - 1000000,
