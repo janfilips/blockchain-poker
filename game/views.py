@@ -599,11 +599,14 @@ def ajax_jackpot_stats(request):
     player = Players.objects.get(session_key=player_session_key)
     print('player', player.pk, 'credit', player.credit)
 
+    fake_jackpot = int(datetime.now().timestamp())
+    fake_jackpot = fake_jackpot - 1560180000
+
     response = {
-        'super': int(datetime.now().timestamp()) - 1555200000 - 2200000 - 1000000 - 620000,
-        'mega':  int(datetime.now().timestamp()) - 1557251000 - 902000 - 400000 - 200000 - 272000,
-        'major': int(datetime.now().timestamp()) - 1557308000 - 810000 - 490000 - 200000 - 221000,
-        'minor': int(datetime.now().timestamp()) - 1557500000 - 662300 - 481000 - 235000 - 152000,
+        'super': fake_jackpot * 55.5,
+        'mega': fake_jackpot * 22.3,
+        'major': fake_jackpot * 7.5,
+        'minor': fake_jackpot,
     }
 
     return JsonResponse(response)
