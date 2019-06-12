@@ -600,7 +600,7 @@ def ajax_jackpot_stats(request):
     print('player', player.pk, 'credit', player.credit)
 
     fake_jackpot = int(datetime.now().timestamp())
-    fake_jackpot = fake_jackpot - 1560180000
+    fake_jackpot = fake_jackpot - 1560180000 - 187000
 
     response = {
         'super': fake_jackpot * 55.5,
