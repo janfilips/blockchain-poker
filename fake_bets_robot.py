@@ -14,7 +14,7 @@ from game.models import Decks, Players
 
 while True:
 
-    random_winning_deck = Decks.objects.order_by("?").first()
+    random_winning_deck = Decks.objects.filter(player_wins=True).order_by("?").first()
 
     new_deck_hash = (''.join([choice(string.ascii_letters + string.digits) for i in range(25)]) + \
                         ''.join([choice(string.digits) for i in range(10)])).upper()
