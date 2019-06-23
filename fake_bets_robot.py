@@ -39,6 +39,6 @@ while True:
     )
 
     print('Placed new fake bet', new_fake_deck)
-    sleep_time = random.randint(200,1800)
+    sleep_time = random.randint(15,400)
     print('Sleeping for', sleep_time, 'seconds..')
     time.sleep(sleep_time)
