@@ -36,6 +36,7 @@ while True:
         drawn_cards = random_winning_deck.drawn_cards,
         shuffled_at = random_winning_deck.shuffled_at,
         game_finalized = random_winning_deck.game_finalized,
+        fake_bet = True,
     )
 
     print('Placed new fake bet', new_fake_deck)
