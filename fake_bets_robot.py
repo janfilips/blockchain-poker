@@ -21,15 +21,13 @@ while True:
 
     random_player = Players.objects.order_by("?").first()
 
-    random_multiplier = random.randint(2,4)
-
     new_fake_deck = Decks.objects.create(
         player = random_player,
         player_wins = random_winning_deck.player_wins,
         deck_hash = new_deck_hash,
         deck = random_winning_deck.deck,
-        bet_amount = random_winning_deck.bet_amount * random_multiplier,
-        win_amount = random_winning_deck.win_amount * random_multiplier,
+        bet_amount = random_winning_deck.bet_amount,
+        win_amount = random_winning_deck.win_amount,
         winning_hand = random_winning_deck.winning_hand,
         winning_hand_extrapolated = random_winning_deck.winning_hand_extrapolated,
         winning_hand_result = random_winning_deck.winning_hand_result,
