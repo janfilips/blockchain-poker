@@ -29,7 +29,7 @@ class Decks(models.Model):
     drawn_cards = models.CharField(max_length=64,blank=True)
     shuffled_at = models.DateTimeField(auto_now=True)
     game_finalized = models.BooleanField(default=False)
-    fake_bet = models.BooleanField(default=False)
+    #fake_bet = models.BooleanField(default=False)
 
 class Jackpot(models.Model):
     super_jackpot = models.FloatField(default=0)
