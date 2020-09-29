@@ -1,2 +1,2 @@
-# Jacks or better
-A simple blockchain based video poker
+# Arcade Poker
+A simple blockchain based "jacks or better" video poker
