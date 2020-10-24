@@ -46,7 +46,6 @@ def home(request):
         player_session_key = (''.join([choice(string.ascii_letters + string.digits) for i in range(28)]))
 
     player, created = Players.objects.get_or_create(session_key=player_session_key)
-    print('player', player, 'is_new', created)
 
 
     winning_decks_table = Decks.objects.filter(player_wins=True).order_by('-pk')[:100]
@@ -93,7 +92,6 @@ def about(request):
         player_session_key = (''.join([choice(string.ascii_letters + string.digits) for i in range(28)]))
 
     player, created = Players.objects.get_or_create(session_key=player_session_key)
-    print('player', player, 'is_new', created)
 
     response = render(
         request=request,
@@ -115,7 +113,6 @@ def tos(request):
         player_session_key = (''.join([choice(string.ascii_letters + string.digits) for i in range(28)]))
 
     player, created = Players.objects.get_or_create(session_key=player_session_key)
-    print('player', player, 'is_new', created)
 
     response = render(
         request=request,
@@ -175,7 +172,6 @@ def credit(request):
         player_session_key = (''.join([choice(string.ascii_letters + string.digits) for i in range(28)]))
 
     player, created = Players.objects.get_or_create(session_key=player_session_key)
-    print('player', player, 'is_new', created)
 
     response = render(
         request=request,
@@ -252,8 +248,6 @@ def ajax_payout_request(request):
         requested_usd = player.credit + player.mini_bonus,
     )
 
-    print('****** player', player.pk, 'cashout request', player.credit, 'plus mini-bonus', player.mini_bonus)
-
     player.credit = 0
     player.mini_bonus = 0
     player.save()
@@ -262,8 +256,6 @@ def ajax_payout_request(request):
 
 
 def ajax_buy_credit(request):
-
-    print('ajax_buy_credit', request.POST)
 
     player_session_key = request.POST['player_session_key']
     player_ethereum_wallet = request.POST['player_ethereum_wallet']
@@ -311,15 +303,11 @@ def ajax_change_bet(request):
         player.bet_amount = int(bet_amount)
         player.save()
 
-
-    print('player', player, 'changed bet_amount', bet_amount)
-
+        
     return HttpResponse(bet_amount)
 
 
 def ajax_autoplay(request):
-
-    print('autoplay POST', request.POST)
 
     autoplay = request.POST['autoplay']
     player_session_key = request.POST['player_session_key']
@@ -340,8 +328,6 @@ def ajax_deal_cards(request):
 
     player_session_key = request.POST['player_session_key']
     player = Players.objects.get(session_key=player_session_key)
-
-    print('player', player)
 
     if(player.credit >= player.bet_amount):
 
@@ -382,19 +368,13 @@ def ajax_deal_cards(request):
             DISCRIMINATOR = 5
 
             if(randint(0,DISCRIMINATOR) == 0 and evaluated_hand == "One-pair."):
-                print('*' * 1000)
                 break
 
             if(randint(0,DISCRIMINATOR + 5) == 0 and evaluated_hand == "Jacks-or-better."):
-                print('*' * 1000)
                 break
 
             if(randint(0,DISCRIMINATOR + 5) == 0 and evaluated_hand == "Two-pair."):
-                print('*' * 1000)
                 break
-
-            print('* DISCRIMINATOR discriminated player', player.pk, player_session_key)
-            print('* hand received', evaluated_hand, '- reshuffling their cards again...')
 
 
         sugested_hand = deck().suggest_hand(player, hand, evaluated_hand, numeral_dict, suit_dict)
@@ -407,10 +387,7 @@ def ajax_deal_cards(request):
         for card in cards_deck:
             cards_deck_ += str(card) + "|"
         cards_deck = cards_deck_[:-1]
-
-
-        print('deal cards', cards_deck.split('|'))
-        print('**** player', player.pk, 'credit', player.credit)
+        
 
         player_cards_deck = Decks.objects.create(player=player, bet_amount=player.bet_amount, deck=cards_deck, deck_hash=deck_hash)
 
@@ -451,14 +428,11 @@ def ajax_draw_cards(request):
     player_session_key = request.POST['player_session_key']
     player = Players.objects.get(session_key=player_session_key)
 
-    print('hold_cards', hold_cards, 'player', player.pk, 'credit', player.credit)
-
     player_deck_obj = Decks.objects.filter(player=player).order_by("-pk")[0]
     player_deck = player_deck_obj.deck.split('|')
 
     if(player_deck_obj.game_finalized):
         # XXX toto log this type of activity maybe?
-        print('*** WARNING ATTEMPT TO ACCESS FINALIZED GAME *** ' * 100)
         return HttpResponse("Sorry this game was already finalized.")
 
     swapped_cards = []
@@ -493,8 +467,6 @@ def ajax_draw_cards(request):
         final_hand.append(str(c))
 
     final_hand.reverse()
-
-    print('final_hand', final_hand)
 
     player_deck_obj.swapped_cards = swapped_cards
     player_deck_obj.swapped_cards_count = len(swapped_cards)
@@ -553,9 +525,6 @@ def ajax_draw_cards(request):
     player.credit = player.credit + win_amount
     player.save()
 
-    # print('win amount', win_amount)
-    # print('player credit', player.credit)
-
     congrats_you_won_flag = False
 
     if(evaluated_hand!="Nothing." and evaluated_hand!="One-pair."):
@@ -593,11 +562,8 @@ def ajax_draw_cards(request):
 
 def ajax_jackpot_stats(request):
 
-    # XXX TODO this needs to be fed / pulled form the DB
-
     player_session_key = request.POST['player_session_key']
     player = Players.objects.get(session_key=player_session_key)
-    print('player', player.pk, 'credit', player.credit)
 
     fake_jackpot = int(datetime.now().timestamp())
 
