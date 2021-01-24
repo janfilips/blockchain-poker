@@ -57,7 +57,10 @@ def home(request):
 
 
     if(player.credit <= 0):
+        # this down below actually should be here
         player.autoplay = False
+        # XXX except for this free (development) credit
+        player.credit = 10
         player.save()
 
     autoplay = "false"
