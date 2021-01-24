@@ -60,7 +60,7 @@ def home(request):
         # this down below actually should be here
         player.autoplay = False
         # XXX except for this free (development) credit
-        player.credit = 10
+        player.credit = 100
         player.save()
 
     autoplay = "false"
