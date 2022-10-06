@@ -1,2 +1,5 @@
-django==2.2.3
+django==3.2.15
 web3==4.8.2
+websockets>=10.0 # not directly required, pinned by Snyk to avoid a vulnerability
+eth-keyfile>=0.6.0 # not directly required, pinned by Snyk to avoid a vulnerability
+eth-account>=0.5.9 # not directly required, pinned by Snyk to avoid a vulnerability
