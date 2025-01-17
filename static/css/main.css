@@ -1017,7 +1017,7 @@ body {
 .btn-action.coin {
   /* Keep it a circle but larger */
   width: 12rem;
-  height: 12rem;
+  height: 10rem;
 
   /* Flex to center the “$1” text */
   display: flex;
