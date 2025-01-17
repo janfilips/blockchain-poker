@@ -982,3 +982,22 @@ body {
     overflow-x: hidden;
   }
 }
+
+.actions {
+  /* Make the entire actions container a flex container */
+  display: flex;
+  justify-content: center;
+}
+
+.actions .perspective-in {
+  /* If you need an inner flex as well, keep this */
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* Kill any floats or other layout styles that might be messing them up */
+.actions .perspective-in .btn-action {
+  float: none !important;
+  display: inline-flex; /* or inline-block; depends on how you want them spaced */
+}
