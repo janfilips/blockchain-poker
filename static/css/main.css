@@ -1001,3 +1001,25 @@ body {
   float: none !important;
   display: inline-flex; /* or inline-block; depends on how you want them spaced */
 }
+
+.btn-action.coin {
+  float: none;              /* kill any float */
+  margin: 0 1rem;          /* remove that negative margin */
+  width: 5rem;             /* pick a size, e.g. 5rem, you can adjust */
+  height: 5rem;            /* same height, so it’s a perfect circle */
+  border-radius: 50%;
+  display: flex;           /* turn it into a flex container */
+  align-items: center;     /* center your text vertically */
+  justify-content: center; /* center your text horizontally */
+  font-size: 2.8rem;       /* scale “$” as needed */
+}
+
+.btn-action.coin span {
+  /* you can either remove the span’s extra padding or set it to zero */
+  padding: 0;
+  margin: 0;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: inset 6px 6px 0 #FFE136, inset -6px -6px 0 #CAAE0D;
+  /* If you need a border, keep it, but consider smaller dimensions */
+}
