@@ -40,12 +40,12 @@ ETHEREUM_WEBSOCKET_PROVIDER = "wss://"+ETHEREUM_PROVIDER_HOST+"/ws"
 ETHEREUM_TEST_WALLET = "keystore/robot-test-wallet.json"
 
 # Transactions throughput (1 cheapest, 1000 fastest)
-ETHEREUM_GAS_PRICE = w3.toWei(3, 'gwei')
+ETHEREUM_GAS_PRICE = 1 #w3.toWei(3, 'gwei')
 ETHEREUM_GAS_LIMIT = 1000000
 
 # Ethereum smart-contract
 ETHEREUM_CONTRACT_ADDRESS = '0x2fe0b9e9b2bd44f40be9393ff890d2a451afef10'
-ETHEREUM_CONTRACT_ADDRESS = w3.toChecksumAddress(ETHEREUM_CONTRACT_ADDRESS)
+ETHEREUM_CONTRACT_ADDRESS = '' #w3.toChecksumAddress(ETHEREUM_CONTRACT_ADDRESS)
 
 
 # Application definition
