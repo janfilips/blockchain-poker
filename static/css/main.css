@@ -1014,12 +1014,23 @@ body {
   font-size: 2.8rem;       /* scale “$” as needed */
 }
 
-.btn-action.coin span {
-  /* you can either remove the span’s extra padding or set it to zero */
-  padding: 0;
-  margin: 0;
+.btn-action.coin {
+  /* Keep it a circle but larger */
+  width: 8rem;
+  height: 8rem;
+
+  /* Flex to center the “$1” text */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Remove negative margins, but keep a little horizontal margin */
+  margin: 0 1rem;
   border-radius: 50%;
-  display: inline-block;
-  box-shadow: inset 6px 6px 0 #FFE136, inset -6px -6px 0 #CAAE0D;
-  /* If you need a border, keep it, but consider smaller dimensions */
+  font-size: 3rem;  /* Adjust as you like */
+  color: #FE0002;
+  text-shadow: 3px 3px 0 rgba(0,0,0,0.7);
+
+  /* The rest of your existing styles are fine, just be sure you’re
+     not forcing the text off-center with extra padding or weird transforms. */
 }
