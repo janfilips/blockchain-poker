@@ -24,6 +24,15 @@
 
 <link rel="shortcut icon" href="/static/images/favicon.ico" type="image/favicon">
 
+<style>
+.actions .perspective-in {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem; /* space between buttons */
+}
+</style>
+
 <script>
     var csrf_token = "{{csrf_token}}"
     var session_key = "{{player_session_key}}"
